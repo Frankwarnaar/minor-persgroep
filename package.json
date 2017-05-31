@@ -1,0 +1,55 @@
+{
+  "name": "persgroep",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server/app.js",
+  "scripts": {
+    "start": "node src/server/app.js",
+    "dev": "nodemon src/server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frankwarnaar/minor-persgroep.git"
+  },
+  "author": "Frank Warnaar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Frankwarnaar/minor-persgroep/issues"
+  },
+  "homepage": "https://github.com/Frankwarnaar/minor-persgroep#readme",
+  "dependencies": {
+    "compression": "^1.6.2",
+    "express": "^4.15.3",
+    "express-ejs-extend": "0.0.1",
+    "mongodb": "^2.2.27",
+    "static-asset": "^0.6.0"
+  },
+  "xo": {
+    "ignores": [
+      "dist/"
+    ],
+    "rules": {
+      "capitalized-comments": 0,
+      "eol-last": 0,
+      "no-unused-expressions": 1,
+      "no-multi-spaces": 0,
+      "one-var": 0,
+      "no-unused-vars": 1,
+      "no-undef": 1,
+      "unicorn/filename-case": 0,
+      "quotes": 1,
+      "new-cap": 0,
+      "import/no-extraneous-dependencies": 1,
+      "camelcase": 1,
+      "no-negated-condition": 0,
+      "array-callback-return": 0
+    }
+  },
+  "engines": {
+    "node": "7.8.0",
+    "npm": "5.0.0"
+  },
+  "devDependencies": {
+    "xo": "^0.18.2"
+  }
+}
