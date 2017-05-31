@@ -1,0 +1,9 @@
+$transition-mode: ease-in-out;
+
+$transition-slowest: 1s $transition-mode;
+$transition-slower:  .7s $transition-mode;
+$transition-slow:    .5s $transition-mode;
+$transition-medium:  .4s $transition-mode;
+$transition-fast:    .3s $transition-mode;
+$transition-faster:  .2s $transition-mode;
+$transition-fastest: .1s $transition-mode;
