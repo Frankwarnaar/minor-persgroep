@@ -2,7 +2,8 @@ const express = require('express');
 
 const router = express.Router()
 	.get('/:_id', renderArticle)
-	.get('/edit/:_id', editArticle);
+	.get('/edit/:_id', editArticle)
+	.post('/edit/:_id', saveArticleEdit);
 
 function renderArticle(req, res) {
 	req.db.collection('articles').findOne({_id: Number(req.params._id)}, (err, article) => {
@@ -25,6 +26,18 @@ function editArticle(req, res) {
 		res.render('articles/edit', {
 			article
 		});
+	});
+}
+
+function saveArticleEdit(req, res) {
+	const id = req.params._id;
+	req.db.collection('articles').update(
+		{_id: Number(id)},
+		{$set:
+			{content: req.body.content[1]}
+		}
+	).then(() => {
+		res.redirect(`/articles/${id}`);
 	});
 }
 

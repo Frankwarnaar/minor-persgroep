@@ -2,6 +2,7 @@
 
 const assert = require('assert');
 const path = require('path');
+const bodyParser = require('body-parser');
 const express = require('express');
 const compression = require('compression');
 const staticAsset = require('static-asset');
@@ -21,6 +22,7 @@ express()
 	.set('views', path.join(`${__dirname}/views`))
 	.set('view engine', 'ejs')
 	.use(compression())
+	.use(bodyParser())
 	.use(staticAsset(`${__dirname}/${baseDir}`))
 	.use(express.static(`${__dirname}/${baseDir}`, {
 		maxAge: 365 * 24 * 60 * 60
