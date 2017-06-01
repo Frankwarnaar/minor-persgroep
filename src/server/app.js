@@ -13,6 +13,8 @@ const baseDir = '../../dist';
 
 const cfg = require('../../cfg.js');
 const indexRouter = require('./routes/index.js');
+const articlesRouter = require('./routes/articles.js');
+const reviewRouter = require('./routes/review.js');
 
 express()
 	.engine('ejs', require('express-ejs-extend'))
@@ -25,6 +27,8 @@ express()
 	}))
 	.use(mongoMiddleware)
 	.use('/', indexRouter)
+	.use('/articles', articlesRouter)
+	.use('/review', reviewRouter)
 	.listen(port, host, err => {
 		err ? console.error(err) : console.log(`app running on http://localhost:${port}`);
 	});
