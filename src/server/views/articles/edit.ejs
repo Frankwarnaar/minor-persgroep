@@ -5,7 +5,7 @@
 	<input type="text" name="title" value="<%= article.title %>"/>
 	<textarea hidden name="content" value="<%= article.content %>"></textarea>
 	<div id="editor">
-		<%- include('../patterns/organisms/articles', {wrap: false, article: article}) %>
+		<%- include('../patterns/organisms/article', {wrap: false, article: article, noTitle: true}) %>
 	</div>
 </form>
 <script src="//cdn.quilljs.com/1.0.0/quill.min.js" type="text/javascript"></script>

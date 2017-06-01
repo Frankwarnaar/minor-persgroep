@@ -84,7 +84,6 @@ gulp.task('watch:html', () => {
 const handleError = err => {
 	gutil.log(err);
 	browserSync.notify('An error occured!');
-	this.emit('end');
 };
 
 /* ============================================================

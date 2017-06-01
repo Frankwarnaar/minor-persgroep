@@ -1,5 +1,7 @@
-<article class="article">
-	<h1><%- article.title %></h1>
+<article class="article" data-review="<%= typeof(review) !== 'undefined' ? 'true' : 'false' %>">
+	<% if (typeof(noTitle) === 'undefined') { %>
+		<h1><%- article.title %></h1>
+	<% } %>
 	<%- article.content %>
 	<% if (typeof(footer) !== 'undefined') { %>
 		<footer>
