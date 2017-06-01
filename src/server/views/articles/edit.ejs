@@ -3,9 +3,9 @@
 <form method="POST">
 	<input type="submit" value="Opslaan"/>
 	<input type="text" name="title" value="<%= article.title %>"/>
-	<textarea hidden name="content"></textarea>
+	<textarea hidden name="content" value="<%= article.content %>"></textarea>
 	<div id="editor">
-		<%- article.content %>
+		<%- include('../patterns/organisms/articles', {wrap: false, article: article}) %>
 	</div>
 </form>
 <script src="//cdn.quilljs.com/1.0.0/quill.min.js" type="text/javascript"></script>

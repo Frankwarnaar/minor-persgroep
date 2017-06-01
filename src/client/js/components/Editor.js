@@ -29,7 +29,6 @@ class Editor {
 		[...contentEl.getElementsByTagName('body')[0].children].forEach((child, i) => {
 			child.setAttribute('data-child', i);
 		});
-		console.log(contentEl.getElementsByTagName('body')[0].innerHTML);
 		this.textArea.value = contentEl.getElementsByTagName('body')[0].innerHTML;
 	}
 }
