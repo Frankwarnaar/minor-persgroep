@@ -4,7 +4,6 @@ const router = express.Router()
 	.get('/:_id', reviewArticle);
 
 function reviewArticle(req, res) {
-	console.log(req.params._id);
 	req.db.collection('articles').findOne({_id: Number(req.params._id)}, (err, article) => {
 		if (err) {
 			res.sendStatus(404);
