@@ -24,8 +24,13 @@ class Editor {
 
 	fillTextArea() {
 		const content = this.container.children[0].innerHTML;
-		this.textArea.value = content;
-		console.log(this.textArea.value);
+		const contentEl = document.createElement('html');
+		contentEl.innerHTML = content;
+		[...contentEl.getElementsByTagName('body')[0].children].forEach((child, i) => {
+			child.setAttribute('data-child', i);
+		});
+		console.log(contentEl.getElementsByTagName('body')[0].innerHTML);
+		this.textArea.value = contentEl.getElementsByTagName('body')[0].innerHTML;
 	}
 }
 

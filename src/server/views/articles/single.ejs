@@ -1,8 +1,10 @@
 <% extend("../_base/layout") %>
 
 <article class="article">
+	<h1><%- article.title %></h1>
 	<%- article.content %>
 	<footer>
 		<a href="/review/<%= article._id %>">Review</a>
+		<a href="/articles/edit/<%= article._id %>">Bewerk</a>
 	</footer>
 </article>

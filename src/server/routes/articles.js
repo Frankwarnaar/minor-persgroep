@@ -33,8 +33,11 @@ function saveArticleEdit(req, res) {
 	const id = req.params._id;
 	req.db.collection('articles').update(
 		{_id: Number(id)},
-		{$set:
-			{content: req.body.content[1]}
+		{
+			$set: {
+				title: req.body.title,
+				content: req.body.content[1]
+			}
 		}
 	).then(() => {
 		res.redirect(`/articles/${id}`);
