@@ -1,7 +1,8 @@
 class Review {
 	constructor() {
-		this.$article = document.querySelector('[data-review]');
+		this.$article = document.querySelector('[data-review=true]');
 		this.$review = document.getElementsByClassName('review-form')[0];
+		this.$reviewQuote = document.querySelector('[name=content]');
 		this.$closeReview = document.getElementById('close-review');
 
 		this.init();
@@ -53,6 +54,7 @@ class Review {
 				this.prevSelection = this.selection;
 				if (this.$review) {
 					this.positionReview(span);
+					this.$reviewQuote.value = span.innerHTML;
 				}
 			}).bind(this), 1000);
 		}
