@@ -7,16 +7,12 @@ class Editor {
 	}
 
 	createEditor() {
-		this.editorParent = this.container.parentElement;
-		this.textArea = document.createElement('textarea');
-		this.textArea.setAttribute('name', 'content');
-		this.textArea.setAttribute('hidden', 'true');
-
-		this.editorParent.appendChild(this.textArea);
-
 		this.editor = new Quill('#editor', {
 			theme: 'snow'
 		});
+		this.editorParent = this.container.parentElement;
+		this.textArea = document.querySelector('[name="content"]');
+
 		this.fillTextArea();
 
 		this.editor.on('text-change', this.fillTextArea.bind(this));

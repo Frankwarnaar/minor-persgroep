@@ -2,4 +2,8 @@ textarea {
 	margin-top: .5rem;
 	display: block;
 	width: 100%;
+
+	&[hidden] {
+		display: none;
+	}
 }

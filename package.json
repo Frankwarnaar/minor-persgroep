@@ -23,6 +23,7 @@
     "compression": "^1.6.2",
     "express": "^4.15.3",
     "express-ejs-extend": "0.0.1",
+    "lodash.debounce": "^4.0.8",
     "mongodb": "^2.2.27",
     "quill": "^1.2.5",
     "static-asset": "^0.6.0"

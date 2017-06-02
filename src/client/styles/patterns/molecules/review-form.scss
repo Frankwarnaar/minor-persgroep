@@ -2,7 +2,21 @@
 	padding: 1rem;
 	background: $color-lightest;
 	margin: 0 auto;
-	max-width: 40em;
+	max-width: 38em;
+
+	header {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&[data-position] {
+		width: 92%;
+		width: calc(100% - 2em);
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		box-shadow: 0 0 1rem 0 rgba(0,0,0,.4);
+	}
 
 	h2 {
 		color: $color-primary;
