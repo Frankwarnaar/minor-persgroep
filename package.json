@@ -5,7 +5,8 @@
   "main": "src/server/app.js",
   "scripts": {
     "start": "node src/server/app.js",
-    "dev": "nodemon src/server/app.js"
+    "dev": "gulp",
+    "build": "gulp build"
   },
   "repository": {
     "type": "git",

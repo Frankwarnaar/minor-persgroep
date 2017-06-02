@@ -1,3 +1,25 @@
 <% extend("../_base/layout") %>
 
 <%- include('../patterns/organisms/article', {article: article, review: true}) %>
+<ul>
+	<% article.reviews.map(review => { %>
+		<%- include('../patterns/molecules/review', {review: review}) %>
+	<% }); %>
+</ul>
+<form method="POST">
+	<h2>Review artikel</h2>
+	<label>
+		Quote het stuk van het artikel dat je wilt reviewen
+		<textarea name="content"></textarea>
+	</label>
+	<label>
+		<textarea name="review"></textarea>
+	</label>
+	<select name="type">
+		<option selected disabled>Selecteer een type</option>
+		<option value="syntax">Grammaticaal</option>
+		<option value="style">Stijl</option>
+		<option value="content">Inhoud</option>
+	</select>
+	<input type="submit" value="Ok">
+</form>

@@ -15,7 +15,7 @@ class Review {
 			text: window.getSelection().toString(),
 			$el: window.getSelection().baseNode.parentElement
 		};
-		console.log(selection);
+		// console.log(selection);
 	}
 }
 
