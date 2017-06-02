@@ -16,7 +16,7 @@ function postNewArticle(req, res) {
 	const article = req.body;
 	req.db.collection('reviews').insert({
 		title: article.title,
-		authorId: '592ebb4ce78a3e2a4f73aabb',
+		authorId: ObjectId('592ebb4ce78a3e2a4f73aabb'),
 		content: article.content[1]
 	}).then(data => {
 		const [id] = data.insertedIds;
@@ -24,28 +24,19 @@ function postNewArticle(req, res) {
 	});
 }
 
-function postEdit(req, res) {
-	const id = req.params._id;
-	req.db.collection('articles').update(
-		{_id: Number(id)},
-		{
-			$set: {
-				title: req.body.title,
-				content: req.body.content[1]
-			}
-		}
-	).then(() => {
-		res.redirect(`/articles/${id}`);
-	});
-}
-
 function getArticle(req, res) {
-	req.db.collection('articles').findOne({_id: ObjectId(req.params._id)}, (err, article) => {
+	req.db.collection('articles').aggregate([
+		{$match: {_id: ObjectId(req.params._id)}},
+		{$lookup: {
+			from: 'users',
+			localField: 'authorId',
+			foreignField: '_id',
+			as: 'author'
+		}}
+	], (err, [article]) => {
 		if (err) {
 			res.sendStatus(404);
 		}
-
-		console.log(article);
 		res.render('articles/single', {
 			article
 		});

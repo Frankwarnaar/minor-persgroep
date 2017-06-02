@@ -1,0 +1,42 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: .8em 0;
+	letter-spacing: 3px;
+
+	&:first-child {
+		margin-top: 0;
+	}
+}
+
+h1 {
+	font-size: $font-size-xxxl;
+}
+
+h2 {
+	font-size: $font-size-xxl;
+}
+
+h3 {
+	font-size: $font-size-xl;
+}
+
+h4 {
+	font-size: $font-size-lg;
+}
+
+h5 {
+	font-size: $font-size-md;
+}
+
+h6 {
+	font-size: $font-size-sm;
+}
+
+p {
+	line-height: 150%;
+	margin-bottom: .8em;
+}

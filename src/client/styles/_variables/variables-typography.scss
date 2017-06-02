@@ -1,0 +1,36 @@
+/* ==================================================
+	Font familes
+   ================================================== */
+$font-primary:   'helvetica', sans-serif;
+$font-secondary: $font-primary;
+$font-punctuation: Punctuation;
+
+/* ==================================================
+	Font weights
+   ================================================== */
+
+$font-weight-bold:       700;
+$font-weight-semibold:   600;
+$font-weight-medium:     500;
+$font-weight-regular:    400;
+$font-weight-light:      300;
+$font-weight-thin:       200;
+$font-weight-ultralight: 100;
+
+/* ==================================================
+	Font sizes
+   ================================================== */
+
+$font-scale: 1.12;
+
+$font-size-base: calc(.8em + .3vw);
+
+$font-size-xxxs: calc(#{$font-size-base} / (#{$font-scale} * #{$font-scale} * #{$font-scale} * #{$font-scale}));
+$font-size-xxs:  calc(#{$font-size-base} / (#{$font-scale} * #{$font-scale} * #{$font-scale}));
+$font-size-xs:   calc(#{$font-size-base} / (#{$font-scale} * #{$font-scale}));
+$font-size-sm:   calc(#{$font-size-base} / (#{$font-scale}));
+$font-size-md:   calc(#{$font-size-base} * (#{$font-scale}));
+$font-size-lg:   calc(#{$font-size-base} * (#{$font-scale} * #{$font-scale}));
+$font-size-xl:   calc(#{$font-size-base} * (#{$font-scale} * #{$font-scale} * #{$font-scale}));
+$font-size-xxl:  calc(#{$font-size-base} * (#{$font-scale} * #{$font-scale} * #{$font-scale} * #{$font-scale}));
+$font-size-xxxl: calc(#{$font-size-base} * (#{$font-scale} * #{$font-scale} * #{$font-scale} * #{$font-scale} * #{$font-scale}));

@@ -9,22 +9,29 @@ function getReview(req, res) {
 	req.db.collection('articles').aggregate([
 		{$match: {_id: ObjectId(req.params._id)}},
 		{$lookup: {
-			from: 'reviews',
-			localField: '_id',
-			foreignField: 'articleId',
-			as: 'reviews'
-		}},
-		{$lookup: {
 			from: 'users',
 			localField: 'authorId',
 			foreignField: '_id',
 			as: 'author'
+		}},
+		{$lookup: {
+			from: 'reviews',
+			localField: '_id',
+			foreignField: 'articleId',
+			as: 'reviews'
 		}}
+		// {$unwind: '$reviews'},
+		// {$lookyp: {
+		// 	from: 'users',
+		// 	localField: 'reviews.userId',
+		// 	foreignField: '_id',
+		// 	as: 'reviewer'
+		// }},
+		// {$match: {reviewers: {$ne: []}}}
 	], (err, [article]) => {
 		if (err) {
 			res.sendStatus(404);
 		}
-		console.log(article);
 
 		res.render('review/single', {
 			article
@@ -39,8 +46,8 @@ function postReview(req, res) {
 		content: review.content,
 		review: review.review,
 		type: review.type,
-		articleId,
-		userId: 1
+		articleId: ObjectId(articleId),
+		userId: ObjectId('592ebb4ce78a3e2a4f73aabb')
 	}).then(() => {
 		res.redirect(`/review/${articleId}?saved=true`);
 	});
