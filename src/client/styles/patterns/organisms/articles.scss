@@ -4,7 +4,11 @@
 	background: $color-lightest;
 	margin: 0 auto;
 
-	&[data-review] {
+	h1 {
+		color: $color-primary;
+	}
+
+	&[data-review="true"] {
 		> * {
 			cursor: context-menu;
 		}

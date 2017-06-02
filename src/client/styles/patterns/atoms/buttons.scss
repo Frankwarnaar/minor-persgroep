@@ -1,0 +1,30 @@
+input[type="submit"],
+button {
+	padding: 0 1rem;
+
+	display: inline-block;
+	height: 40px;
+
+	font: inherit;
+	font-weight: 600;
+	color: $color-lightest;
+	background: $color-primary;
+	line-height: 40px;
+	cursor: pointer;
+	text-decoration: none;
+	border: 1px solid $color-primary;
+	transition: $transition-fastest;
+
+	&:hover {
+		color: $color-darkest;
+		background: $color-gray-clouds;
+		text-decoration: none;
+	}
+
+	&:hover,
+	&:active,
+	&:focus {
+		text-decoration: none;
+		outline: none;
+	}
+}
