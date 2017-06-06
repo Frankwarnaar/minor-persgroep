@@ -1,3 +1,7 @@
+const StretchTextareas = require('../watchers/stretch-textareas.js');
+
+const stretchTextareas = new StretchTextareas();
+
 class Review {
 	constructor() {
 		this.$article = document.querySelector('[data-review=true]');
@@ -55,6 +59,7 @@ class Review {
 				if (this.$review) {
 					this.positionReview(span);
 					this.$reviewQuote.value = span.innerHTML;
+					stretchTextareas.autoGrow(this.$reviewQuote);
 				}
 			}).bind(this), 1000);
 		}

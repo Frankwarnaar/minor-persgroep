@@ -1,9 +1,20 @@
 textarea {
+	@extend input[type=text];
 	margin-top: .5rem;
 	display: block;
 	width: 100%;
+	height: 8rem;
+	font: inherit;
 
 	&[hidden] {
 		display: none;
+	}
+
+	&[data-stetch] {
+		height: 2.5rem;
+		resize: none;
+		overflow: hidden;
+		min-height: 50px;
+		max-height: 100px;
 	}
 }
