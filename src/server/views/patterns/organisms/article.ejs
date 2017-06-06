@@ -3,10 +3,12 @@
 		<h1><%- article.title %></h1>
 	<% } %>
 	<%- article.content %>
-	<% if (typeof(footer) !== 'undefined') { %>
+	<% if (typeof(footer) !== 'undefined' && typeof(user) !== 'undefined') { %>
 		<footer>
-			<a href="/review/<%= article._id %>">Review</a>
-			<a href="/articles/edit/<%= article._id %>">Bewerk</a>
+			<a class="btn" href="/review/<%= article._id %>">Review</a>
+			<% if (user._id === article.authorId) { %>
+				<a class="btn" href="/articles/edit/<%= article._id %>">Bewerk</a>
+			<% } %>
 		</footer>
 	<% } %>
 </article>

@@ -1,0 +1,18 @@
+<header class="navigation">
+	<nav>
+		<ul>
+			<li>
+				<a href="/">Articles</a>
+			</li>
+			<% console.log(user) %>
+			<% console.log(typeof(user)) %>
+			<li>
+				<% if (typeof(user) === 'object') { %>
+					<a href="/users/logout">Log uit</a>
+				<% } else { %>
+					<a href="/users/login">Login</a>
+				<% } %>
+			</li>
+		</ul>
+	</nav>
+</navigation>

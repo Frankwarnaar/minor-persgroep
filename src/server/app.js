@@ -7,6 +7,7 @@ const express = require('express');
 const compression = require('compression');
 const staticAsset = require('static-asset');
 const MongoClient = require('mongodb').MongoClient;
+const session = require('express-session');
 
 const port = process.env.PORT || 4000;
 const host = process.env.HOST || '0.0.0.0';
@@ -14,8 +15,15 @@ const baseDir = '../../dist';
 
 const cfg = require('../../cfg.js');
 const indexRouter = require('./routes/index.js');
+const usersRouter = require('./routes/users.js');
 const articlesRouter = require('./routes/articles.js');
 const reviewRouter = require('./routes/review.js');
+
+const sessionConfig = {
+	secret: 'fhdsbafjayw4fsdalw74ilufsdwi',
+	resave: false,
+	saveUninitialized: true
+};
 
 express()
 	.engine('ejs', require('express-ejs-extend'))
@@ -28,7 +36,10 @@ express()
 		maxAge: 365 * 24 * 60 * 60
 	}))
 	.use(mongoMiddleware)
+	.use(session(sessionConfig))
+	.use(loginMiddleware)
 	.use('/', indexRouter)
+	.use('/users', usersRouter)
 	.use('/articles', articlesRouter)
 	.use('/review', reviewRouter)
 	.listen(port, host, err => {
@@ -43,6 +54,7 @@ function mongoMiddleware(req, res, next) {
 	});
 }
 
-function getIndex(req, res) {
-	res.send('test');
+function loginMiddleware(req, res, next) {
+	res.locals.user = req.session.user;
+	next();
 }

@@ -19,10 +19,12 @@
   },
   "homepage": "https://github.com/Frankwarnaar/minor-persgroep#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "compression": "^1.6.2",
     "express": "^4.15.3",
     "express-ejs-extend": "0.0.1",
+    "express-session": "^1.15.3",
     "lodash.debounce": "^4.0.8",
     "mongodb": "^2.2.27",
     "quill": "^1.2.5",

@@ -1,0 +1,13 @@
+<form action="/users/login" method="post">
+	<label>Email
+		<input type="email" name="email" required/>
+	</label>
+	<label for="password">Wachtwoord
+		<input type="password" name="password" required/>
+	</label>
+	<input type="submit" value="Login"/>
+	<a href="/users/register">Registeer</a>
+	<% if (error) { %>
+		<p><%= error %></p>
+	<% } %>
+</form>

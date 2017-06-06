@@ -1,0 +1,18 @@
+<form action="/users/register" method="post">
+	<label>Voornaam
+		<input type="text" name="firstName" required/>
+	</label>
+	<label>Achternaam
+		<input type="text" name="lastName" required/>
+	</label>
+	<label>Email
+		<input type="email" name="email" required/>
+	</label>
+	<label for="password">Wachtwoord
+		<input type="password" name="password" required/>
+	</label>
+	<input type="submit" value="Registreer"/>
+	<% if (error) { %>
+		<p><%= error %></p>
+	<% } %>
+</form>
