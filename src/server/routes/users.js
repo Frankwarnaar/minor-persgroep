@@ -125,6 +125,7 @@ function postEdit(req, res) {
 			{_id: ObjectId(req.session.user._id)},
 			{$set: newUser}
 		).then(() => {
+			user._id = req.session.user._id;
 			req.session.user = user;
 			res.redirect('/users/edit');
 		});
