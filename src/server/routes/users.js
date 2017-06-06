@@ -46,7 +46,6 @@ function postLogin(req, res) {
 }
 
 function redirectionMiddleware(req, res, next) {
-	console.log(req.session);
 	if (!req.session.user) {
 		res.redirect('/users/login');
 	}
@@ -76,7 +75,8 @@ function postRegister(req, res) {
 					},
 					email: newUser.email,
 					password: hashedPassword,
-					admin: false
+					admin: false,
+					author: newUser.author
 				}).then(registeredUser => {
 					req.session.user = registeredUser;
 					res.redirect('/');

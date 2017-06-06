@@ -1,16 +1,25 @@
-<header class="navigation">
-	<nav>
-		<ul>
-			<li>
-				<a href="/">Articles</a>
-			</li>
-			<li>
-				<% if (typeof(user) === 'object') { %>
-					<a href="/users/logout">Log uit</a>
-				<% } else { %>
-					<a href="/users/login">Login</a>
-				<% } %>
-			</li>
-		</ul>
-	</nav>
-</navigation>
+<nav class="navigation">
+	<a href="/">
+		<picture>
+			<source srcset="/img/logos/persgroep.webp" type="img/webp">
+			<source srcset="/img/logos/persgroep.png" type="img/png">
+			<img alt="persgroep logo" src="/img/logos/persgroep.png">
+		</picture>
+	</a>
+	<ul>
+		<% if (user) { %>
+			<% if (user.author) { %>
+				<li>
+					<a class="btn" href="/articles/new">Nieuw artikel</a>
+				</li>
+			<% } %>
+		<% } %>
+		<li>
+			<% if (typeof(user) === 'object') { %>
+				<a href="/users/logout">Log uit</a>
+			<% } else { %>
+				<a class="btn" href="/users/login">Login</a>
+			<% } %>
+		</li>
+	</ul>
+</nav>

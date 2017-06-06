@@ -1,6 +1,5 @@
 <% extend("../_base/layout") %>
 
-<a href="/articles/new">Schrijf nieuw artikel</a>
 <% articles.map(article => { %>
 	<article>
 		<a href="articles/<%= article._id %>">

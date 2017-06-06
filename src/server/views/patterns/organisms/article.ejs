@@ -7,12 +7,14 @@
 	<% } %>
 	<%- article.content %>
 	<% if (typeof(footer) !== 'undefined' && typeof(user) !== 'undefined') { %>
-		<footer>
-			<% if (user._id == article.authorId) { %>
-				<a class="btn" href="/articles/edit/<%= article._id %>">Bewerk</a>
-			<% } else { %>
-				<a class="btn" href="/review/<%= article._id %>">Review</a>
-			<% } %>
-		</footer>
+		<% if (user.author) { %>
+			<footer>
+				<% if (user._id == article.authorId) { %>
+					<a class="btn" href="/articles/edit/<%= article._id %>">Bewerk</a>
+				<% } else { %>
+					<a class="btn" href="/review/<%= article._id %>">Review</a>
+				<% } %>
+			</footer>
+		<% } %>
 	<% } %>
 </article>

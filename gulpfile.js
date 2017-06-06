@@ -13,6 +13,8 @@ const sequence    = require('run-sequence');
 const source      = require('vinyl-source-stream');
 const sourcemaps  = require('gulp-sourcemaps');
 const watchify    = require('watchify');
+const responsive  = require('gulp-responsive');
+const webp        = require('gulp-webp');
 
 /* ============================================================
 Configuration
@@ -146,4 +148,38 @@ gulp.task('browser-sync', () => {
 		port: config.browserSync.port,
 		files: `${config.distPath}/**/*.{js, css}`
 	});
+});
+
+/*  ============================================================
+	Image compression
+	============================================================ */
+gulp.task('images', ['images:svg', 'images:responsive']);
+
+gulp.task('images:svg', () => {
+	gulp.src(`${config.assetsPath}/img/**/*.svg`)
+		.pipe(gulp.dest(`${config.distPath}/img`));
+});
+
+gulp.task('images:responsive', () => {
+	gulp.src(config.assetsPath + '/img/**/*.{png, jpg, jpeg}')
+	.pipe(responsive({
+		'logos/*': {
+			height: 87
+		}
+	}, {
+		quality: 70,
+		progressive: true,
+		compressionLevel: 6,
+		withMetadata: false
+	}))
+	.pipe(gulp.dest(`${config.distPath}/img`))
+	.on('end', () => {
+		gulp.run('images:webp');
+	});
+});
+
+gulp.task('images:webp', () => {
+	gulp.src([`${config.distPath}/img/**/*`])
+		.pipe(webp())
+		.pipe(gulp.dest(`${config.distPath}/img`));
 });
