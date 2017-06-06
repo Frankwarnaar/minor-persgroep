@@ -1,13 +1,17 @@
 <article class="article" data-review="<%= typeof(review) !== 'undefined' ? 'true' : 'false' %>">
-	<% if (typeof(noTitle) === 'undefined') { %>
-		<h1><%- article.title %></h1>
+	<% if (typeof(editor) === 'undefined') { %>
+		<header>
+			<h1><%- article.title %></h1>
+			<p>Geschreven op <date><%= new Date(article.timestamp).toLocaleString('NL-nl') %></date> door <%= article.author[0].name.first %> <%= article.author[0].name.last %></p>
+		</header>
 	<% } %>
 	<%- article.content %>
 	<% if (typeof(footer) !== 'undefined' && typeof(user) !== 'undefined') { %>
 		<footer>
-			<a class="btn" href="/review/<%= article._id %>">Review</a>
-			<% if (user._id === article.authorId) { %>
+			<% if (user._id == article.authorId) { %>
 				<a class="btn" href="/articles/edit/<%= article._id %>">Bewerk</a>
+			<% } else { %>
+				<a class="btn" href="/review/<%= article._id %>">Review</a>
 			<% } %>
 		</footer>
 	<% } %>

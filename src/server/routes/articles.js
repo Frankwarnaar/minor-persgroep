@@ -9,15 +9,20 @@ const router = express.Router()
 	.post('/edit/:_id', postEdit);
 
 function getNewArticle(req, res) {
-	res.render('articles/new');
+	if (req.session.user) {
+		res.render('articles/new');
+	} else {
+		res.redirect('/users/login');
+	}
 }
 
 function postNewArticle(req, res) {
 	const article = req.body;
-	req.db.collection('reviews').insert({
+	req.db.collection('articles').insert({
 		title: article.title,
-		authorId: ObjectId('592ebb4ce78a3e2a4f73aabb'),
-		content: article.content[1]
+		authorId: ObjectId(req.session.user._id),
+		content: article.content,
+		timestamp: new Date().getTime()
 	}).then(data => {
 		const [id] = data.insertedIds;
 		res.redirect(`/articles/${id}`);

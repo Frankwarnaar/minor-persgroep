@@ -75,7 +75,8 @@ function postRegister(req, res) {
 						last: newUser.lastName
 					},
 					email: newUser.email,
-					password: hashedPassword
+					password: hashedPassword,
+					admin: false
 				}).then(registeredUser => {
 					req.session.user = registeredUser;
 					res.redirect('/');

@@ -5,7 +5,7 @@
 	</label>
 	<textarea hidden name="content" value="<%= article.content ? article.content : '' %>"></textarea>
 	<div id="editor">
-		<%- include('./article', {article: article, noTitle: true}) %>
+		<%- include('./article', {article: article, editor: true}) %>
 	</div>
 </form>
 <script src="//cdn.quilljs.com/1.0.0/quill.min.js" type="text/javascript"></script>
