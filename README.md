@@ -25,8 +25,8 @@ $ npm run dev
 
 ## Features
 * [x] Edit articles with a rich content editor
-* [ ] Review articles with a basic html form
-* [ ] Enhance the review with javascript, to make it possible to review the article inline
+* [x] Review articles with a basic html form
+* [x] Enhance the review with javascript, to make it possible to review the article inline
 * [ ] Save reviews realtime
 
 ## Process
@@ -41,6 +41,6 @@ $ npm run dev
 * [x] Write/edit articles
 
 ### Week 2
-* [ ] Setup login system
+* [x] Setup login system
 * [ ] Research what reviewers want and how writers want feedback on their articles
 * [ ] Research how reviewers can comment on reviews
