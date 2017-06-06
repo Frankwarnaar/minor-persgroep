@@ -34,6 +34,7 @@ $ npm run dev
 
 ### Nice to have
 * [ ] Create ranking with authors
+* [ ] General comments on articles
 
 ## Process
 
