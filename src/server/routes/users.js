@@ -7,9 +7,9 @@ const router = express.Router()
 	.get('/register', getRegister)
 	.post('/register', postRegister)
 	.get('/logout', getLogout)
-	.use(redirectionMiddleware)
-	.get('/edit', getEdit)
-	.post('/edit', postEdit);
+	.use(redirectionMiddleware);
+	// .get('/edit', getEdit)
+	// .post('/edit', postEdit);
 
 function getLogin(req, res) {
 	if (req.session.user) {
@@ -93,45 +93,12 @@ function getEdit(req, res) {
 	if (!req.session.user) {
 		res.redirect('/users');
 	} else {
-		const username = req.session.user;
-		req.getConnection(function(err, connection) {
-			connection.query('SELECT * FROM users WHERE name = ? ', [username], function(err, results) {
-				res.locals.data = results[0];
-				res.render('users/edit', {
-					error: false
-				});
-			});
-		});
+		// TODO: write edit
 	}
 }
 
 function postEdit(req, res) {
-	if (req.body.name.trim() === '' || req.body.password.trim() === '' || req.body.email.trim() === '') {
-		if (req.body.name.trim = '') {
-			res.render('users/edit', {
-				error: 'De ingevoerde gebruikersnaam is incorrect.'
-			});
-		} else if(req.body.password.trim() === '') {
-			res.render('users/edit', {
-				error: 'Het ingevoerde wachtwoord is incorrect.'
-			});
-		} else if(req.body.email.trim() === '') {
-			res.render('users/edit', {
-				error: 'Het ingevoerde emailadres is incorrect.'
-			});
-		}
-	} else {
-		// req.getConnection(function (err, connection) {
-		// 	const data = {
-		// 		name : req.body.name,
-		// 		password : req.body.password,
-		// 		email : req.body.email
-		// 	};
-		// 	connection.query('UPDATE users set ? WHERE id = ? ', [data, req.session.userid], function(err, results) {
-		// 		res.redirect('/users');
-		// 	});
-		// });
-	}
+	// TODO: write post edit
 }
 
 // Afhandeling voor uitloggen
