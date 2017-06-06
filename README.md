@@ -28,3 +28,19 @@ $ npm run dev
 * [ ] Review articles with a basic html form
 * [ ] Enhance the review with javascript, to make it possible to review the article inline
 * [ ] Save reviews realtime
+
+## Process
+
+### Week 1
+* [x] Initial concept
+* [x] Setup database
+* [x] Setup routes
+  * [x] index
+  * [x] articles
+  * [x] reviews
+* [x] Write/edit articles
+
+### Week 2
+* [ ] Setup login system
+* [ ] Research what reviewers want and how writers want feedback on their articles
+* [ ] Research how reviewers can comment on reviews
