@@ -1,22 +1,22 @@
-<form action="/users/register" method="post">
+<form method="post">
 	<label>Voornaam
-		<input type="text" name="firstName" required/>
+		<input type="text" name="firstName" <%= typeof(prefill) !== 'undefined' ? `value=${user.name.first }`: '' %> required />
 	</label>
 	<label>Achternaam
-		<input type="text" name="lastName" required/>
+		<input type="text" name="lastName" <%= typeof(prefill) !== 'undefined' ? `value=${user.name.last}` : '' %> required />
 	</label>
 	<label>Email
-		<input type="email" name="email" required/>
+		<input type="email" name="email" <%= typeof(prefill) !== 'undefined' ? `value=${user.email}` : '' %> required />
 	</label>
 	<label for="password">Wachtwoord
-		<input type="password" name="password" required/>
+		<input type="password" name="password"/>
 	</label>
-	<label>
-		<input type="checkbox" name="author"/>
+	<input id="author" type="checkbox" name="author" <%= typeof(prefill) !== 'undefined' && user.author ? 'checked' : '' %> />
+	<label for="author">
 		Ik ben een schrijver
 	</label>
-	<input type="submit" value="Registreer"/>
-	<% if (error) { %>
+	<input type="submit" value="<%= prefill ? 'Wijzig' :  'Registreer' %>"/>
+	<% if (typeof(error) !== 'undefined') { %>
 		<p><%= error %></p>
 	<% } %>
 </form>

@@ -1,0 +1,31 @@
+input[type=checkbox] {
+	position: absolute;
+	clip: rect(0, 0, 0, 0);
+}
+
+input[type=checkbox] + label {
+	cursor: pointer;
+
+	&:before {
+		content: '✓';
+		padding-left: .125rem;
+		margin-right: .5rem;
+		width: 1.325rem;
+		height: 1.325rem;
+		box-sizing: border-box;
+
+		display: inline-block;
+		position: relative;
+
+		color: $color-lightest;
+		border: 1px solid $color-primary;
+		background: none;
+		transition: $transition-fastest;
+	}
+}
+
+input[type=checkbox]:checked + label {
+	&:before {
+		background: $color-primary;
+	}
+}

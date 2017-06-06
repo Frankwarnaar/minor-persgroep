@@ -63,11 +63,11 @@ function getEdit(req, res) {
 function postEdit(req, res) {
 	const id = req.params._id;
 	req.db.collection('articles').update(
-		{_id: Number(id)},
+		{_id: ObjectId(id)},
 		{
 			$set: {
 				title: req.body.title,
-				content: req.body.content[1]
+				content: req.body.content
 			}
 		}
 	).then(() => {

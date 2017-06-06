@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const ObjectId = require('mongodb').ObjectID;
 
 const router = express.Router()
 	.get('/login', getLogin)
@@ -7,9 +8,9 @@ const router = express.Router()
 	.get('/register', getRegister)
 	.post('/register', postRegister)
 	.get('/logout', getLogout)
-	.use(redirectionMiddleware);
-	// .get('/edit', getEdit)
-	// .post('/edit', postEdit);
+	.use(redirectionMiddleware)
+	.get('/edit', getEdit)
+	.post('/edit', postEdit);
 
 function getLogin(req, res) {
 	if (req.session.user) {
@@ -29,6 +30,7 @@ function postLogin(req, res) {
 		if (user) {
 			bcrypt.compare(password, user.password, (err, result) => {
 				if (result) {
+					delete user.password;
 					req.session.user = user;
 					res.redirect('/');
 				} else {
@@ -78,12 +80,13 @@ function postRegister(req, res) {
 					admin: false,
 					author: newUser.author
 				}).then(registeredUser => {
+					delete registeredUser.password;
 					req.session.user = registeredUser;
 					res.redirect('/');
 				});
 			});
 		} else {
-			res.render('/users/register', {
+			res.render('users/register', {
 				error: `Er is al een account geregisteerd op het emailadres ${newUser.email}`
 			});
 		}
@@ -94,12 +97,38 @@ function getEdit(req, res) {
 	if (!req.session.user) {
 		res.redirect('/users');
 	} else {
-		// TODO: write edit
+		res.render('users/edit');
 	}
 }
 
 function postEdit(req, res) {
-	// TODO: write post edit
+	const user = req.body;
+	user.name = {
+		first: user.firstName,
+		last: user.lastName
+	};
+	delete user.firstName;
+	delete user.lastName;
+
+	if (user.password.trim() !== '') {
+		bcrypt.hash(user.password, 10).then(hashedPassword => {
+			user.password = hashedPassword;
+			updateUser(user);
+		});
+	} else {
+		delete user.password;
+		updateUser(user);
+	}
+
+	function updateUser(newUser) {
+		req.db.collection('users').update(
+			{_id: ObjectId(req.session.user._id)},
+			{$set: newUser}
+		).then(() => {
+			req.session.user = user;
+			res.redirect('/users/edit');
+		});
+	}
 }
 
 // Afhandeling voor uitloggen

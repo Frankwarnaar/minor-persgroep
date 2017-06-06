@@ -4,6 +4,12 @@
 	background: $color-lightest;
 	border-bottom: 1px solid $color-gray-clouds;
 
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+
 	display: flex;
 	justify-content: space-between;
 

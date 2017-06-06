@@ -5,9 +5,11 @@
 }
 
 body {
-	padding-top: $nav-height;
 	font: 100% system-ui;
 	margin: 0;
 	padding-top: 0;
 	background: $color-lightest;
+
+	position: relative;
+	top: $nav-height;
 }

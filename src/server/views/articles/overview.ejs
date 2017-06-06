@@ -1,9 +1,11 @@
 <% extend("../_base/layout") %>
 
-<% articles.map(article => { %>
-	<article>
-		<a href="articles/<%= article._id %>">
-			<h2><%= article.title %></h2>
-		</a>
-	</article>
-<% }); %>
+<section>
+	<% articles.map(article => { %>
+		<article>
+			<a href="articles/<%= article._id %>">
+				<h2><%= article.title %></h2>
+			</a>
+		</article>
+	<% }); %>
+</section>

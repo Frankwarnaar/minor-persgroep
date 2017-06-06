@@ -1,4 +1,23 @@
+$input-height: 2.5rem;
+
 input {
 	margin-top: .5rem;
 	display: block;
+}
+
+input[type=text],
+input[type=password],
+input[type=email] {
+	padding: .5rem;
+	width: 100%;
+	height: $input-height;
+	line-height: $input-height;
+	
+	font: inherit;
+	border: 1px solid $color-gray-clouds;
+
+	&:focus {
+		border-color: $color-primary;
+		outline: none;
+	}
 }
