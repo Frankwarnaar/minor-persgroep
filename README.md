@@ -27,7 +27,13 @@ $ npm run dev
 * [x] Edit articles with a rich content editor
 * [x] Review articles with a basic html form
 * [x] Enhance the review with javascript, to make it possible to review the article inline
-* [ ] Save reviews realtime
+* [ ] Comment on reviews
+* [ ] Rate reviews
+* [ ] Create ranking with reviewers
+* [ ] Dashboard for authors and reviewers to watch their statistics
+
+### Nice to have
+* [ ] Create ranking with authors
 
 ## Process
 
