@@ -1,0 +1,46 @@
+.navigation {
+	padding: 0 1rem;
+	height: $nav-height;
+	background: $color-lightest;
+	border-bottom: 1px solid $color-gray-clouds;
+
+	display: flex;
+	justify-content: space-between;
+
+	ul {
+		display: flex;
+		justify-content: end;
+
+		list-style-type: none;
+	}
+
+	ul,
+	li,
+	img {
+		height: 100%;
+	}
+
+	li {
+		padding: 0 1rem;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		&:first-child {
+			padding-left: 0;
+		}
+
+		&:last-child {
+			padding-right: 0;
+		}
+	}
+
+	a:not(.btn) {
+		line-height: $nav-height;
+	}
+
+	img {
+		padding: .325rem;
+	}
+}
