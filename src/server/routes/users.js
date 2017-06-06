@@ -9,8 +9,7 @@ const router = express.Router()
 	.get('/logout', getLogout)
 	.use(redirectionMiddleware)
 	.get('/edit', getEdit)
-	.post('/edit', postEdit)
-	.get('/remove', getRemove);
+	.post('/edit', postEdit);
 
 function getLogin(req, res) {
 	if (req.session.user) {
@@ -130,19 +129,6 @@ function postEdit(req, res) {
 		// 	};
 		// 	connection.query('UPDATE users set ? WHERE id = ? ', [data, req.session.userid], function(err, results) {
 		// 		res.redirect('/users');
-		// 	});
-		// });
-	}
-}
-
-function getRemove(req, res) {
-	if (!req.session.user) {
-		res.redirect('/');
-	} else {
-		// req.getConnection(function (err, connection) {
-		// 	connection.query('DELETE FROM users WHERE id = ? ', [req.session.userid], function(err, results) {
-		// 		req.session.destroy();
-		// 		res.redirect('/');
 		// 	});
 		// });
 	}
