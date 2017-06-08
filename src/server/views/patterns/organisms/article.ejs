@@ -2,7 +2,7 @@
 	<% if (typeof(editor) === 'undefined') { %>
 		<header>
 			<h1><%- article.title %></h1>
-			<p>Geschreven op <date><%= new Date(article.timestamp).toLocaleString('NL-nl') %></date> door <%= article.author[0].name.first %> <%= article.author[0].name.last %></p>
+			<p>Geschreven op <date><%= new Date(article.timestamp).toLocaleString('NL-nl') %></date> door <%= article.author.name.first %> <%= article.author.name.last %></p>
 		</header>
 	<% } %>
 	<%- article.content %>

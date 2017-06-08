@@ -14,20 +14,46 @@ function getReview(req, res) {
 			foreignField: '_id',
 			as: 'author'
 		}},
+		{$unwind: {
+			path: '$author',
+			preserveNullAndEmptyArrays: true
+		}},
 		{$lookup: {
 			from: 'reviews',
 			localField: '_id',
 			foreignField: 'articleId',
 			as: 'reviews'
-		}}
-		// {$unwind: '$reviews'},
-		// {$lookyp: {
+		// }},
+		// {$unwind: {
+		// 	path: '$reviews',
+		// 	preserveNullAndEmptyArrays: true
+		// }},
+		// {$lookup: {
 		// 	from: 'users',
 		// 	localField: 'reviews.userId',
 		// 	foreignField: '_id',
-		// 	as: 'reviewer'
+		// 	as: 'reviews.reviewer'
 		// }},
-		// {$match: {reviewers: {$ne: []}}}
+		// {$project: {
+		//
+		// }}
+		// {$group: {
+		// 	_id: '$_id',
+		// 	reviews: {$push: '$reviews'}
+		// }},
+		// {$project: {
+		// 	_id: '$_id',
+		// 	title: '$title',
+		// 	content: '$content',
+		// 	reviews: '$reviews',
+		// 	author: '$author'
+		}}
+		// {$lookup: {
+		// 	from: 'users',
+		// 	localField: 'reviews.userId',
+		// 	foreignField: '_id',
+		// 	as: 'reviews.reviewer'
+		// }}
 	], (err, [article]) => {
 		if (err) {
 			res.sendStatus(404);
@@ -50,7 +76,8 @@ function postReview(req, res) {
 		userId: ObjectId(req.session.user._id),
 		timestamp: new Date().getTime(),
 		read: false,
-		handled: false
+		handled: false,
+		accepted: false
 	}).then(() => {
 		res.redirect(`/review/${articleId}?saved=true`);
 	});
