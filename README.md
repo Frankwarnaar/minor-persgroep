@@ -37,7 +37,7 @@ $ npm run dev
 ### Could haves
 * [ ] Comment on reviews
 * [ ] Rate reviews
-* [x] Review articles by selecting the text you want to review
+* [x] Review articles inline with javascript enhancement
 
 ### Would haves
 * [ ] Create ranking with reviewers
