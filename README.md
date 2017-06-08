@@ -23,16 +23,24 @@ After installation, run:
 $ npm run dev
 ```
 
-## Features
-* [x] Edit articles with a rich content editor
-* [x] Review articles with a basic html form
-* [x] Enhance the review with javascript, to make it possible to review the article inline
+### Must haves
+* [x] Create articles
+* [x] Edit articles
+* [x] Review articles with a basic form, under each article
+* [ ] Show the reviews already done on an article
+* [ ] Get an overview of the reviews on your article
+
+### Should haves
+* [ ] Close reviews
+
+### Could haves
 * [ ] Comment on reviews
 * [ ] Rate reviews
+* [x] Review articles by selecting the text you want to review
+
+### Would haves
 * [ ] Create ranking with reviewers
 * [ ] Dashboard for authors and reviewers to watch their statistics
-
-### Nice to have
 * [ ] Create ranking with authors
 * [ ] General comments on articles
 
