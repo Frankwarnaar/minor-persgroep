@@ -27,11 +27,12 @@ $ npm run dev
 * [x] Create articles
 * [x] Edit articles
 * [x] Review articles with a basic form, under each article
-* [ ] Show the reviews already done on an article
+* [x] Show the reviews already done on an article
 * [ ] Get an overview of the reviews on your article
 
 ### Should haves
 * [ ] Close reviews
+* [ ] Notify an author when there are new reviews on his/her article
 
 ### Could haves
 * [ ] Comment on reviews
