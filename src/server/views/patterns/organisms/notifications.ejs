@@ -5,4 +5,7 @@
 			<%- include('../molecules/notification.ejs', {notification: notification}); %>
 		<% }) %>
 	</ul>
+	<% if (notifications.length === 0) { %>
+		<p>Er zijn geen nieuwe notificaties</p>
+	<% } %>
 </section>
