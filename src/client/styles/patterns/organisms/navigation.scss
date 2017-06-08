@@ -13,18 +13,18 @@
 	display: flex;
 	justify-content: space-between;
 
-	ul {
-		display: flex;
-		justify-content: end;
-
-		list-style-type: none;
-	}
-
 	ul,
 	li,
 	img,
 	svg {
 		height: 100%;
+	}
+
+	ul {
+		display: flex;
+		justify-content: end;
+
+		list-style-type: none;
 	}
 
 	li {
@@ -54,13 +54,13 @@
 	}
 
 	svg {
-		width: auto;
+		width: 3.5em;
 		padding: 1rem;
 	}
 
 	svg {
 		path {
-			fill: $color-gray-midnight;
+			fill: $color-gray-concrete;
 		}
 	}
 }

@@ -37,7 +37,8 @@ function getArticle(req, res) {
 			localField: 'authorId',
 			foreignField: '_id',
 			as: 'author'
-		}}
+		}},
+		{$unwind: '$author'}
 	], (err, [article]) => {
 		if (err) {
 			res.sendStatus(404);
