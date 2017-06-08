@@ -18,6 +18,7 @@ const indexRouter = require('./routes/index.js');
 const usersRouter = require('./routes/users.js');
 const articlesRouter = require('./routes/articles.js');
 const reviewRouter = require('./routes/review.js');
+const notificationsRouter = require('./routes/notifications.js');
 
 const sessionConfig = {
 	secret: 'fhdsbafjayw4fsdalw74ilufsdwi',
@@ -42,6 +43,7 @@ express()
 	.use('/users', usersRouter)
 	.use('/articles', articlesRouter)
 	.use('/review', reviewRouter)
+	.use('/notifications', notificationsRouter)
 	.listen(port, host, err => {
 		err ? console.error(err) : console.log(`app running on http://localhost:${port}`);
 	});

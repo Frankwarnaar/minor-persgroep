@@ -22,7 +22,8 @@
 
 	ul,
 	li,
-	img {
+	img,
+	svg {
 		height: 100%;
 	}
 
@@ -43,10 +44,23 @@
 	}
 
 	a:not(.btn) {
+		height: 100%;
 		line-height: $nav-height;
 	}
 
 	img {
 		padding: .325rem;
+		width: auto;
+	}
+
+	svg {
+		width: auto;
+		padding: 1rem;
+	}
+
+	svg {
+		path {
+			fill: $color-gray-midnight;
+		}
 	}
 }

@@ -48,7 +48,9 @@ function postReview(req, res) {
 		type: review.type,
 		articleId: ObjectId(articleId),
 		userId: ObjectId(req.session.user._id),
-		timestamp: new Date().getTime()
+		timestamp: new Date().getTime(),
+		read: false,
+		handled: false
 	}).then(() => {
 		res.redirect(`/review/${articleId}?saved=true`);
 	});

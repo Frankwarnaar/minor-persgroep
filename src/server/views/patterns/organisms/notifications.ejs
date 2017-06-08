@@ -1,0 +1,8 @@
+<section class="notifications">
+	<h1>Meldingen</h1>
+	<ul>
+		<% notifications.map(notification => { %>
+			<%- include('../molecules/notification.ejs', {notification: notification}); %>
+		<% }) %>
+	</ul>
+</section>

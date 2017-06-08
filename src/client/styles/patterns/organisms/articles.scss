@@ -11,6 +11,10 @@
 	&[data-review="true"] {
 		> * {
 			cursor: context-menu;
+
+			&:after {
+				content: 'edit';
+			}
 		}
 	}
 }

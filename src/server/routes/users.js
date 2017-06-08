@@ -22,7 +22,6 @@ function getLogin(req, res) {
 	}
 }
 
-// Afhandeling van login
 function postLogin(req, res) {
 	const email = req.body.email;
 	const password = req.body.password;
@@ -132,7 +131,6 @@ function postEdit(req, res) {
 	}
 }
 
-// Afhandeling voor uitloggen
 function getLogout(req, res) {
 	req.session.destroy();
 	res.redirect('/');
