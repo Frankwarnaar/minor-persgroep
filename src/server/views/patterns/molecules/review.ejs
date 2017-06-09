@@ -9,7 +9,7 @@
 			<% } else { %>
 				<form method="POST" action="/review/reopen/<%= article._id %>/<%= article.author._id %>/<%= review._id %>">
 			<% } %>
-				<input type="submit" class="secondary" value="<%= review.accepted ? 'Heropen' : 'Sluiten' %>"/>
+				<input type="submit" class="<%= review.accepted ? '' : 'secondary' %>" value="<%= review.accepted ? 'Heropen' : 'Sluiten' %>"/>
 				<% if (!review.accepted) { %>
 					<a class="btn" href="/articles/edit/<%=article._id %>#<%= review._id %>">Doorvoeren</a>
 				<% } %>
