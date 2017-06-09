@@ -2,13 +2,15 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const ObjectId = require('mongodb').ObjectID;
 
+const forceLogin = require('../lib/forceLogin.js');
+
 const router = express.Router()
 	.get('/login', getLogin)
 	.post('/login', postLogin)
 	.get('/register', getRegister)
 	.post('/register', postRegister)
 	.get('/logout', getLogout)
-	.use(redirectionMiddleware)
+	.use(forceLogin)
 	.get('/edit', getEdit)
 	.post('/edit', postEdit);
 
@@ -44,13 +46,6 @@ function postLogin(req, res) {
 			});
 		}
 	});
-}
-
-function redirectionMiddleware(req, res, next) {
-	if (!req.session.user) {
-		res.redirect('/users/login');
-	}
-	next();
 }
 
 // Aanvraag voor registreerpagina

@@ -1,16 +1,11 @@
 const express = require('express');
 const ObjectId = require('mongodb').ObjectID;
 
-const router = express.Router()
-	.use(authMiddleware)
-	.get('/', getNotifications);
+const forceLogin = require('../lib/forceLogin.js');
 
-function authMiddleware(req, res, next) {
-	if (!req.session.user) {
-		res.redirect('/users/login');
-	}
-	next();
-}
+const router = express.Router()
+	.use(forceLogin)
+	.get('/', getNotifications);
 
 function getNotifications(req, res) {
 	req.db.collection('reviews').aggregate([

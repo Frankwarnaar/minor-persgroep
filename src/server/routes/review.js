@@ -1,7 +1,10 @@
 const express = require('express');
 const ObjectId = require('mongodb').ObjectID;
 
+const forceLogin = require('../lib/forceLogin.js');
+
 const router = express.Router()
+	.use(forceLogin)
 	.get('/:_id', getReview)
 	.post('/:_id', postReview);
 
