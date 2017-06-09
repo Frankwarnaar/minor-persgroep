@@ -28,7 +28,7 @@ $ npm run dev
 * [x] Edit articles
 * [x] Review articles with a basic form, under each article
 * [x] Show the reviews already done on an article
-* [ ] Get an overview of the reviews on your article
+* [x] Get an overview of the reviews on your article
 
 ### Should haves
 * [ ] Close reviews
