@@ -1,16 +1,39 @@
 .article {
 	padding: 1em;
+	margin: 0 auto;
+	margin-bottom: 1rem;
 	max-width: 40em;
 	background: $color-lightest;
-	margin: 0 auto;
 
 	h1 {
 		color: $color-primary;
 	}
+}
 
-	&[data-review="true"] {
-		> * {
-			cursor: context-menu;
+body:not(.no-js) .article[data-review=true] {
+	[data-child] {
+		position: relative;
+
+		&:hover:after {
+			display: block;
 		}
+	}
+
+	[data-child]::after {
+		display: none;
+		content: url('/img/icons/review.svg');
+		padding: .5rem;
+		width: 1.325rem;
+		height: 1.325rem;
+
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translate(95%, -50%);
+
+		background: $color-lightest;
+		border: 1px solid $color-gray-clouds;
+		border-radius: 50%;
+		cursor: pointer;
 	}
 }

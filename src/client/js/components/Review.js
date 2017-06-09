@@ -28,6 +28,9 @@ class Review {
 		if (this.$closeReview) {
 			this.$closeReview.addEventListener('click', this.closeReview.bind(this));
 		}
+		// [...this.$reviewButton].forEach(button => {
+		// 	button.addEventListener('click', this.positionReview.bind(this));
+		// });
 	}
 
 	showEl($el, show) {
