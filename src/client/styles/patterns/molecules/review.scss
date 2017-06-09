@@ -1,0 +1,12 @@
+.review {
+	max-width: 40em;
+
+	form {
+		margin: 0;
+		padding: 0;
+	}
+
+	&:target {
+		background: $color-highlight-info-lightest;
+	}
+}
