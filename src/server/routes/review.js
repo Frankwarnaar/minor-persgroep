@@ -1,5 +1,4 @@
 const express = require('express');
-const ObjectId = require('mongodb').ObjectID;
 
 const db = require('../lib/db/index');
 const forceLogin = require('../lib/forceLogin');
@@ -7,7 +6,8 @@ const forceLogin = require('../lib/forceLogin');
 const router = express.Router()
 	.use(forceLogin)
 	.get('/:_id', getReview)
-	.post('/:_id', postReview);
+	.post('/:_id', postReview)
+	.post('/close/:articleId/:authorId/:reviewId', closeReview);
 
 function getReview(req, res) {
 	db.articles.get(req.db, req.params._id, (err, [article]) => {
@@ -23,20 +23,19 @@ function getReview(req, res) {
 
 function postReview(req, res) {
 	const articleId = req.params._id;
-	const review = req.body;
-	req.db.collection('reviews').insert({
-		content: review.content,
-		review: review.review,
-		type: review.type,
-		articleId: ObjectId(articleId),
-		userId: ObjectId(req.session.user._id),
-		timestamp: new Date().getTime(),
-		read: false,
-		handled: false,
-		accepted: false
-	}).then(() => {
-		res.redirect(`/review/${articleId}?saved=true`);
+	db.reviews.insert(req.db, req.body, articleId, req.session.user._id).then(data => {
+		const [review] = data.ops;
+		res.redirect(`/review/${articleId}#${review._id}`);
 	});
+}
+
+function closeReview(req, res) {
+	const articleId = req.params.articleId;
+	if (req.params.authorId === req.session.user._id) {
+		db.reviews.update(req.db, articleId).then(() => {
+			res.redirect(`/articles/${articleId}`);
+		});
+	}
 }
 
 module.exports = router;

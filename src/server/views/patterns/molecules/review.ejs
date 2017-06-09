@@ -1,5 +1,13 @@
-<li class="review">
+<li class="review" id="<%= review._id %>">
 	<p><%= review.content %></p>
 	<p><%= review.review %></p>
 	<span>Type: <%= review.type %></span>
+	<% if (typeof(footer) !== 'undefined') { %>
+		<footer>
+			<form method="POST" action="/review/close/<%= article._id %>/<%= article.author._id %>/<%= review._id %>">
+				<input type="submit" class="secondary" value="Sluiten"/>
+				<a class="btn" href="/articles/edit/<%=article._id %>#<%= review._id %>">Doorvoeren</a>
+			</form>
+		</footer>
+	<% } %>
 </li>

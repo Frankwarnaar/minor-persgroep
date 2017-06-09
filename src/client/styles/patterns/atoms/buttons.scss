@@ -17,7 +17,7 @@ button,
 	transition: $transition-fastest;
 
 	&:hover {
-		color: $color-darkest;
+		color: $color-primary;
 		background: $color-gray-clouds;
 		text-decoration: none;
 	}
@@ -27,5 +27,15 @@ button,
 	&:focus {
 		text-decoration: none;
 		outline: none;
+	}
+
+	&.secondary {
+		background: $color-secondary;
+		border-color: $color-secondary;
+
+		&:hover {
+			color: $color-secondary;
+			background: $color-gray-clouds;
+		}
 	}
 }
