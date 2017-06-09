@@ -5,9 +5,9 @@
 	<% if (typeof(footer) !== 'undefined') { %>
 		<footer>
 			<% if (!review.accepted) { %>
-				<form method="POST" action="/review/close/<%= article._id %>/<%= article.author._id %>/<%= review._id %>">
+				<form method="POST" action="/review/close/<%= article._id %>/<%= article.author._id %>/<%= review._id %>/<%= edit ? true : false %>">
 			<% } else { %>
-				<form method="POST" action="/review/reopen/<%= article._id %>/<%= article.author._id %>/<%= review._id %>">
+				<form method="POST" action="/review/reopen/<%= article._id %>/<%= article.author._id %>/<%= review._id %>/<%= edit ? true : false %>">
 			<% } %>
 				<input type="submit" class="<%= review.accepted ? '' : 'secondary' %>" value="<%= review.accepted ? 'Heropen' : 'Sluiten' %>"/>
 				<% if (!review.accepted) { %>

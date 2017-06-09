@@ -1,8 +1,10 @@
 const express = require('express');
 
+const forceLogin = require('../lib/forceLogin');
 const db = require('../lib/db/index');
 
 const router = express.Router()
+	.use(forceLogin)
 	.get('/new', getNewArticle)
 	.post('/new', postNewArticle)
 	.get('/:_id', getArticle)

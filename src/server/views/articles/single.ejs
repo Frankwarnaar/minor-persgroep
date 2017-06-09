@@ -1,28 +1,4 @@
 <% extend('../_base/layout') %>
 
-<%- include('../patterns/organisms/article', {article: article, footer: true}) %>
-
-<% if (user) { %>
-	<% if (article.author._id == user._id) { %>
-		<section>
-			<h2>Open reviews</h2>
-			<ul>
-				<% article.reviews.map(review => { %>
-					<% if (!review.handled) { %>
-						<%- include('../patterns/molecules/review', {article: article, review: review, footer: true}) %>
-					<% } %>
-				<% }); %>
-			</ul>
-		</section>
-		<section>
-			<h2>Gesloten reviews</h2>
-			<ul>
-				<% article.reviews.map(review => { %>
-					<% if (review.handled) { %>
-						<%- include('../patterns/molecules/review', {article: article, review: review, footer: true}) %>
-					<% } %>
-				<% }); %>
-			</ul>
-		</section>
-	<% } %>
-<% } %>
+<%- include('../patterns/organisms/article', {article: article, footer: true}); %>
+<%- include('../patterns/organisms/reviews', {user: user, article: article}); %>

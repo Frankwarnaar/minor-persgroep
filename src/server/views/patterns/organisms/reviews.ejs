@@ -1,0 +1,30 @@
+<% if (user) { %>
+	<% if (article.author._id == user._id) { %>
+		<section>
+			<h2>Open reviews</h2>
+			<ul>
+				<% article.reviews.map(review => { %>
+					<% if (!review.handled) { %>
+						<%- include('../molecules/review', {article: article, review: review, footer: true, edit: true}) %>
+					<% } %>
+				<% }); %>
+			</ul>
+			<% if (article.reviews.filter(review => !review.handled).length === 0) { %>
+				<p>Er zijn momenteel onbehandelde reviews op dit artikel.</p>
+			<% } %>
+		</section>
+		<section>
+			<h2>Gesloten reviews</h2>
+			<ul>
+				<% article.reviews.map(review => { %>
+					<% if (review.handled) { %>
+						<%- include('../molecules/review', {article: article, review: review, footer: true, edit: true}) %>
+					<% } %>
+				<% }); %>
+			</ul>
+			<% if (article.reviews.filter(review => review.handled).length === 0) { %>
+				<p>Er zijn momenteel behandelde reviews op dit artikel.</p>
+			<% } %>
+		</section>
+	<% } %>
+<% } %>

@@ -7,8 +7,8 @@ const router = express.Router()
 	.use(forceLogin)
 	.get('/:_id', getReview)
 	.post('/:_id', postReview)
-	.post('/reopen/:articleId/:authorId/:reviewId', reopenReview)
-	.post('/close/:articleId/:authorId/:reviewId', closeReview);
+	.post('/reopen/:articleId/:authorId/:reviewId/:edit', reopenReview)
+	.post('/close/:articleId/:authorId/:reviewId/:edit', closeReview);
 
 function getReview(req, res) {
 	db.articles.get(req.db, req.params._id, (err, [article]) => {
@@ -38,11 +38,12 @@ function reopenReview(req, res) {
 		});
 	}
 }
+
 function closeReview(req, res) {
 	const articleId = req.params.articleId;
 	if (req.params.authorId === req.session.user._id) {
 		db.reviews.update(req.db, req.params.reviewId, true).then(() => {
-			res.redirect(`/articles/${articleId}`);
+			res.redirect(`/articles${req.params.edit ? '/edit' : ''}/${articleId}`);
 		});
 	}
 }
