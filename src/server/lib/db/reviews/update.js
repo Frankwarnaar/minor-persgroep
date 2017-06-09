@@ -1,12 +1,12 @@
 const ObjectId = require('mongodb').ObjectID;
 
-function update(db, reviewId) {
+function update(db, reviewId, open) {
 	return db.collection('reviews').update(
 		{_id: ObjectId(reviewId)},
 		{
 			$set: {
-				handled: true,
-				accepted: true
+				handled: open,
+				accepted: open
 			}
 		}
 	);

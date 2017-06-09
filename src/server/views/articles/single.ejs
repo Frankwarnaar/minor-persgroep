@@ -4,13 +4,25 @@
 
 <% if (user) { %>
 	<% if (article.author._id == user._id) { %>
-		<h2>Open reviews</h2>
-		<ul>
-			<% article.reviews.map(review => { %>
-				<% if (!review.handled) { %>
-					<%- include('../patterns/molecules/review', {article: article, review: review, footer: true}) %>
-				<% } %>
-			<% }); %>
-		</ul>
+		<section>
+			<h2>Open reviews</h2>
+			<ul>
+				<% article.reviews.map(review => { %>
+					<% if (!review.handled) { %>
+						<%- include('../patterns/molecules/review', {article: article, review: review, footer: true}) %>
+					<% } %>
+				<% }); %>
+			</ul>
+		</section>
+		<section>
+			<h2>Gesloten reviews</h2>
+			<ul>
+				<% article.reviews.map(review => { %>
+					<% if (review.handled) { %>
+						<%- include('../patterns/molecules/review', {article: article, review: review, footer: true}) %>
+					<% } %>
+				<% }); %>
+			</ul>
+		</section>
 	<% } %>
 <% } %>
