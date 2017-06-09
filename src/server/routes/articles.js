@@ -1,6 +1,8 @@
 const express = require('express');
 const ObjectId = require('mongodb').ObjectID;
 
+const db = require('../lib/db/index');
+
 const router = express.Router()
 	.get('/new', getNewArticle)
 	.post('/new', postNewArticle)
@@ -18,42 +20,17 @@ function getNewArticle(req, res) {
 
 function postNewArticle(req, res) {
 	const article = req.body;
-	req.db.collection('articles').insert({
-		title: article.title,
-		authorId: ObjectId(req.session.user._id),
-		content: article.content,
-		timestamp: new Date().getTime()
-	}).then(data => {
+	db.articles.post(req.db, article, req.session.user._id).then(data => {
 		const [id] = data.insertedIds;
 		res.redirect(`/articles/${id}`);
 	});
 }
 
 function getArticle(req, res) {
-	req.db.collection('articles').aggregate([
-		{$match: {_id: ObjectId(req.params._id)}},
-		{$lookup: {
-			from: 'users',
-			localField: 'authorId',
-			foreignField: '_id',
-			as: 'author'
-		}},
-		{$unwind: {
-			path: '$author',
-			preserveNullAndEmptyArrays: true
-		}},
-		{$lookup: {
-			from: 'reviews',
-			localField: '_id',
-			foreignField: 'articleId',
-			as: 'reviews'
-		}}
-	], (err, [article]) => {
+	db.articles.get(req.db, req.params._id, (err, [article]) => {
 		if (err) {
 			res.sendStatus(404);
 		}
-
-		// console.log(article);
 
 		res.render('articles/single', {
 			article
@@ -62,7 +39,7 @@ function getArticle(req, res) {
 }
 
 function getEdit(req, res) {
-	req.db.collection('articles').findOne({_id: ObjectId(req.params._id)}, (err, article) => {
+	db.articles.get(req.db, req.params._id, (err, [article]) => {
 		if (err) {
 			res.sendStatus(404);
 		}
@@ -75,15 +52,7 @@ function getEdit(req, res) {
 
 function postEdit(req, res) {
 	const id = req.params._id;
-	req.db.collection('articles').update(
-		{_id: ObjectId(id)},
-		{
-			$set: {
-				title: req.body.title,
-				content: req.body.content
-			}
-		}
-	).then(() => {
+	db.articles.edit(req.db, req.body, id).then(() => {
 		res.redirect(`/articles/${id}`);
 	});
 }

@@ -1,10 +1,12 @@
 const express = require('express');
 
+const db = require('../lib/db/index');
+
 const router = express.Router()
 	.get('/', renderIndex);
 
 function renderIndex(req, res) {
-	req.db.collection('articles').find({}).toArray((err, articles) => {
+	db.articles.getAll(req.db, (err, articles) => {
 		if (err) {
 			console.log(err);
 		}

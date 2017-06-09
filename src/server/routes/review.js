@@ -1,7 +1,8 @@
 const express = require('express');
 const ObjectId = require('mongodb').ObjectID;
 
-const forceLogin = require('../lib/forceLogin.js');
+const db = require('../lib/db/index');
+const forceLogin = require('../lib/forceLogin');
 
 const router = express.Router()
 	.use(forceLogin)
@@ -9,55 +10,7 @@ const router = express.Router()
 	.post('/:_id', postReview);
 
 function getReview(req, res) {
-	req.db.collection('articles').aggregate([
-		{$match: {_id: ObjectId(req.params._id)}},
-		{$lookup: {
-			from: 'users',
-			localField: 'authorId',
-			foreignField: '_id',
-			as: 'author'
-		}},
-		{$unwind: {
-			path: '$author',
-			preserveNullAndEmptyArrays: true
-		}},
-		{$lookup: {
-			from: 'reviews',
-			localField: '_id',
-			foreignField: 'articleId',
-			as: 'reviews'
-		// }},
-		// {$unwind: {
-		// 	path: '$reviews',
-		// 	preserveNullAndEmptyArrays: true
-		// }},
-		// {$lookup: {
-		// 	from: 'users',
-		// 	localField: 'reviews.userId',
-		// 	foreignField: '_id',
-		// 	as: 'reviews.reviewer'
-		// }},
-		// {$project: {
-		//
-		// }}
-		// {$group: {
-		// 	_id: '$_id',
-		// 	reviews: {$push: '$reviews'}
-		// }},
-		// {$project: {
-		// 	_id: '$_id',
-		// 	title: '$title',
-		// 	content: '$content',
-		// 	reviews: '$reviews',
-		// 	author: '$author'
-		}}
-		// {$lookup: {
-		// 	from: 'users',
-		// 	localField: 'reviews.userId',
-		// 	foreignField: '_id',
-		// 	as: 'reviews.reviewer'
-		// }}
-	], (err, [article]) => {
+	db.articles.get(req.db, req.params._id, (err, [article]) => {
 		if (err) {
 			res.sendStatus(404);
 		}
