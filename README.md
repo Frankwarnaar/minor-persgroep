@@ -59,8 +59,8 @@ $ npm run dev
 ### Week 2
 * [x] Setup login system
 * [x] Notifications
-* [ ] Get an overview of unclosed reviews at your articles
-* [ ] Close reviews on your article
+* [x] Get an overview of unclosed reviews at your articles
+* [x] Close reviews on your article
 
 ### Week 3
 * [ ] Enhance inline reviewing (like Google Docs comments)
