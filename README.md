@@ -58,5 +58,10 @@ $ npm run dev
 
 ### Week 2
 * [x] Setup login system
-* [ ] Research what reviewers want and how writers want feedback on their articles
-* [ ] Research how reviewers can comment on reviews
+* [x] Notifications
+* [ ] Get an overview of unclosed reviews at your articles
+* [ ] Close reviews on your article
+
+### Week 3
+* [ ] Enhance inline reviewing (like Google Docs comments)
+* [ ] Display reviews at your articles inline
