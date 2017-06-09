@@ -6,7 +6,7 @@
 <ul>
 	<% article.reviews.map(review => { %>
 		<% if (!review.handled) { %>
-			<%- include('../patterns/molecules/review', {review: review}) %>
+			<%- include('../patterns/molecules/review', {review: review, edit: false}) %>
 		<% } %>
 	<% }); %>
 </ul>
@@ -15,7 +15,7 @@
 <ul>
 	<% article.reviews.map(review => { %>
 		<% if (review.handled) { %>
-			<%- include('../patterns/molecules/review', {review: review}) %>
+			<%- include('../patterns/molecules/review', {review: review, edit: false}) %>
 		<% } %>
 	<% }); %>
 </ul>

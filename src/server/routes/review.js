@@ -8,7 +8,8 @@ const router = express.Router()
 	.get('/:_id', getReview)
 	.post('/:_id', postReview)
 	.post('/reopen/:articleId/:authorId/:reviewId/:edit', reopenReview)
-	.post('/close/:articleId/:authorId/:reviewId/:edit', closeReview);
+	.post('/close/:articleId/:authorId/:reviewId/:edit', closeReview)
+	.post('/accept/:articleId/:authorId/:reviewId/', acceptReview);
 
 function getReview(req, res) {
 	db.articles.get(req.db, req.params._id, (err, [article]) => {
@@ -33,7 +34,7 @@ function postReview(req, res) {
 function reopenReview(req, res) {
 	const articleId = req.params.articleId;
 	if (req.params.authorId === req.session.user._id) {
-		db.reviews.update(req.db, req.params.reviewId, false).then(() => {
+		db.reviews.update(req.db, req.params.reviewId, false, false).then(() => {
 			res.redirect(`/articles/${articleId}`);
 		});
 	}
@@ -42,8 +43,17 @@ function reopenReview(req, res) {
 function closeReview(req, res) {
 	const articleId = req.params.articleId;
 	if (req.params.authorId === req.session.user._id) {
-		db.reviews.update(req.db, req.params.reviewId, true).then(() => {
+		db.reviews.update(req.db, req.params.reviewId, true, false).then(() => {
 			res.redirect(`/articles${req.params.edit ? '/edit' : ''}/${articleId}`);
+		});
+	}
+}
+
+function acceptReview(req, res) {
+	const articleId = req.params.articleId;
+	if (req.params.authorId === req.session.user._id) {
+		db.reviews.update(req.db, req.params.reviewId, true, true).then(() => {
+			res.redirect(`/articles/edit/${articleId}`);
 		});
 	}
 }
