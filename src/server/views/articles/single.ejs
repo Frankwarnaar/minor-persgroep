@@ -1,3 +1,17 @@
 <% extend('../_base/layout') %>
 
 <%- include('../patterns/organisms/article', {article: article, footer: true}) %>
+
+<% console.log(article.reviews); %>
+<% if (user) { %>
+	<% if (article.author._id === user._id) { %>
+		<h2>Open reviews</h2>
+		<ul>
+			<% article.reviews.map(review => { %>
+				<% if (!review.handled) { %>
+					<%- include('../patterns/molecules/review', {review: review}) %>
+				<% } %>
+			<% }); %>
+		</ul>
+	<% } %>
+<% } %>

@@ -38,11 +38,23 @@ function getArticle(req, res) {
 			foreignField: '_id',
 			as: 'author'
 		}},
-		{$unwind: '$author'}
+		{$unwind: {
+			path: '$author',
+			preserveNullAndEmptyArrays: true
+		}},
+		{$lookup: {
+			from: 'reviews',
+			localField: '_id',
+			foreignField: 'articleId',
+			as: 'reviews'
+		}}
 	], (err, [article]) => {
 		if (err) {
 			res.sendStatus(404);
 		}
+
+		// console.log(article);
+
 		res.render('articles/single', {
 			article
 		});

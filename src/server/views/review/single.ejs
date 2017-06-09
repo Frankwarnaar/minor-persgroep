@@ -1,9 +1,23 @@
 <% extend("../_base/layout") %>
 
 <%- include('../patterns/organisms/article', {article: article, review: true}) %>
+
+<h2>Open reviews</h2>
 <ul>
 	<% article.reviews.map(review => { %>
-		<%- include('../patterns/molecules/review', {review: review}) %>
+		<% if (!review.handled) { %>
+			<%- include('../patterns/molecules/review', {review: review}) %>
+		<% } %>
 	<% }); %>
 </ul>
+
+<h2>Gesloten reviews</h2>
+<ul>
+	<% article.reviews.map(review => { %>
+		<% if (review.handled) { %>
+			<%- include('../patterns/molecules/review', {review: review}) %>
+		<% } %>
+	<% }); %>
+</ul>
+
 <%- include('../patterns/molecules/review-form.ejs'); %>
