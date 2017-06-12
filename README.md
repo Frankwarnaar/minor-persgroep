@@ -35,6 +35,8 @@ $ npm run dev
 
 ### Could haves
 * [x] Review articles inline with javascript enhancement
+* [ ] Save reviews realtime
+* [ ] Review offline, and publish these reviews when connection is reastablished
 * [ ] Show reviews, aligned to the selected paragraph / title
 * [ ] Review articles offline and publish your review later
 * [ ] Show when someone else is reviewing the same article as you
