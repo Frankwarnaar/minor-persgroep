@@ -23,10 +23,11 @@
 		transform: translateX(-50%);
 		box-shadow: 0 0 1rem 0 rgba(0,0,0,.4);
 
-		@media screen and (min-width: $break-md-min) {
+		@media screen and (min-width: $break-lg-min) {
 			right: 1rem;
 			left: auto;
 			transform: none;
+			// box-shadow: none;
 		}
 	}
 

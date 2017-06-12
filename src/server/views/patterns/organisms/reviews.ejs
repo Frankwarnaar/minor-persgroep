@@ -1,6 +1,6 @@
 <section>
 	<h2>Open reviews</h2>
-	<ul>
+	<ul class="list--clean">
 		<% article.reviews.map(review => { %>
 			<% if (!review.handled) { %>
 				<%- include('../molecules/review', {article: article, review: review, footer: article.authorId == user._id, edit: edit}) %>
@@ -13,7 +13,7 @@
 </section>
 <section>
 	<h2>Gesloten reviews</h2>
-	<ul>
+	<ul class="list--clean">
 		<% article.reviews.map(review => { %>
 			<% if (review.handled) { %>
 				<%- include('../molecules/review', {article: article, review: review, footer: article.authorId == user._id, edit: edit}) %>
