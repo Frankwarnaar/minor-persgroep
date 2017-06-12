@@ -34,10 +34,12 @@ $ npm run dev
 * [ ] Notify an author when there are new reviews on his/her article
 
 ### Could haves
+* [x] Review articles inline with javascript enhancement
+* [ ] Show reviews, aligned to the selected paragraph / title
+* [ ] Review articles offline and publish your review later
 * [ ] Show when someone else is reviewing the same article as you
 * [ ] Comment on reviews
 * [ ] Rate reviews
-* [x] Review articles inline with javascript enhancement
 
 ### Would haves
 * [ ] Create ranking with reviewers
