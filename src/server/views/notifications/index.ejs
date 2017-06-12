@@ -1,6 +1,6 @@
 <% extend('../_base/layout'); %>
 
 <% reviews = reviews.map(review => { %>
-	<% return {title: review.article.title, content: `${review.reviewer.name.first} ${review.reviewer.name.first} heeft u gereviewed.`, url: `/articles/edit/${review.article._id}?review=${review._id}`}; %>
+	<% return {title: review.article.title, content: `${review.reviewer.name.first} ${review.reviewer.name.last} heeft u gereviewed.`, url: `/articles/edit/${review.article._id}?review=${review._id}`}; %>
 <% }); %>
 <%- include('../patterns/organisms/notifications', {notifications: reviews}) %>

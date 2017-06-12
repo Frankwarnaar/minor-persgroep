@@ -5,23 +5,27 @@
 	<% if (typeof(footer) !== 'undefined') { %>
 		<% if (footer) { %>
 			<footer>
-			<% if (!review.accepted) { %>
+
+			<% if (!review.handled) { %>
 				<form method="POST" action="/review/close/<%= article._id %>/<%= article.author._id %>/<%= review._id %>/<%= edit ? true : false %>">
 			<% } else { %>
 				<form method="POST" action="/review/reopen/<%= article._id %>/<%= article.author._id %>/<%= review._id %>/<%= edit ? true : false %>">
 			<% } %>
-				<% if (!review.accepted) { %>
-					<input type="submit" class="<%= review.accepted ? '' : 'secondary' %>" value="<%= review.accepted ? 'Heropen' : 'Sluiten' %>"/>
+
+				<input type="submit" class="<%= review.handled ? '' : 'secondary' %>" value="<%= review.handled ? 'Heropen' : 'Sluiten' %>"/>
+
+				<% if (!review.accepted && !edit) { %>
+					<a class="btn" href="/articles/edit/<%=article._id %>#<%= review._id %>">Doorvoeren</a>
 				<% } %>
-					<% if (!review.accepted && !edit) { %>
-						<a class="btn" href="/articles/edit/<%=article._id %>#<%= review._id %>">Doorvoeren</a>
-					<% } %>
+
 				</form>
-				<% if (!review.accepted && edit) { %>
+
+				<% if (!review.handled && edit) { %>
 					<form method="POST" action="/review/accept/<%= article._id %>/<%= article.author._id %>/<%= review._id %>">
 						<input type="submit" value="Doorgevoerd"/>
 					</form>
 				<% } %>
+
 			</footer>
 		<% } %>
 	<% } %>
