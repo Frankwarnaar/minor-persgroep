@@ -1,4 +1,8 @@
 <% extend('../_base/layout') %>
 
 <%- include('../patterns/organisms/article', {article: article, footer: true}); %>
-<%- include('../patterns/organisms/reviews', {user: user, article: article, edit: false}); %>
+<% if (user) { %>
+	<% if (article.author._id == user._id) { %>
+		<%- include('../patterns/organisms/reviews', {user: user, article: article, edit: false}); %>
+	<% } %>
+<% } %>	

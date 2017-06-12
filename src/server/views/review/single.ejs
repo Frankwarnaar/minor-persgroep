@@ -1,23 +1,9 @@
 <% extend("../_base/layout") %>
 
-<%- include('../patterns/organisms/article', {article: article, review: true}) %>
+<main class="review-container">
+	<%- include('../patterns/organisms/article', {article: article, review: true}) %>
 
-<h2>Open reviews</h2>
-<ul>
-	<% article.reviews.map(review => { %>
-		<% if (!review.handled) { %>
-			<%- include('../patterns/molecules/review', {review: review, edit: false}) %>
-		<% } %>
-	<% }); %>
-</ul>
+	<%- include('../patterns/organisms/reviews', {user: user, article: article, edit: false}); %>
 
-<h2>Gesloten reviews</h2>
-<ul>
-	<% article.reviews.map(review => { %>
-		<% if (review.handled) { %>
-			<%- include('../patterns/molecules/review', {review: review, edit: false}) %>
-		<% } %>
-	<% }); %>
-</ul>
-
-<%- include('../patterns/molecules/review-form.ejs'); %>
+	<%- include('../patterns/molecules/review-form.ejs'); %>
+</main>

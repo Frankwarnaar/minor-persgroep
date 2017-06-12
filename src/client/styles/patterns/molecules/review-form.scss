@@ -9,13 +9,25 @@
 		justify-content: space-between;
 	}
 
+	blockquote,
+	label {
+		font-size: $font-size-sm;
+	}
+
 	&[data-position] {
+		margin: 0;
 		width: 92%;
 		width: calc(100% - 2em);
 		position: absolute;
 		left: 50%;
 		transform: translateX(-50%);
 		box-shadow: 0 0 1rem 0 rgba(0,0,0,.4);
+
+		@media screen and (min-width: $break-md-min) {
+			right: 1rem;
+			left: auto;
+			transform: none;
+		}
 	}
 
 	h2 {

@@ -1,7 +1,7 @@
 <article class="article" data-review="<%= typeof(review) !== 'undefined' ? 'true' : 'false' %>">
 	<% if (typeof(editor) === 'undefined') { %>
 		<header>
-			<h1><%- article.title %></h1>
+			<h1 data-child="title"><%- article.title %></h1>
 			<p>Geschreven op <date><%= new Date(article.timestamp).toLocaleString('NL-nl') %></date> door <%= article.author.name.first %> <%= article.author.name.last %></p>
 		</header>
 	<% } %>

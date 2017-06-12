@@ -35,7 +35,7 @@ function reopenReview(req, res) {
 	const articleId = req.params.articleId;
 	if (req.params.authorId === req.session.user._id) {
 		db.reviews.update(req.db, req.params.reviewId, false, false).then(() => {
-			res.redirect(`/articles/${articleId}`);
+			res.redirect(`/articles/single/${articleId}`);
 		});
 	}
 }
@@ -44,7 +44,7 @@ function closeReview(req, res) {
 	const articleId = req.params.articleId;
 	if (req.params.authorId === req.session.user._id) {
 		db.reviews.update(req.db, req.params.reviewId, true, false).then(() => {
-			res.redirect(`/articles${req.params.edit ? '/edit' : ''}/${articleId}`);
+			res.redirect(`/articles/${req.params.edit == true ? 'edit' : 'single'}/${articleId}`);
 		});
 	}
 }

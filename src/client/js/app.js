@@ -1,4 +1,6 @@
 (() => {
+	document.body.classList.remove('no-js');
+
 	const App = require('./modules/App.js');
 	const app = new App();
 

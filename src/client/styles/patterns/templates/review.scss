@@ -1,0 +1,19 @@
+.review-container {
+	background: $color-gray-clouds;
+	overflow: hidden;
+
+	.article {
+		margin-left: 0;
+		margin-right: auto;
+
+		@media screen and (min-width: $break-sm-min) {
+			margin-left: 1rem;
+			margin-right: auto;
+		}
+
+		@media screen and (min-width: $break-lg-min) {
+			margin-left: calc((100vw - 40em) / 5);
+			margin-right: calc((100vw - 40em) / 5 * 4);
+		}
+	}
+}
