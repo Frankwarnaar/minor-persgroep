@@ -11,8 +11,8 @@
 		}
 
 		@media screen and (min-width: $break-lg-min) {
-			margin-left: calc((100vw - 40em) / 3);
-			margin-right: calc((100vw - 40em) / 3 * 2);
+			margin-left: calc((100vw - 40em) / 5);
+			margin-right: calc((100vw - 40em) / 5 * 4);
 		}
 	}
 }

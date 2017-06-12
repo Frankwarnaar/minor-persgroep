@@ -3,25 +3,7 @@
 <main class="review-container">
 	<%- include('../patterns/organisms/article', {article: article, review: true}) %>
 
-	<section>
-		<h2>Open reviews</h2>
-		<ul>
-			<% article.reviews.map(review => { %>
-				<% if (!review.handled) { %>
-					<%- include('../patterns/molecules/review', {review: review, edit: false}) %>
-				<% } %>
-			<% }); %>
-		</ul>
-
-		<h2>Gesloten reviews</h2>
-		<ul>
-			<% article.reviews.map(review => { %>
-				<% if (review.handled) { %>
-					<%- include('../patterns/molecules/review', {review: review, edit: false}) %>
-				<% } %>
-			<% }); %>
-		</ul>
-	</section>
+	<%- include('../patterns/organisms/reviews', {user: user, article: article, edit: false}); %>
 
 	<%- include('../patterns/molecules/review-form.ejs'); %>
 </main>
