@@ -1,0 +1,19 @@
+blockquote {
+	margin-bottom: 2rem;
+	font-size: $font-size-md;
+
+	&::before,
+	&::after {
+		content: '"';
+		font-size: $font-size-xl;
+		color: $color-primary;
+	}
+
+	&::before {
+		margin-right: .325rem;
+	}
+
+	&::after {
+		margin-left: .325rem;
+	}
+}

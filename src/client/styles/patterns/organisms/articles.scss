@@ -11,29 +11,57 @@
 }
 
 body:not(.no-js) .article[data-review=true] {
+	padding-left: 0;
+	padding-right: 0;
+
+	> *:not(header) {
+		padding: 0 1rem;
+	}
+
+	header > * {
+		padding: 0 1rem;
+	}
+
 	[data-child] {
 		position: relative;
 
-		&:hover:after {
-			display: block;
+		&.highlight {
+			background: $color-highlight-info-lightest;
+		}
+
+		@media screen and (min-width: $break-lg-min) {
+			&:hover button {
+				display: block;
+			}
 		}
 	}
 
-	[data-child]::after {
-		display: none;
-		content: url('/img/icons/review.svg');
+	[data-child] button {
 		padding: .5rem;
-		width: 1.325rem;
-		height: 1.325rem;
+		width: 2.5rem;
+		height: 2.5rem;
 
-		position: absolute;
-		right: 0;
-		top: 50%;
-		transform: translate(95%, -50%);
+		position: relative;
 
 		background: $color-lightest;
 		border: 1px solid $color-gray-clouds;
 		border-radius: 50%;
 		cursor: pointer;
+
+		img {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		@media screen and (min-width: $break-lg-min) {
+			display: none;
+			position: absolute;
+			right: 0;
+			top: 50%;
+			transform: translate(50%, -50%);
+		}
+
 	}
 }

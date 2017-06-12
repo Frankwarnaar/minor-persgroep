@@ -6,79 +6,108 @@ class Review {
 	constructor() {
 		this.$article = document.querySelector('[data-review=true]');
 		this.$review = document.getElementsByClassName('review-form')[0];
-		this.$reviewQuote = document.querySelector('[name=content]');
 		this.$closeReview = document.getElementById('close-review');
+		this.$reviewElement = document.querySelector('[name=review-element]');
+		this.$reviewContent = document.querySelector('[name=review]');
+		this.history = {};
 
 		this.init();
 	}
 
 	init() {
 		if (this.$article) {
-			this.bindEvents();
 			this.originalContent = this.$article.innerHTML;
 			this.showEl(this.$review, false);
 			this.showEl(this.$closeReview, true);
+
+			this.setupReviewButtons();
+			this.bindEvents();
 		}
 	}
 
+	setupReviewButtons() {
+		this.$articleElements = document.querySelectorAll('[data-child]');
+
+		this.$reviewButtons = [...this.$articleElements].map(child => {
+			const button = document.createElement('button');
+			const img = document.createElement('img');
+
+			img.setAttribute('src', '/img/icons/review.svg');
+			img.setAttribute('alt', 'review');
+			button.appendChild(img);
+			child.appendChild(button);
+
+			return button;
+		});
+	}
+
 	bindEvents() {
-		if (window.getSelection) {
-			document.addEventListener('selectionchange', this.surroundSelection.bind(this));
-		}
 		if (this.$closeReview) {
 			this.$closeReview.addEventListener('click', this.closeReview.bind(this));
 		}
-		// [...this.$reviewButton].forEach(button => {
-		// 	button.addEventListener('click', this.positionReview.bind(this));
-		// });
+
+		if (this.$reviewButtons) {
+			this.$reviewButtons.forEach($button => {
+				$button.addEventListener('click', this.onReviewButtonClick.bind(this, $button));
+			});
+		}
+
+		if (this.$reviewContent) {
+			this.$reviewContent.addEventListener('input', this.storeReviewContent.bind(this));
+		}
 	}
 
 	showEl($el, show) {
 		$el.classList[show ? 'remove' : 'add']('hidden');
 	}
 
-	// Source surroundSelection method: http://jsfiddle.net/VRcvn/
-	surroundSelection() {
-		this.selection = window.getSelection().toString();
+	onReviewButtonClick($button) {
+		const $parent = $button.parentElement;
 
-		if (this.selection !== this.prevSelection && this.selection.length > 0) {
-			if (this.timeout) {
-				clearTimeout(this.timeout);
-			}
+		this.setReviewContent($parent.getAttribute('data-child'));
 
-			this.timeout = setTimeout((() => {
-				const span = document.createElement('span');
+		this.positionReview($parent);
+		this.removeSelection();
+		$parent.classList.add('highlight');
 
-				if (window.getSelection) {
-					const selection = window.getSelection();
-					if (selection.rangeCount) {
-						const range = selection.getRangeAt(0).cloneRange();
-						range.surroundContents(span);
-						selection.removeAllRanges();
-						selection.addRange(range);
-					}
-				}
-				this.prevSelection = this.selection;
-				if (this.$review) {
-					this.positionReview(span);
-					this.$reviewQuote.value = span.innerHTML;
-					stretchTextareas.autoGrow(this.$reviewQuote);
-				}
-			}).bind(this), 1000);
-		}
+		this.$reviewElement.value = $parent.getAttribute('data-child');
+		this.previousParent = $parent;
 	}
 
-	positionReview(span) {
+	removeSelection() {
+		[...this.$articleElements].forEach($element => {
+			$element.classList.remove('highlight');
+		});
+	}
+
+	setReviewContent($element) {
+		this.$reviewContent.value = this.history[$element] || '';
+	}
+
+	storeReviewContent() {
+		const $selectedElement = document.getElementsByClassName('highlight')[0];
+		this.history[$selectedElement.getAttribute('data-child')] = this.$reviewContent.value;
+	}
+
+	positionReview($el) {
+		const windowWidth = window.innerWidth;
+		const articleWidth = this.$article.offsetWidth;
+		const breakpoint = 968;
+
+		const yPosition = windowWidth > breakpoint ? $el.offsetTop : $el.offsetTop + $el.offsetHeight;
+		const width = windowWidth > breakpoint ? `calc(${windowWidth - articleWidth}px - 2rem - ((100vw - 40em) / 5))` : 'calc(100vw - 2rem)';
+
 		this.$review.setAttribute('data-position', true);
-		const yPosition = span.getBoundingClientRect().top;
-		this.$review.setAttribute('style', `top: ${yPosition + 20}px`);
+		this.$review.setAttribute('style', `top: ${yPosition}px;
+		width: ${width}`);
+
 		this.showEl(this.$review, true);
 	}
 
 	closeReview(e) {
 		this.showEl(this.$review, false);
+		this.removeSelection();
 		e.preventDefault();
-		this.$article.innerHTML = this.originalContent;
 	}
 }
 

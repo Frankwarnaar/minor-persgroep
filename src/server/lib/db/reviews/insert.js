@@ -2,7 +2,7 @@ const ObjectId = require('mongodb').ObjectID;
 
 function insert(db, review, articleId, userId) {
 	return db.collection('reviews').insert({
-		content: review.content,
+		element: review['review-element'],
 		review: review.review,
 		type: review.type,
 		articleId: ObjectId(articleId),

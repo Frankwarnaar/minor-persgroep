@@ -12,9 +12,11 @@
 				<form method="POST" action="/review/reopen/<%= article._id %>/<%= article.author._id %>/<%= review._id %>/<%= edit ? true : false %>">
 			<% } %>
 
-				<input type="submit" class="<%= review.handled ? '' : 'secondary' %>" value="<%= review.handled ? 'Heropen' : 'Sluiten' %>"/>
+				<% if (!review.accepted) { %>
+					<input type="submit" class="<%= review.handled ? '' : 'secondary' %>" value="<%= review.handled ? 'Heropen' : 'Sluiten' %>"/>
+				<% } %>
 
-				<% if (!review.accepted && !edit) { %>
+				<% if (!review.handled && !edit) { %>
 					<a class="btn" href="/articles/edit/<%=article._id %>#<%= review._id %>">Doorvoeren</a>
 				<% } %>
 
