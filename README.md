@@ -30,10 +30,11 @@ $ npm run dev
 * [x] Get an overview of the reviews on your article
 
 ### Should haves
-* [ ] Close reviews
+* [x] Close reviews
 * [ ] Notify an author when there are new reviews on his/her article
 
 ### Could haves
+* [ ] Show when someone else is reviewing the same article as you
 * [ ] Comment on reviews
 * [ ] Rate reviews
 * [x] Review articles inline with javascript enhancement
