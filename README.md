@@ -48,6 +48,7 @@ $ npm run dev
 * [ ] Dashboard for authors and reviewers to watch their statistics
 * [ ] Create ranking with authors
 * [ ] General comments on articles
+* [ ] Version control on articles to on what content reviews were done
 
 ## Process
 
