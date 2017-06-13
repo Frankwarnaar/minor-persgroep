@@ -1,4 +1,8 @@
-<article class="article" data-review="<%= typeof(review) !== 'undefined' ? 'true' : 'false' %>">
+<article
+	class="article"
+	data-review="<%= typeof(review) !== 'undefined' ? 'true' : 'false' %>"
+	data-align-reviews=<%= typeof(alignReviews) !== 'undefined' ? 'true' : 'false' %>>
+
 	<% if (typeof(editor) === 'undefined') { %>
 		<header>
 			<h1 data-child="title"><%- article.title %></h1>

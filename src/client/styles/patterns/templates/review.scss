@@ -3,7 +3,8 @@
 	min-height: calc(100vh - #{$nav-height});
 	overflow: hidden;
 
-	.article {
+	.article,
+	.editor {
 		margin-left: 0;
 		margin-right: auto;
 

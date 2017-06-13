@@ -1,7 +1,7 @@
 <% extend("../_base/layout") %>
 
 <main class="review-container">
-	<%- include('../patterns/organisms/article', {article: article, review: true}) %>
+	<%- include('../patterns/organisms/article', {article: article, review: true, alignReviews: true}) %>
 
 	<%- include('../patterns/organisms/reviews', {user: user, article: article, edit: false}); %>
 

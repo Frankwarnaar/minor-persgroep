@@ -4,11 +4,12 @@ const stretchTextareas = new StretchTextareas();
 
 class Review {
 	constructor() {
-		this.$article = document.querySelector('[data-review=true]');
+		this.$article = document.querySelector('[data-align-reviews=true]');
 		this.$review = document.getElementsByClassName('review-form')[0];
 		this.$closeReview = document.getElementById('close-review');
 		this.$reviewElement = document.querySelector('[name=review-element]');
 		this.$reviewContent = document.querySelector('[name=review]');
+		this.$reviews = document.querySelectorAll('.review[data-element]');
 		this.history = {};
 
 		this.init();
@@ -17,11 +18,24 @@ class Review {
 	init() {
 		if (this.$article) {
 			this.originalContent = this.$article.innerHTML;
-			this.showEl(this.$review, false);
-			this.showEl(this.$closeReview, true);
 
-			this.setupReviewButtons();
+			if (this.$article.hasAttribute('data-review=true')) {
+				this.setupReviewButtons();
+			}
+
 			this.bindEvents();
+		}
+
+		if (this.$closeReview) {
+			this.showEl(this.$closeReview, true);
+		}
+		if (this.$review) {
+			this.showEl(this.$review, false);
+		}
+		if (this.$reviews) {
+			[...this.$reviews].forEach($review => {
+				this.positionReview($review);
+			});
 		}
 	}
 
@@ -67,6 +81,7 @@ class Review {
 		this.setReviewContent($parent.getAttribute('data-child'));
 
 		this.positionReview($parent);
+		this.showEl(this.$review, true);
 		this.removeSelection();
 		$parent.classList.add('highlight');
 
@@ -89,19 +104,22 @@ class Review {
 		this.history[$selectedElement.getAttribute('data-child')] = this.$reviewContent.value;
 	}
 
-	positionReview($el) {
+	positionReview($review) {
 		const windowWidth = window.innerWidth;
 		const articleWidth = this.$article.offsetWidth;
-		const breakpoint = 968;
+		const breakpoint = 993;
+		const reviewIsTarget = $review.hasAttribute('data-element');
+		const $target = reviewIsTarget ? document.querySelector(`[data-child='${$review.getAttribute('data-element')}']`) : $review;
 
-		const yPosition = windowWidth > breakpoint ? $el.offsetTop : $el.offsetTop + $el.offsetHeight;
-		const width = windowWidth > breakpoint ? `calc(${windowWidth - articleWidth}px - 2rem - ((100vw - 40em) / 5))` : 'calc(100vw - 2rem)';
+		$review = reviewIsTarget ? $review : this.$review;
 
-		this.$review.setAttribute('data-position', true);
-		this.$review.setAttribute('style', `top: ${yPosition}px;
-		width: ${width}`);
+		if ($target) {
+			const yPosition = windowWidth > breakpoint ? $target.offsetTop : $target.offsetTop + $target.offsetHeight;
+			const width = windowWidth > breakpoint ? `calc(${windowWidth - articleWidth}px - 2rem - ((100vw - 40em) / 5))` : 'calc(100vw - 2rem)';
 
-		this.showEl(this.$review, true);
+			$review.setAttribute('data-position', true);
+			$review.setAttribute('style', `top: ${yPosition}px; width: ${width}`);
+		}
 	}
 
 	closeReview(e) {

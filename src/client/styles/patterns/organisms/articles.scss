@@ -10,7 +10,8 @@
 	}
 }
 
-body:not(.no-js) .article[data-review=true] {
+body:not(.no-js) .article[data-review=true],
+body:not(.no-js) .article[data-align-reviews=true] {
 	padding-left: 0;
 	padding-right: 0;
 

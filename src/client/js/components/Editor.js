@@ -20,7 +20,6 @@ class Editor {
 
 	fillTextArea() {
 		const content = this.container.children[0].innerHTML;
-		console.log(content);
 		const contentEl = document.createElement('html');
 		contentEl.innerHTML = content;
 		[...contentEl.getElementsByTagName('body')[0].children].forEach((child, i) => {

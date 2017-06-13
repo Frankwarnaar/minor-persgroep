@@ -1,8 +1,14 @@
 <% extend('../_base/layout') %>
 
-<%- include('../patterns/organisms/article', {article: article, footer: true}); %>
 <% if (user) { %>
 	<% if (article.author._id == user._id) { %>
-		<%- include('../patterns/organisms/reviews', {user: user, article: article, edit: false}); %>
+		<main class="review-container">
+			<%- include('../patterns/organisms/article', {article: article, footer: true, alignReviews: true}); %>
+			<%- include('../patterns/organisms/reviews', {user: user, article: article, edit: false}); %>
+		</main>
+	<% } else { %>
+		<%- include('../patterns/organisms/article', {article: article, footer: true}); %>
 	<% } %>
-<% } %>	
+<% } else { %>
+	<%- include('../patterns/organisms/article', {article: article, footer: true}); %>
+<% } %>
