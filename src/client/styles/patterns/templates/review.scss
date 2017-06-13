@@ -1,5 +1,6 @@
 .review-container {
 	background: $color-gray-clouds;
+	min-height: calc(100vh - #{$nav-height});
 	overflow: hidden;
 
 	.article {

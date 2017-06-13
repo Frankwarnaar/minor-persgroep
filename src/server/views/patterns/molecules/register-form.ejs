@@ -15,7 +15,7 @@
 	<label for="author">
 		Ik ben een schrijver
 	</label>
-	<input type="submit" value="<%= prefill ? 'Wijzig' :  'Registreer' %>"/>
+	<input type="submit" value="<%= typeof(prefill) !== 'undefined' ? 'Wijzig' :  'Registreer' %>"/>
 	<% if (typeof(error) !== 'undefined') { %>
 		<p><%= error %></p>
 	<% } %>
