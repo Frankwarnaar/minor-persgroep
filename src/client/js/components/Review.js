@@ -34,7 +34,9 @@ class Review {
 		}
 		if (this.$reviews) {
 			[...this.$reviews].forEach($review => {
-				this.positionReview($review);
+				if (!$review.hasAttribute('data-closed')) {
+					this.positionReview($review);
+				}
 			});
 		}
 	}

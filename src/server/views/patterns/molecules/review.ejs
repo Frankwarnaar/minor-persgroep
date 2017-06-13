@@ -1,4 +1,10 @@
-<li class="review" id="<%= review._id %>" <%= review.element ? `data-element=${review.element}` : '' %> <%= review.accepted ? 'data-accepted' : '' %>>
+<li
+	class="review"
+	id="<%= review._id %>"
+	<%= review.element ? `data-element=${review.element}` : '' %> <%= review.accepted ? 'data-accepted' : '' %>
+	<%= review.closed ? 'data-closed' : '' %>
+	>
+
 	<p><%= review.review %></p>
 	<span>Type: <%= review.type %></span>
 	<% if (typeof(footer) !== 'undefined') { %>
