@@ -32,6 +32,7 @@ $ npm run dev
 ### Should haves
 * [x] Close reviews
 * [ ] Notify an author when there are new reviews on his/her article
+* [ ] Version control on articles to on what content reviews were done
 
 ### Could haves
 * [x] Review articles inline with javascript enhancement
@@ -48,7 +49,6 @@ $ npm run dev
 * [ ] Dashboard for authors and reviewers to watch their statistics
 * [ ] Create ranking with authors
 * [ ] General comments on articles
-* [ ] Version control on articles to on what content reviews were done
 
 ## Process
 
