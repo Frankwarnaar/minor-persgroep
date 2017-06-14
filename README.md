@@ -22,6 +22,8 @@ After installation, run:
 $ npm run dev
 ```
 
+## Features
+
 ### Must haves
 * [x] Create articles
 * [x] Edit articles
@@ -70,3 +72,67 @@ $ npm run dev
 ### Week 3
 * [x] Enhance inline reviewing (like Google Docs comments)
 * [ ] Display reviews inline (in review mode and at your articles)
+
+## Project structure
+
+### Code base
+
+* **src**: In the root there is a `src` folder. This folder contains all the original source code and files, before compiling, transpiling or compression.
+  * **client**: code used client side
+    * **img**: original images
+    * **styles**: styling done with scss
+      * **_helpers**: helper classes
+      * **_variables**: variables used for styling
+      * **base**: core layout syling
+      * **fonts**: styling code for fonts
+      * **patterns**: styling for components, by the [atomic design methodology](http://bradfrost.com/blog/post/atomic-web-design/).
+        * **atoms**: smallest components
+        * **molecules**: components that contain a group of atoms
+        * **organisms**: components that contains a group of molecules
+        * **tempaltes**: styling for template layouts
+      * **vendor**: third party styling
+     * **js**: javascript
+       * **components**: scripts used for components
+       * **watchers**: scripts that just listen to events
+  * **server**: code used server side
+    * **lib**: reusable code for the routes.
+    * **routes**: routers that handle requests for a certain part of the application
+    * **views**: templates that are being rendered for the user
+      * **patterns**: templates for components, , by the [atomic design methodology](http://bradfrost.com/blog/post/atomic-web-design/)
+        * **atoms**: smallest components
+        * **molecules**: components that contain a group of atoms
+        * **organisms**: components that contains a group of molecules
+
+### Data model
+
+In the database, there are the next collections:
+
+#### 1. users
+Users have the next keys:
+* `_id`: unique id (ObjectId)
+* `name` (object)
+  * `first`: first name (string)
+  * `last`: last name (string)
+* `email`: email adres (string)
+* `password`: hashed password (string)
+* `author`: Whether the user is an author or not (boolean)
+
+#### 2. articles
+Articles have the next keys:
+* `_id`: unique id (ObjectId)
+* `title`: title of the article (string)
+* `content`: content of the article (string)
+* `authorId`: id of the user that has written the article (ObjectId)
+* `timestamp`: epoch timestamp, of the moment of publication of the article (double)
+
+#### 3. reviews
+Reviews have the next keys:
+* `_id`: unique id (ObjectId)
+* `element`: data-child attribute of the child of the article the review has been done on (string)
+* `type`: type of review (string: `content`, `style` or `grammer`)
+* `articleId`: id of the article the review is about (ObjectId)
+* `userId`: id of the user who wrote the review (ObjectId)
+* `timestamp`: epoch timestamp of the moment the review has been published on (double)
+* `read`: Whether the author of the article has already been notified (boolean)
+* `handled`: Whether the review has already been handled (boolean)
+* `accepted`: whether the review has already been accepted (boolean)
