@@ -68,5 +68,5 @@ $ npm run dev
 * [x] Close reviews on your article
 
 ### Week 3
-* [ ] Enhance inline reviewing (like Google Docs comments)
+* [x] Enhance inline reviewing (like Google Docs comments)
 * [ ] Display reviews inline (in review mode and at your articles)
