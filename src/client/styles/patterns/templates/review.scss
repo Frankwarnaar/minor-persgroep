@@ -4,6 +4,7 @@
 	overflow: hidden;
 
 	.article,
+	.review-form:not([data-position=true]),
 	.editor {
 		margin-left: 0;
 		margin-right: auto;

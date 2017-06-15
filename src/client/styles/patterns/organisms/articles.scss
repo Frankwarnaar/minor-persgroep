@@ -31,38 +31,9 @@ body:not(.no-js) .article[data-align-reviews=true] {
 		}
 
 		@media screen and (min-width: $break-lg-min) {
-			&:hover button {
-				display: block;
+			&:hover .btn--review {
+				opacity: 1;
 			}
 		}
-	}
-
-	[data-child] button {
-		padding: .5rem;
-		width: 2.25rem;
-		height: 2.25rem;
-
-		position: relative;
-
-		background: $color-lightest;
-		border: 1px solid $color-gray-clouds;
-		border-radius: 50%;
-		cursor: pointer;
-
-		img {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-		}
-
-		@media screen and (min-width: $break-lg-min) {
-			display: none;
-			position: absolute;
-			right: 0;
-			top: 50%;
-			transform: translate(50%, -50%);
-		}
-
 	}
 }

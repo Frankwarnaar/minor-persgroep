@@ -40,3 +40,35 @@ button,
 		}
 	}
 }
+
+.btn--review {
+	padding: .5rem;
+	width: 2.25rem;
+	height: 2.25rem;
+
+	position: relative;
+
+	background: $color-lightest;
+	border: 1px solid $color-gray-clouds;
+	border-radius: 50%;
+	cursor: pointer;
+
+	img {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	@media screen and (min-width: $break-lg-min) {
+		opacity: 0;
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translate(50%, -50%);
+
+		&:focus {
+			opacity: 1;
+		}
+	}
+}

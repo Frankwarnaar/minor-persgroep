@@ -2,12 +2,13 @@
 	class="review"
 	id="<%= review._id %>"
 	<%= review.element ? `data-element=${review.element}` : '' %> <%= review.accepted ? 'data-accepted' : '' %>
-	<%= review.closed ? 'data-closed' : '' %>
+	<%= review.handled ? 'data-handled' : '' %>
 	>
 
+	<button data-close-review class="hidden">X</button>
 	<p><%= review.review %></p>
 	<span>Type: <%= review.type %></span>
-	<% if (typeof(footer) !== 'undefined') { %>
+	<% if (typeof(footer) !== 'undefined' && !review.accepted) { %>
 		<% if (footer) { %>
 			<footer>
 

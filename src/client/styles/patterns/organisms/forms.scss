@@ -1,3 +1,11 @@
 form {
-	@extend .article;
+	padding: 1em;
+	margin: 0 auto;
+	margin-bottom: 1rem;
+	max-width: 40em;
+	background: $color-lightest;
+
+	h1 {
+		color: $color-primary;
+	}
 }

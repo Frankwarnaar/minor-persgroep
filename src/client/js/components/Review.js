@@ -1,12 +1,13 @@
 const StretchTextareas = require('../watchers/stretch-textareas.js');
+const getPosition = require('../utils/getPosition.js');
 
 const stretchTextareas = new StretchTextareas();
 
 class Review {
 	constructor() {
-		this.$article = document.querySelector('[data-align-reviews=true]');
+		this.$article = document.querySelector('[data-align-reviews=true]') || document.getElementsByClassName('ql-editor')[0];
 		this.$review = document.getElementsByClassName('review-form')[0];
-		this.$closeReview = document.getElementById('close-review');
+		this.$closeReviews = document.querySelectorAll('[data-close-review]');
 		this.$reviewElement = document.querySelector('[name=review-element]');
 		this.$reviewContent = document.querySelector('[name=review]');
 		this.$reviews = document.querySelectorAll('.review[data-element]');
@@ -19,23 +20,27 @@ class Review {
 		if (this.$article) {
 			this.originalContent = this.$article.innerHTML;
 
-			if (this.$article.hasAttribute('data-review=true')) {
+			if (this.$article.getAttribute('data-review') === 'true') {
 				this.setupReviewButtons();
 			}
 
 			this.bindEvents();
 		}
 
-		if (this.$closeReview) {
-			this.showEl(this.$closeReview, true);
-		}
 		if (this.$review) {
 			this.showEl(this.$review, false);
 		}
 		if (this.$reviews) {
 			[...this.$reviews].forEach($review => {
-				if (!$review.hasAttribute('data-closed')) {
+				if (!$review.hasAttribute('data-handled')) {
 					this.positionReview($review);
+				}
+			});
+		}
+		if (this.$closeReviews) {
+			[...this.$closeReviews].forEach($closeReview => {
+				if ($closeReview.parentElement.hasAttribute('data-position')) {
+					this.showEl($closeReview, true);
 				}
 			});
 		}
@@ -44,22 +49,27 @@ class Review {
 	setupReviewButtons() {
 		this.$articleElements = document.querySelectorAll('[data-child]');
 
-		this.$reviewButtons = [...this.$articleElements].map(child => {
-			const button = document.createElement('button');
-			const img = document.createElement('img');
+		this.$reviewButtons = [...this.$articleElements].map($child => {
+			const $button = document.createElement('button');
+			const $img = document.createElement('img');
 
-			img.setAttribute('src', '/img/icons/review.svg');
-			img.setAttribute('alt', 'review');
-			button.appendChild(img);
-			child.appendChild(button);
+			$button.classList.add('btn--review');
 
-			return button;
+			$img.setAttribute('src', '/img/icons/review.svg');
+			$img.setAttribute('alt', 'review');
+
+			$button.appendChild($img);
+			$child.appendChild($button);
+
+			return $button;
 		});
 	}
 
 	bindEvents() {
-		if (this.$closeReview) {
-			this.$closeReview.addEventListener('click', this.closeReview.bind(this));
+		if (this.$closeReviews) {
+			[...this.$closeReviews].forEach($closeReview => {
+				$closeReview.addEventListener('click', this.closeReview.bind(this));
+			});
 		}
 
 		if (this.$reviewButtons) {
@@ -92,9 +102,11 @@ class Review {
 	}
 
 	removeSelection() {
-		[...this.$articleElements].forEach($element => {
-			$element.classList.remove('highlight');
-		});
+		if (this.$articleElements) {
+			[...this.$articleElements].forEach($element => {
+				$element.classList.remove('highlight');
+			});
+		}
 	}
 
 	setReviewContent($element) {
@@ -108,16 +120,21 @@ class Review {
 
 	positionReview($review) {
 		const windowWidth = window.innerWidth;
-		const articleWidth = this.$article.offsetWidth;
+		const articleWidth = this.$article.classList.contains('ql-editor') ? this.$article.offsetWidth + (2 * 16) :  this.$article.offsetWidth;
 		const breakpoint = 993;
 		const reviewIsTarget = $review.hasAttribute('data-element');
-		const $target = reviewIsTarget ? document.querySelector(`[data-child='${$review.getAttribute('data-element')}']`) : $review;
+		let $target = reviewIsTarget ? document.querySelector(`[data-child='${$review.getAttribute('data-element')}']`) : $review;
+
+		if (!$target) {
+			$target = document.getElementsByClassName('ql-editor')[0].children[$review.getAttribute('data-element')];
+		}
 
 		$review = reviewIsTarget ? $review : this.$review;
 
 		if ($target) {
-			const yPosition = windowWidth > breakpoint ? $target.offsetTop : $target.offsetTop + $target.offsetHeight;
+			const yPosition = windowWidth > breakpoint ? getPosition($target).y : getPosition($target).y +  $target.offsetHeight;
 			const width = windowWidth > breakpoint ? `calc(${windowWidth - articleWidth}px - 2rem - ((100vw - 40em) / 5))` : 'calc(100vw - 2rem)';
+			console.log($target, $target.offsetTop);
 
 			$review.setAttribute('data-position', true);
 			$review.setAttribute('style', `top: ${yPosition}px; width: ${width}`);
@@ -125,7 +142,7 @@ class Review {
 	}
 
 	closeReview(e) {
-		this.showEl(this.$review, false);
+		this.showEl(e.target.parentElement, false);
 		this.removeSelection();
 		e.preventDefault();
 	}

@@ -1,7 +1,7 @@
 <form class="review-form" method="POST">
 	<header>
 		<h2>Review artikel</h2>
-		<button id="close-review" class="hidden">X</button>
+		<button data-close-review class="hidden">X</button>
 	</header>
 	<input type="hidden" name="review-element"/>
 	<label>
@@ -15,7 +15,8 @@
 			<option value="syntax">Grammaticaal</option>
 			<option value="style">Stijl</option>
 			<option value="content">Inhoud</option>
+			<option value="layout">Opmaak</option>
 		</select>
 	</label>
-	<input type="submit" value="Ok">
+	<input type="submit" value="Verzend">
 </form>
