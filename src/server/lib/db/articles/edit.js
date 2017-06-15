@@ -1,4 +1,4 @@
-const ObjectId = require('mongodb').ObjectID;
+const {ObjectId} = require('mongodb');
 
 function postArticle(db, article, id) {
 	return db.collection('articles').update(

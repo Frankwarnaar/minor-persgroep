@@ -1,9 +1,9 @@
-const express = require('express');
+const {Router} = require('express');
 
 const db = require('../lib/db/index');
 const forceLogin = require('../lib/forceLogin');
 
-const router = express.Router()
+const router = Router()
 	.use(forceLogin)
 	.get('/:_id', getReview)
 	.post('/:_id', postReview)

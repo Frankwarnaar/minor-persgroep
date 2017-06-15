@@ -1,9 +1,9 @@
-const express = require('express');
+const {Router} = require('express');
 
 const db = require('../lib/db/index.js');
 const forceLogin = require('../lib/forceLogin.js');
 
-const router = express.Router()
+const router = Router()
 	.use(forceLogin)
 	.get('/', getNotifications);
 

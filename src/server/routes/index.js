@@ -1,8 +1,8 @@
-const express = require('express');
+const {Router} = require('express');
 
 const db = require('../lib/db/index');
 
-const router = express.Router()
+const router = Router()
 	.get('/', renderIndex);
 
 function renderIndex(req, res) {

@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const compression = require('compression');
 const staticAsset = require('static-asset');
-const MongoClient = require('mongodb').MongoClient;
+const {MongoClient} = require('mongodb');
 const session = require('express-session');
 
 const port = process.env.PORT || 4000;

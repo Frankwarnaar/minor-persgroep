@@ -1,4 +1,4 @@
-const ObjectId = require('mongodb').ObjectID;
+const {ObjectId} = require('mongodb');
 
 function insert(db, review, articleId, userId) {
 	return db.collection('reviews').insert({

@@ -1,4 +1,4 @@
-const ObjectId = require('mongodb').ObjectID;
+const {ObjectId} = require('mongodb');
 
 function getArticle(db, id, cb) {
 	db.collection('articles').aggregate([
