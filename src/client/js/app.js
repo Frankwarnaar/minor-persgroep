@@ -1,23 +1,23 @@
 (() => {
 	document.body.classList.remove('no-js');
 
-	const App = require('./modules/App.js');
-	const app = new App();
-
 	/*  ===================================================
 		Components
 		=================================================== */
 
 	const Editor = require('./components/Editor.js');
 	const Review = require('./components/Review.js');
+	const Notifications = require('./components/Notifications.js');
 
-	const editor = new Editor();
-	const review = new Review();
+	new Editor();
+	new Review();
+	new Notifications();
 
 	/*  ===================================================
 		Watchers
 		=================================================== */
 
 	const StretchTextareas = require('./watchers/stretch-textareas.js');
-	const stretchTextareas = new StretchTextareas();
+
+	new StretchTextareas();
 })();
