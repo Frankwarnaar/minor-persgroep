@@ -1,9 +1,9 @@
-const express = require('express');
+const {Router} = require('express');
 
 const forceLogin = require('../lib/forceLogin');
 const db = require('../lib/db/index');
 
-const router = express.Router()
+const router = Router()
 	.get('/single/:_id', getArticle)
 	.use(forceLogin)
 	.get('/new', getNewArticle)

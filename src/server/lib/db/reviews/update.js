@@ -1,4 +1,4 @@
-const ObjectId = require('mongodb').ObjectID;
+const {ObjectId} = require('mongodb');
 
 function update(db, reviewId, open, accepted) {
 	return db.collection('reviews').update(

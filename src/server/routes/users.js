@@ -1,10 +1,10 @@
-const express = require('express');
+const {Router} = require('express');
 const bcrypt = require('bcrypt');
-const ObjectId = require('mongodb').ObjectID;
+const {ObjectId} = require('mongodb');
 
 const forceLogin = require('../lib/forceLogin.js');
 
-const router = express.Router()
+const router = Router()
 	.get('/login', getLogin)
 	.post('/login', postLogin)
 	.get('/register', getRegister)

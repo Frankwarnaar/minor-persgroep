@@ -1,4 +1,4 @@
-const ObjectId = require('mongodb').ObjectID;
+const {ObjectId} = require('mongodb');
 
 function getNotifications(db, userId, cb) {
 	db.collection('reviews').aggregate([
