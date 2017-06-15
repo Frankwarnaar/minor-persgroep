@@ -43,7 +43,7 @@ app
 	.use(bodyParser())
 	.use(staticAsset(path.join(__dirname, baseDir)))
 	.use(express.static(path.join(__dirname, baseDir), {
-		maxAge: 365 * 24 * 60 * 60
+		maxAge: 365 * 24 * 60 * 60 * 1000
 	}))
 	.use(session(sessionConfig))
 	.use(mongoMiddleware)

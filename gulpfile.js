@@ -47,7 +47,7 @@ gulp.task('default', () => {
 });
 
 gulp.task('build', () => {
-	sequence(['clean', 'disable-debug'], ['styles', 'watchify', 'images', 'fonts']);
+	sequence(['clean', 'disable-debug'], ['styles', 'watchify', 'images']);
 });
 
 gulp.task('clean', () => {
