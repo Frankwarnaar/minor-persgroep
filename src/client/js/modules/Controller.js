@@ -3,9 +3,7 @@ class Controller {
 		this.app = app;
 	}
 
-	init() {
-		
-	}
+	init() {}
 }
 
 module.exports = Controller;

@@ -1,4 +1,4 @@
-//source:  https://www.kirupa.com/html5/get_element_position_using_javascript.htm
+// source:  https://www.kirupa.com/html5/get_element_position_using_javascript.htm
 function getPosition($el) {
 	let xPos = 0;
 	let yPos = 0;
