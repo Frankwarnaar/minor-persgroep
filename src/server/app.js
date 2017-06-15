@@ -34,8 +34,8 @@ express()
 	.set('view engine', 'ejs')
 	.use(compression())
 	.use(bodyParser())
-	.use(staticAsset(`${__dirname}/${baseDir}`))
-	.use(express.static(`${__dirname}/${baseDir}`, {
+	.use(staticAsset(path.join(__dirname, baseDir)))
+	.use(express.static(path.join(__dirname, baseDir), {
 		maxAge: 365 * 24 * 60 * 60
 	}))
 	.use(session(sessionConfig))
