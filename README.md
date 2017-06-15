@@ -33,14 +33,13 @@ $ npm run dev
 
 ### Should haves
 * [x] Close reviews
+* [ ] Show reviews, aligned to the selected paragraph / title
 * [ ] Notify an author when there are new reviews on his/her article
 * [ ] Version control on articles to on what content reviews were done
 
 ### Could haves
-* [x] Review articles inline with javascript enhancement
 * [ ] Save reviews realtime
 * [ ] Review offline, and publish these reviews when connection is reastablished
-* [ ] Show reviews, aligned to the selected paragraph / title
 * [ ] Review articles offline and publish your review later
 * [ ] Show when someone else is reviewing the same article as you
 * [ ] Comment on reviews
