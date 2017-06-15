@@ -7,7 +7,7 @@ This app is a plaform for young writers. Young people (20 - 30 years old) seem t
 Within the platform, writers can review articles from other people. This way, writers can learn from others, and the platform becomes a community. Reviewers receive score for their reviews. The amount of score relies on the type of review (syntax, style or content). With this score, a ranking is made up of best reviewers. The best reviewers might be rewarded with payments from De Persgroep. For the Persgroep, it is interesting to reward reviewers, because they make the content on their platform better. This should lead to more visitors.
 
 ## Installation
-The first is [setting up a mongo database](http://mongodb.github.io/node-mongodb-native/2.2/quick-start/quick-start/). Make sure you edit the url to the database in `cfg.js`, after cloning, in the root of the project to the url of your database.
+The first is [setting up a mongo database](http://mongodb.github.io/node-mongodb-native/2.2/quick-start/quick-start/). Make sure you edit the url to the database in `.env`, after cloning, in the root of the project to the url of your database.
 
 ```console
 git clone https://github.com/Frankwarnaar/minor-persgroep.git
