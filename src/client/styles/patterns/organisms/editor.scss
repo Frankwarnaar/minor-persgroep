@@ -5,14 +5,50 @@
 	background: $color-lightest;
 }
 
+.ql-container {
+	font-size: $font-size-base;
+}
+
 .ql-editor {
 	h1,
 	h2,
 	h3,
 	h4,
 	h5,
-	h6,
+	h6 {
+		margin: .8em 0;
+
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+	h1 {
+		font-size: $font-size-xxxl;
+	}
+
+	h2 {
+		font-size: $font-size-xxl;
+	}
+
+	h3 {
+		font-size: $font-size-xl;
+	}
+
+	h4 {
+		font-size: $font-size-lg;
+	}
+
+	h5 {
+		font-size: $font-size-md;
+	}
+
+	h6 {
+		font-size: $font-size-sm;
+	}
+
 	p {
-		margin-bottom: .8rem;
+		line-height: 150%;
+		margin-bottom: .8em;
 	}
 }
