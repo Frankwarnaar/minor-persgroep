@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const assert = require('assert');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -13,7 +15,6 @@ const port = process.env.PORT || 4000;
 const host = process.env.HOST || '0.0.0.0';
 const baseDir = '../../dist';
 
-const cfg = require('../../cfg.js');
 const indexRouter = require('./routes/index.js');
 const usersRouter = require('./routes/users.js');
 const articlesRouter = require('./routes/articles.js');
@@ -51,7 +52,7 @@ express()
 	});
 
 function mongoMiddleware(req, res, next) {
-	MongoClient.connect(cfg.db, (err, db) => {
+	MongoClient.connect(process.env.DB_URL, (err, db) => {
 		assert.equal(null, err);
 		req.db = db;
 		next();
