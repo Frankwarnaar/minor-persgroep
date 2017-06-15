@@ -33,8 +33,8 @@ npm run dev
 
 ### Should haves
 * [x] Close reviews
-* [ ] Show reviews, aligned to the selected paragraph / title
-* [ ] Notify an author when there are new reviews on his/her article
+* [x] Show reviews, aligned to the selected paragraph / title
+* [x] Notify an author when there are new reviews on his/her article
 * [ ] Version control on articles to on what content reviews were done
 
 ### Could haves
