@@ -31,7 +31,8 @@
     "lodash.debounce": "^4.0.8",
     "mongodb": "^2.2.27",
     "quill": "^1.2.5",
-    "static-asset": "^0.6.0"
+    "static-asset": "^0.6.0",
+    "ws": "^3.0.0"
   },
   "xo": {
     "ignores": [
@@ -46,9 +47,11 @@
       "one-var": 0,
       "no-unused-vars": 1,
       "no-undef": 1,
+      "no-new": 0,
       "unicorn/filename-case": 0,
       "quotes": 1,
       "new-cap": 0,
+      "import/order": 0,
       "import/no-extraneous-dependencies": 1,
       "camelcase": 1,
       "no-negated-condition": 0,

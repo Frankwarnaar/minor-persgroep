@@ -15,7 +15,10 @@ function getNotifications(req, res) {
 
 		db.notifications.update(req.db, reviews);
 
-		res.render('notifications/index', {reviews});
+		res.render('notifications/index', {
+			reviews,
+			notifications: 0
+		});
 	});
 }
 

@@ -4,16 +4,29 @@ require('dotenv').config();
 
 const assert = require('assert');
 const path = require('path');
+const http = require('http');
 const bodyParser = require('body-parser');
 const express = require('express');
 const compression = require('compression');
 const staticAsset = require('static-asset');
 const {MongoClient} = require('mongodb');
 const session = require('express-session');
+const WebSocketServer = require('ws').Server;
 
 const port = process.env.PORT || 4000;
 const host = process.env.HOST || '0.0.0.0';
 const baseDir = '../../dist';
+
+const sessionConfig = {
+	secret: 'fhdsbafjayw4fsdalw74ilufsdwi',
+	resave: false,
+	saveUninitialized: true
+};
+
+const app = express();
+const server = http.createServer(app)
+	.listen(8000);
+module.exports = new WebSocketServer({server});
 
 const indexRouter = require('./routes/index.js');
 const usersRouter = require('./routes/users.js');
@@ -22,15 +35,9 @@ const reviewRouter = require('./routes/review.js');
 const notificationsRouter = require('./routes/notifications.js');
 const db = require('./lib/db/index.js');
 
-const sessionConfig = {
-	secret: 'fhdsbafjayw4fsdalw74ilufsdwi',
-	resave: false,
-	saveUninitialized: true
-};
-
-express()
+app
 	.engine('ejs', require('express-ejs-extend'))
-	.set('views', path.join(`${__dirname}/views`))
+	.set('views', path.join(__dirname, './views'))
 	.set('view engine', 'ejs')
 	.use(compression())
 	.use(bodyParser())
@@ -52,9 +59,8 @@ express()
 	});
 
 function mongoMiddleware(req, res, next) {
-	MongoClient.connect(process.env.DB_URL, (err, db) => {
-		assert.equal(null, err);
-		req.db = db;
+	db.connect(database => {
+		req.db = database;
 		next();
 	});
 }
@@ -68,10 +74,10 @@ function notifcationsMiddleware(req, res, next) {
 	if (req.session.user) {
 		db.notifications.get(req.db, req.session.user._id, (err, results) => {
 			res.locals.notifications = results.length;
+			next();
 		});
 	} else {
 		res.locals.notifications = 0;
+		next();
 	}
-
-	next();
 }

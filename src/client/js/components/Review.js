@@ -1,7 +1,7 @@
 const StretchTextareas = require('../watchers/stretch-textareas.js');
 const getPosition = require('../utils/getPosition.js');
 
-const stretchTextareas = new StretchTextareas();
+new StretchTextareas();
 
 class Review {
 	constructor() {
@@ -134,7 +134,6 @@ class Review {
 		if ($target) {
 			const yPosition = windowWidth > breakpoint ? getPosition($target).y : getPosition($target).y +  $target.offsetHeight;
 			const width = windowWidth > breakpoint ? `calc(${windowWidth - articleWidth}px - 2rem - ((100vw - 40em) / 5))` : 'calc(100vw - 2rem)';
-			console.log($target, $target.offsetTop);
 
 			$review.setAttribute('data-position', true);
 			$review.setAttribute('style', `top: ${yPosition}px; width: ${width}`);
