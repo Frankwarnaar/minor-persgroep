@@ -1,6 +1,8 @@
 const express = require('express');
 const ObjectId = require('mongodb').ObjectID;
 
+const db = require('../lib/db/index.js');
+
 const forceLogin = require('../lib/forceLogin.js');
 
 const router = express.Router()
@@ -8,44 +10,12 @@ const router = express.Router()
 	.get('/', getNotifications);
 
 function getNotifications(req, res) {
-	req.db.collection('reviews').aggregate([
-		{$match: {read: false}},
-		{$lookup: {
-			from: 'articles',
-			localField: 'articleId',
-			foreignField: '_id',
-			as: 'article'
-		}},
-		{$match: {'article.authorId': ObjectId(req.session.user._id)}},
-		{$unwind: {
-			path: '$article',
-			preserveNullAndEmptyArrays: true
-		}},
-		{$lookup: {
-			from: 'users',
-			localField: 'userId',
-			foreignField: '_id',
-			as: 'reviewer'
-		}},
-		{$unwind: {
-			path: '$reviewer',
-			preserveNullAndEmptyArrays: true
-		}}
-	], (err, reviews) => {
+	db.notifications.get(req.db, req.session.user._id, (err, reviews) => {
 		if (err) {
 			res.sendStatus(404);
 		}
-		reviews.forEach(review => {
-			console.log(review._id);
-			req.db.collection('reviews').update(
-				{_id: ObjectId(review._id)},
-				{
-					$set: {
-						read: true
-					}
-				}
-			);
-		});
+
+		db.notifications.update(req.db, reviews);
 
 		res.render('notifications/index', {reviews});
 	});

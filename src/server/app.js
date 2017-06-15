@@ -19,6 +19,7 @@ const usersRouter = require('./routes/users.js');
 const articlesRouter = require('./routes/articles.js');
 const reviewRouter = require('./routes/review.js');
 const notificationsRouter = require('./routes/notifications.js');
+const db = require('./lib/db/index.js');
 
 const sessionConfig = {
 	secret: 'fhdsbafjayw4fsdalw74ilufsdwi',
@@ -36,9 +37,10 @@ express()
 	.use(express.static(`${__dirname}/${baseDir}`, {
 		maxAge: 365 * 24 * 60 * 60
 	}))
-	.use(mongoMiddleware)
 	.use(session(sessionConfig))
+	.use(mongoMiddleware)
 	.use(loginMiddleware)
+	.use(notifcationsMiddleware)
 	.use('/', indexRouter)
 	.use('/users', usersRouter)
 	.use('/articles', articlesRouter)
@@ -58,5 +60,17 @@ function mongoMiddleware(req, res, next) {
 
 function loginMiddleware(req, res, next) {
 	res.locals.user = req.session.user;
+	next();
+}
+
+function notifcationsMiddleware(req, res, next) {
+	if (req.session.user) {
+		db.notifications.get(req.db, req.session.user._id, (err, results) => {
+			res.locals.notifications = results.length;
+		});
+	} else {
+		res.locals.notifications = 0;
+	}
+
 	next();
 }

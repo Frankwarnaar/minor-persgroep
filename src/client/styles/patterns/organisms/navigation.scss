@@ -43,6 +43,24 @@
 		}
 	}
 
+	a[href='/notifications'] {
+		display: flex;
+
+		color: $color-darkest;
+
+		label {
+			cursor: pointer;
+		}
+
+		&[data-has-notifications] {
+			color: $color-highlight-error;
+
+			svg path {
+				fill: $color-highlight-error;
+			}
+		}
+	}
+
 	a:not(.btn) {
 		height: 100%;
 		line-height: $nav-height;
@@ -60,7 +78,7 @@
 
 	svg {
 		path {
-			fill: $color-gray-concrete;
+			fill: $color-darkest;
 		}
 	}
 }
