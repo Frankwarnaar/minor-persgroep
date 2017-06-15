@@ -46,6 +46,14 @@
 		font-size: $font-size-sm;
 		border: none;
 
+		&:target {
+			background: $color-highlight-info-lightest;
+
+			form {
+				background: $color-highlight-info-lightest;
+			}
+		}
+
 		// display: none;
 
 		// &:first-of-type {

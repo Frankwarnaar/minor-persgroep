@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/server/app.js",
     "dev": "gulp",
-    "build": "gulp build"
+    "build": "gulp build",
+    "test": "xo"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "compression": "^1.6.2",
+    "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "express-ejs-extend": "0.0.1",
     "express-session": "^1.15.3",
@@ -38,6 +40,7 @@
     "rules": {
       "capitalized-comments": 0,
       "eol-last": 0,
+      "eqeqeq": 1,
       "no-unused-expressions": 1,
       "no-multi-spaces": 0,
       "one-var": 0,
@@ -61,7 +64,11 @@
       "unicorn/custom-error-definition": 0,
       "unicorn/prefer-starts-ends-with": 0,
       "unicorn/prefer-type-error": 0
-    }
+    },
+    "globals": [
+      "document",
+      "window"
+    ]
   },
   "engines": {
     "node": "7.8.0",
