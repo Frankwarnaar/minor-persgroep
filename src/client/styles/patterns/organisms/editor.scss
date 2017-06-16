@@ -23,6 +23,15 @@
 		}
 	}
 
+	.highlight {
+		margin-left: -1rem;
+		margin-right: -1rem;
+		padding-left: 1rem;
+		padding-right: 1rem;
+
+		background: $color-highlight-info-lightest;
+	}
+
 	h1 {
 		font-size: $font-size-xxxl;
 	}

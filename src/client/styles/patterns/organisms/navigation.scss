@@ -1,6 +1,6 @@
 .navigation {
 	padding: 0 1rem;
-	height: $nav-height;
+	height: $nav-height-mobile;
 	background: $color-lightest;
 	border-bottom: 1px solid $color-gray-clouds;
 
@@ -12,6 +12,10 @@
 
 	display: flex;
 	justify-content: space-between;
+
+	@media screen and (min-width: $break-sm-min) {
+		height: $nav-height;
+	}
 
 	ul,
 	li,
@@ -34,8 +38,16 @@
 		flex-direction: column;
 		justify-content: center;
 
+		@media screen and (max-width: $break-sm) {
+			display: none;
+		}
+
 		&:first-child {
 			padding-left: 0;
+
+			@media screen and (max-width: $break-sm) {
+				display: flex;
+			}
 		}
 
 		&:last-child {
@@ -67,7 +79,7 @@
 	}
 
 	img {
-		padding: .325rem;
+		padding: .325rem 0;
 		width: auto;
 	}
 
