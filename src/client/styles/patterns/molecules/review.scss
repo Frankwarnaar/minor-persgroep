@@ -46,6 +46,7 @@
 		background: $color-lightest;
 		font-size: $font-size-sm;
 		border: none;
+		z-index: 1;
 
 		@media screen and (min-width: $break-lg-min) {
 			left: calc(40rem + 1rem + ((100vw - 40rem) / 5));

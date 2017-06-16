@@ -20,9 +20,13 @@ class Review {
 		if (this.$article) {
 			this.originalContent = this.$article.innerHTML;
 
-			this.setupReviewButtons('review');
 			if (this.$article.getAttribute('data-review') === 'true') {
 				this.setupReviewButtons('form');
+			}
+			if (this.$article.classList.contains('ql-editor')) {
+				this.setupEditorButtons();
+			} else {
+				this.setupReviewButtons('review');
 			}
 
 			this.bindEvents();
@@ -81,6 +85,34 @@ class Review {
 		});
 	}
 
+	setupEditorButtons() {
+		const $title = document.querySelector('[data-child="title"]');
+		const $children = [...document.querySelectorAll('.ql-editor > *')];
+		$children.push($title);
+
+		this.$reviewButtons = [...$children].map(($child, i) => {
+			const $button = document.createElement('button');
+			const dataChild = $child.getAttribute('data-child') || i;
+
+			const $reviews = document.querySelectorAll(`[data-element="${dataChild}"]:not([data-handled])`);
+			const count = $reviews.length;
+
+			$button.classList.add('btn--review');
+			if (count > 0) {
+				$button.innerHTML = $reviews.length;
+				$button.setAttribute('data-show-reviews', 'true');
+				$button.setAttribute('data-element', dataChild);
+			}
+
+			if ($button.innerHTML) {
+				document.querySelector('[data-open-reviews]').appendChild($button);
+				this.positionReview($button, true);
+			}
+
+			return $button;
+		});
+	}
+
 	bindEvents() {
 		if (this.$closeReviews) {
 			[...this.$closeReviews].forEach($closeReview => {
@@ -109,13 +141,18 @@ class Review {
 		$el.classList[show ? 'remove' : 'add']('hidden');
 	}
 
-	onReviewButtonClick($button) {
-		const $parent = $button.parentElement;
+	onReviewButtonClick($button, $parent) {
+		const dataElement = $button.getAttribute('data-element');
+		if (dataElement) {
+			$parent = document.querySelector('.ql-editor').children[dataElement];
+		} else {
+			$parent = $parent.classList ? $parent : $button.parentElement;
+		}
 
 		if ($button.hasAttribute('data-show-review-form')) {
 			this.showReviewForm($parent);
 		} else {
-			this.showReviews($parent);
+			this.showReviews($parent, dataElement || $parent.getAttribute('data-child'));
 		}
 	}
 
@@ -137,10 +174,10 @@ class Review {
 		this.$previousParent = $parent;
 	}
 
-	showReviews($parent) {
+	showReviews($parent, dataChild) {
 		this.removeSelection();
 		$parent.classList.add('highlight');
-		const $reviews = document.querySelectorAll(`[data-element="${$parent.getAttribute('data-child')}"]`);
+		const $reviews = document.querySelectorAll(`[data-element="${dataChild}"]`);
 		[...$reviews].forEach($review => this.showEl($review, true));
 	}
 
@@ -161,7 +198,7 @@ class Review {
 		this.history[$selectedElement.getAttribute('data-child')] = this.$reviewContent.value;
 	}
 
-	positionReview($review) {
+	positionReview($review, isButton) {
 		const windowWidth = window.innerWidth;
 		const articleWidth = this.$article.classList.contains('ql-editor') ? this.$article.offsetWidth + (2 * 16) :  this.$article.offsetWidth;
 		const breakpoint = 993;
@@ -179,10 +216,11 @@ class Review {
 			const width = windowWidth > breakpoint ? `calc(${windowWidth - articleWidth}px - 2rem - ((100vw - 40em) / 5))` : 'calc(100vw - 2rem)';
 
 			$review.setAttribute('data-position', true);
-			$review.setAttribute('style', `top: ${yPosition}px; width: ${width}`);
+			$review.setAttribute('data-is-button', true);
+			$review.setAttribute('style', `top: ${yPosition}px; ${!isButton ? 'width: ' + width : ''}`);
 		}
 
-		if (reviewIsTarget && `#${$review.getAttribute('id')}` !== window.location.hash) {
+		if (reviewIsTarget && `#${$review.getAttribute('id')}` !== window.location.hash && !isButton) {
 			this.showEl($review, false);
 		}
 	}

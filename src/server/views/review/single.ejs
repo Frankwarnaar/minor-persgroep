@@ -3,7 +3,8 @@
 <main class="review-container">
 	<%- include('../patterns/organisms/article', {article: article, review: true, alignReviews: true}) %>
 
+	<%- include('../patterns/molecules/review-form.ejs'); %>
+
 	<%- include('../patterns/organisms/reviews', {user: user, article: article, edit: false}); %>
 
-	<%- include('../patterns/molecules/review-form.ejs'); %>
 </main>

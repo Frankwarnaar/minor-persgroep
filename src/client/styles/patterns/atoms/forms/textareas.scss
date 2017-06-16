@@ -19,10 +19,13 @@ textarea {
 	}
 
 	&[data-stretch] {
-		height: 2rem;
 		resize: none;
-		overflow: hidden;
 		min-height: 2rem;
 		max-height: 100px;
 	}
+}
+
+body:not(.no-js) [data-stretch] {
+	overflow: hidden;
+	height: 2rem;
 }

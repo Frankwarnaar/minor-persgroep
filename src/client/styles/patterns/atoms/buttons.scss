@@ -61,6 +61,19 @@ button,
 		color: $color-primary;
 	}
 
+	@media screen and (min-width: $break-lg-min) {
+		opacity: 0;
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translate(50%, -50%);
+		-ms-transform: translate(50%, -50%);
+
+		&:focus {
+			opacity: 1;
+		}
+	}
+
 	img {
 		position: absolute;
 		top: 50%;
@@ -72,25 +85,25 @@ button,
 		padding-top: 0;
 		color: $color-darkest;
 		font-size: $font-size-xs;
-	}
 
-	@media screen and (min-width: $break-lg-min) {
-		opacity: 0;
-		position: absolute;
-		right: 0;
-		top: 50%;
-		transform: translate(50%, -50%);
-		-ms-transform: translate(50%, -50%);
-
-		&[data-show-reviews] {
+		@media screen and (min-width: $break-lg-min) {
 			opacity: 1;
 
 			transform: translate(150%, -50%);
 			-ms-transform: translate(150%, -50%);
 		}
+	}
 
-		&:focus {
-			opacity: 1;
+	&[data-is-button] {
+		position: absolute;
+		right: 0;
+
+		transform: translateY(50%);
+		-ms-transform: translateY(50%);
+
+		@media screen and (min-width: $break-lg-min) {
+			left: calc(40rem + 1rem + ((100vw - 40rem) / 5));
+			right: auto;
 		}
 	}
 }
