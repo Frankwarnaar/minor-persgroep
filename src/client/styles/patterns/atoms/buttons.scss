@@ -51,7 +51,15 @@ button,
 	background: $color-lightest;
 	border: 1px solid $color-gray-clouds;
 	border-radius: 50%;
+	line-height: auto;
 	cursor: pointer;
+
+	&:hover,
+	&:focus {
+		background: $color-lightest;
+		border-color: $color-primary;
+		color: $color-primary;
+	}
 
 	img {
 		position: absolute;
@@ -60,12 +68,26 @@ button,
 		transform: translate(-50%, -50%);
 	}
 
+	&[data-show-reviews] {
+		padding-top: 0;
+		color: $color-darkest;
+		font-size: $font-size-xs;
+	}
+
 	@media screen and (min-width: $break-lg-min) {
 		opacity: 0;
 		position: absolute;
 		right: 0;
 		top: 50%;
 		transform: translate(50%, -50%);
+		-ms-transform: translate(50%, -50%);
+
+		&[data-show-reviews] {
+			opacity: 1;
+
+			transform: translate(150%, -50%);
+			-ms-transform: translate(150%, -50%);
+		}
 
 		&:focus {
 			opacity: 1;

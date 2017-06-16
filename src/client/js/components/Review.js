@@ -20,8 +20,9 @@ class Review {
 		if (this.$article) {
 			this.originalContent = this.$article.innerHTML;
 
+			this.setupReviewButtons('review');
 			if (this.$article.getAttribute('data-review') === 'true') {
-				this.setupReviewButtons();
+				this.setupReviewButtons('form');
 			}
 
 			this.bindEvents();
@@ -46,20 +47,35 @@ class Review {
 		}
 	}
 
-	setupReviewButtons() {
+	setupReviewButtons(type) {
 		this.$articleElements = document.querySelectorAll('[data-child]');
 
-		this.$reviewButtons = [...this.$articleElements].map($child => {
+		this[`$${type}Buttons`] = [...this.$articleElements].map($child => {
 			const $button = document.createElement('button');
-			const $img = document.createElement('img');
-
 			$button.classList.add('btn--review');
 
-			$img.setAttribute('src', '/img/icons/review.svg');
-			$img.setAttribute('alt', 'review');
+			switch (type) {
+				case 'review':
+					const $reviews = document.querySelectorAll(`[data-element="${$child.getAttribute('data-child')}"]:not([data-handled])`);
+					const count = $reviews.length;
+					if (count > 0) {
+						$button.innerHTML = $reviews.length;
+						$button.setAttribute('data-show-reviews', 'true');
+					}
+					break;
+				default:
+					const $img = document.createElement('img');
 
-			$button.appendChild($img);
-			$child.appendChild($button);
+					$img.setAttribute('src', '/img/icons/review.svg');
+					$img.setAttribute('alt', 'review');
+
+					$button.appendChild($img);
+					$button.setAttribute('data-show-review-form', 'true');
+			}
+
+			if ($button.innerHTML) {
+				$child.appendChild($button);
+			}
 
 			return $button;
 		});
@@ -78,6 +94,12 @@ class Review {
 			});
 		}
 
+		if (this.$formButtons) {
+			this.$formButtons.forEach($button => {
+				$button.addEventListener('click', this.onReviewButtonClick.bind(this, $button));
+			});
+		}
+
 		if (this.$reviewContent) {
 			this.$reviewContent.addEventListener('input', this.storeReviewContent.bind(this));
 		}
@@ -90,15 +112,36 @@ class Review {
 	onReviewButtonClick($button) {
 		const $parent = $button.parentElement;
 
+		if ($button.hasAttribute('data-show-review-form')) {
+			this.showReviewForm($parent);
+		} else {
+			this.showReviews($parent);
+		}
+	}
+
+	showReviewForm($parent) {
 		this.setReviewContent($parent.getAttribute('data-child'));
 
 		this.positionReview($parent);
-		this.showEl(this.$review, true);
 		this.removeSelection();
 		$parent.classList.add('highlight');
 
 		this.$reviewElement.value = $parent.getAttribute('data-child');
-		this.previousParent = $parent;
+
+		if (this.$previousParent !== $parent) {
+			this.showEl(this.$review, true);
+		} else {
+			this.showEl(this.$review, this.$review.classList.contains('hidden'));
+		}
+
+		this.$previousParent = $parent;
+	}
+
+	showReviews($parent) {
+		this.removeSelection();
+		$parent.classList.add('highlight');
+		const $reviews = document.querySelectorAll(`[data-element="${$parent.getAttribute('data-child')}"]`);
+		[...$reviews].forEach($review => this.showEl($review, true));
 	}
 
 	removeSelection() {
@@ -137,6 +180,10 @@ class Review {
 
 			$review.setAttribute('data-position', true);
 			$review.setAttribute('style', `top: ${yPosition}px; width: ${width}`);
+		}
+
+		if (reviewIsTarget) {
+			this.showEl($review, false);
 		}
 	}
 

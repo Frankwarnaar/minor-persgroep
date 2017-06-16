@@ -23,7 +23,7 @@ $font-weight-ultralight: 100;
 
 $font-scale: 1.12;
 
-$font-size-base: calc(.8em + .3vw);
+$font-size-base: calc(.8rem + .3vw);
 
 $font-size-xxxs: calc(#{$font-size-base} / (#{$font-scale} * #{$font-scale} * #{$font-scale} * #{$font-scale}));
 $font-size-xxs:  calc(#{$font-size-base} / (#{$font-scale} * #{$font-scale} * #{$font-scale}));
