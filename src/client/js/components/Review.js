@@ -182,7 +182,7 @@ class Review {
 			$review.setAttribute('style', `top: ${yPosition}px; width: ${width}`);
 		}
 
-		if (reviewIsTarget) {
+		if (reviewIsTarget && `#${$review.getAttribute('id')}` !== window.location.hash) {
 			this.showEl($review, false);
 		}
 	}

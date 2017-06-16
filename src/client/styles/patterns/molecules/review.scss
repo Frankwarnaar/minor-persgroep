@@ -24,6 +24,7 @@
 	}
 
 	&:target {
+		display: block;
 		background: $color-highlight-info-lightest;
 	}
 
@@ -45,24 +46,6 @@
 		background: $color-lightest;
 		font-size: $font-size-sm;
 		border: none;
-
-		&:target {
-			background: $color-highlight-info-lightest;
-
-			form {
-				background: $color-highlight-info-lightest;
-			}
-		}
-
-		// display: none;
-
-		// &:first-of-type {
-		// 	display: block;
-		// }
-		//
-		// &.hidden + [data-position] {
-		// 	display: block;
-		// }
 
 		@media screen and (min-width: $break-lg-min) {
 			left: calc(40rem + 1rem + ((100vw - 40rem) / 5));
