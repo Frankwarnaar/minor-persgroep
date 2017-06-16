@@ -182,10 +182,18 @@ class Review {
 	}
 
 	removeSelection() {
+		const $editor = document.getElementsByClassName('ql-editor')[0];
 		if (this.$articleElements) {
 			[...this.$articleElements].forEach($element => {
 				$element.classList.remove('highlight');
 			});
+		}
+		if ($editor) {
+			if ($editor.children) {
+				[...$editor.children].forEach($element => {
+					$element.classList.remove('highlight');
+				});
+			}
 		}
 	}
 
