@@ -6,7 +6,7 @@ button,
 	display: inline-block;
 	height: 40px;
 
-	font: inherit;
+	font-size: inherit;
 	font-weight: 600;
 	color: $color-lightest;
 	background: $color-primary;
@@ -14,7 +14,7 @@ button,
 	cursor: pointer;
 	text-decoration: none;
 	border: 1px solid $color-primary;
-	transition: $transition-fastest;
+	transition: color $transition-fastest, background $transition-fastest, border-color $transition-fastest;
 
 	&:hover,
 	&:focus {
@@ -51,7 +51,7 @@ button,
 	background: $color-lightest;
 	border: 1px solid $color-gray-clouds;
 	border-radius: 50%;
-	line-height: auto;
+	line-height: 2.25rem;
 	cursor: pointer;
 
 	&:hover,
@@ -98,8 +98,8 @@ button,
 		position: absolute;
 		right: 0;
 
-		transform: translateY(50%);
-		-ms-transform: translateY(50%);
+		transform: none;
+		-ms-transform: none;
 
 		@media screen and (min-width: $break-lg-min) {
 			left: calc(40rem + 1rem + ((100vw - 40rem) / 5));

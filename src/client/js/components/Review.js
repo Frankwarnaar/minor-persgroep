@@ -220,7 +220,7 @@ class Review {
 		$review = reviewIsTarget ? $review : this.$review;
 
 		if ($target) {
-			const yPosition = windowWidth > breakpoint ? getPosition($target).y : getPosition($target).y +  $target.offsetHeight;
+			const yPosition = windowWidth > breakpoint || isButton ? getPosition($target).y : getPosition($target).y +  $target.offsetHeight;
 			const width = windowWidth > breakpoint ? `calc(${windowWidth - articleWidth}px - 2rem - ((100vw - 40em) / 5))` : 'calc(100vw - 2rem)';
 
 			$review.setAttribute('data-position', true);
