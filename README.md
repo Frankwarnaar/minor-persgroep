@@ -77,6 +77,7 @@ npm run dev
 
 ### Week 4
 * [ ] Show it when others are reviewing the same article as you are realtime
+* [ ] Notifications with service worker
 * [ ] Version control?
 
 ###
