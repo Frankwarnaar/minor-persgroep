@@ -1,23 +1,35 @@
 (() => {
 	document.body.classList.remove('no-js');
 
-	/*  ===================================================
-		Components
-		=================================================== */
+	class App {
+		constructor() {
+			const $nav = document.getElementsByClassName('navigation')[0];
 
-	const Editor = require('./components/Editor.js');
-	const Review = require('./components/Review.js');
-	const Notifications = require('./components/Notifications.js');
+			this.userId = $nav.getAttribute('data-user-id');
 
-	new Editor();
-	new Review();
-	new Notifications();
+			/*  ===================================================
+				Components
+				=================================================== */
 
-	/*  ===================================================
-		Watchers
-		=================================================== */
+			const Editor = require('./components/Editor.js');
+			const Review = require('./components/Review.js');
 
-	const StretchTextareas = require('./watchers/stretch-textareas.js');
+			new Editor();
+			new Review();
 
-	new StretchTextareas();
+			/*  ===================================================
+				Watchers
+				=================================================== */
+
+			const Notifications = require('./watchers/Notifications.js');
+			const StretchTextareas = require('./watchers/stretch-textareas.js');
+			const ReviewsWatcher = require('./watchers/Reviews');
+
+			new Notifications(this);
+			new StretchTextareas();
+			new ReviewsWatcher(this);
+		}
+	}
+
+	new App();
 })();
