@@ -36,7 +36,6 @@ npm run dev
 * [x] Close reviews
 * [x] Show reviews, aligned to the selected paragraph / title
 * [x] Notify an author when there are new reviews on his/her article
-* [ ] Version control on articles to on what content reviews were done
 
 ### Could haves
 * [ ] Save reviews realtime
@@ -45,12 +44,14 @@ npm run dev
 * [ ] Show when someone else is reviewing the same article as you
 * [ ] Comment on reviews
 * [ ] Rate reviews
+* [ ] Version control on articles to on what content reviews were done
 
 ### Would haves
 * [ ] Create ranking with reviewers
 * [ ] Dashboard for authors and reviewers to watch their statistics
 * [ ] Create ranking with authors
 * [ ] General comments on articles
+* [ ] Compare versions of an article
 
 ## Process
 
@@ -71,7 +72,14 @@ npm run dev
 
 ### Week 3
 * [x] Enhance inline reviewing (like Google Docs comments)
-* [ ] Display reviews inline (in review mode and at your articles)
+* [x] Display reviews inline (in review mode and at your articles)
+* [x] Notify an author when there are new reviews on his/her article
+
+### Week 4
+* [ ] Show it when others are reviewing the same article as you are realtime
+* [ ] Version control?
+
+###
 
 ## Project structure
 
