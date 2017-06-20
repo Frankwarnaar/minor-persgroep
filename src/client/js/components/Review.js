@@ -58,8 +58,8 @@ class Review {
 					const count = $reviews.length;
 					if (count > 0) {
 						$button.innerHTML = $reviews.length;
-						$button.setAttribute('data-show-reviews', 'true');
 					}
+					$button.setAttribute('data-show-reviews', 'true');
 					$button.setAttribute('data-review-element', dataChild);
 					break;
 				default:

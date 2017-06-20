@@ -15,7 +15,7 @@
 			const Review = require('./components/Review.js');
 
 			new Editor();
-			new Review();
+			this.review = new Review();
 
 			/*  ===================================================
 				Watchers

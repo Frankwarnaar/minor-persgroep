@@ -1,7 +1,3 @@
-const Review = require('../components/Review');
-
-const reviewComponent = new Review();
-
 class Reviews {
 	constructor(app) {
 		this.app = app;
@@ -66,7 +62,7 @@ class Reviews {
 			const reviews = data.reviews;
 			if (reviews) {
 				reviews.forEach(this.updateReview.bind(this));
-				// reviewComponent.setupReviewButtons('review');
+				this.updateCountButtons();
 			}
 		}
 	}
@@ -77,16 +73,40 @@ class Reviews {
 			const $review = this.createReview(review).$review;
 			const $closeButton = $review.children[0];
 
-			$closeButton.addEventListener('click', reviewComponent.closeReview.bind(reviewComponent));
+			$closeButton.addEventListener('click', this.app.review.closeReview.bind(this.app.review));
 
-			reviewComponent.positionReview($review, false);
+			this.app.review.positionReview($review, false);
 			this.$reviewList.appendChild($review);
 		} else if (review.review.length > 0) {
 			$existingReview.innerHTML = this.createReview(review).content;
-			$existingReview.children[0].addEventListener('click', reviewComponent.closeReview.bind(reviewComponent));
-		} else {
+			$existingReview.children[0].addEventListener('click', this.app.review.closeReview.bind(this.app.review));
+		} else if ($existingReview) {
 			this.$reviewList.removeChild($existingReview);
 		}
+	}
+
+	updateCountButtons() {
+		console.log('update');
+		const $buttons = document.querySelectorAll('button[data-review-element]');
+		[...$buttons].forEach($button => {
+			const dataElement = $button.getAttribute('data-review-element');
+			const $finishedReviews = document.querySelectorAll(`[data-element="${dataElement}"]:not([data-unfinished]):not([data-handled])`);
+			const finishedCount = $finishedReviews.length;
+
+			const $unfinishedReviews = document.querySelectorAll(`[data-element="${dataElement}"][data-unfinished]:not([data-handled])`);
+			const unfinishedCount = $unfinishedReviews.length;
+
+			console.log($unfinishedReviews);
+			if (unfinishedCount > 0) {
+				$button.innerHTML = `${finishedCount} (${unfinishedCount})`;
+				$button.classList.remove('hidden');
+			} else if (finishedCount > 0) {
+				$button.innerHTML = finishedCount;
+				$button.classList.remove('hidden');
+			} else {
+				$button.classList.add('hidden');
+			}
+		});
 	}
 
 	createReview(review) {
