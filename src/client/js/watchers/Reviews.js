@@ -1,3 +1,7 @@
+const Review = require('../components/Review');
+
+const reviewComponent = new Review();
+
 class Reviews {
 	constructor(app) {
 		this.app = app;
@@ -7,6 +11,7 @@ class Reviews {
 		this.$reviewContent = document.querySelector('[name="review"]');
 		this.$reviewType = document.querySelector('[name="type"]');
 		this.$reviewButtons = document.getElementsByClassName('button--review');
+		this.$reviewList = document.getElementById('open-reviews');
 
 		if (this.$review && this.$article) {
 			this.articleId = this.$article.getAttribute('data-article-id');
@@ -35,7 +40,6 @@ class Reviews {
 			articleId: this.$article.getAttribute('data-article-id'),
 			userId: this.app.userId
 		};
-		console.log(info);
 		this.socket.send(JSON.stringify(info));
 	}
 
@@ -46,7 +50,7 @@ class Reviews {
 
 	onInput() {
 		const review = {
-			user: this.app.userId,
+			userId: this.app.userId,
 			articleId: this.articleId,
 			element: this.$reviewElement.value,
 			review: this.$reviewContent.value,
@@ -59,13 +63,50 @@ class Reviews {
 	handleMessage({data}) {
 		data = JSON.parse(data);
 		if (data) {
-			console.log(data);
 			const reviews = data.reviews;
 			if (reviews) {
-				console.log(reviews);
+				reviews.forEach(review => {
+					const $existingReview = document.querySelector([`[data-reviewer="${review.userId}"][data-element="${review.element}"]`]);
+					if (!$existingReview && review.review.length > 0) {
+						const $review = this.createReview(review).$review;
+						const $closeButton = $review.children[0];
+
+						$closeButton.classList.remove('hidden');
+						$closeButton.addEventListener('click', reviewComponent.closeReview.bind(reviewComponent));
+						this.$reviewList.appendChild($review);
+
+						reviewComponent.positionReview($review, false);
+					} else {
+						if (review.review.length > 0) {
+							$existingReview.innerHTML = this.createReview(review).content;
+						} else {
+							this.$reviewList.removeChild($existingReview);
+						}
+					}
+				});
 				// this.setNotificationsCount(count);
 			}
 		}
+	}
+
+	createReview(review) {
+		const $reviewItem = document.createElement('li');
+		const content = `
+		<button class="hidden" data-close-review>X</button>
+		<p>${review.review}</p>
+		<span>type: ${review.type}</span>
+		`;
+
+		$reviewItem.classList.add('review');
+		$reviewItem.setAttribute('data-unfinished', 'true');
+		$reviewItem.setAttribute('data-element', review.element);
+		$reviewItem.setAttribute('data-reviewer', review.userId);
+		$reviewItem.insertAdjacentHTML('beforeend', content);
+
+		return ({
+			$review: $reviewItem,
+			content
+		});
 	}
 }
 

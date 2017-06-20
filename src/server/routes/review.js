@@ -128,7 +128,7 @@ function onSocketConnection(socket) {
 		sockets.forEach(socket => {
 			if (socket.articleId === review.articleId && socket.userId !== review.userId) {
 				const activeReviews = reviews.filter(single => single.articleId === socket.articleId);
-				socket.send(JSON.stringify(activeReviews));
+				socket.send(JSON.stringify({reviews: activeReviews}));
 			}
 		});
 	}

@@ -60,12 +60,14 @@ class Review {
 
 			switch (type) {
 				case 'review':
-					const $reviews = document.querySelectorAll(`[data-element="${$child.getAttribute('data-child')}"]:not([data-handled])`);
+					const dataChild = $child.getAttribute('data-child');
+					const $reviews = document.querySelectorAll(`[data-element="${dataChild}"]:not([data-handled])`);
 					const count = $reviews.length;
 					if (count > 0) {
 						$button.innerHTML = $reviews.length;
 						$button.setAttribute('data-show-reviews', 'true');
 					}
+					$button.setAttribute('data-review-element', dataChild);
 					break;
 				default:
 					const $img = document.createElement('img');
@@ -77,9 +79,10 @@ class Review {
 					$button.setAttribute('data-show-review-form', 'true');
 			}
 
-			if ($button.innerHTML) {
-				$child.appendChild($button);
+			if (!$button.innerHTML) {
+				this.showEl($button, false);
 			}
+			$child.appendChild($button);
 
 			return $button;
 		});
