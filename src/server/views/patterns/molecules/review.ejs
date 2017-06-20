@@ -5,7 +5,7 @@
 	<%= review.handled ? 'data-handled' : '' %>
 	>
 
-	<button data-close-review class="hidden">X</button>
+	<button data-close-review>X</button>
 	<p><%= review.review %></p>
 	<span>Type: <%= review.type %></span>
 	<% if (typeof(footer) !== 'undefined' && !review.accepted) { %>

@@ -98,8 +98,10 @@ function onSocketConnection(socket) {
 		}
 
 		if (message.articleId) {
-			console.log(message.articleId);
 			setValue('articleId', message.articleId);
+
+			const activeReviews = reviews.filter(single => single.articleId === socket.articleId);
+			socket.send(JSON.stringify({reviews: activeReviews}));
 		}
 
 		if (message.review) {
@@ -125,11 +127,13 @@ function onSocketConnection(socket) {
 			reviews.push(review);
 		}
 
+		updateReviews();
+	}
+
+	function updateReviews() {
 		sockets.forEach(socket => {
-			if (socket.articleId === review.articleId && socket.userId !== review.userId) {
-				const activeReviews = reviews.filter(single => single.articleId === socket.articleId);
-				socket.send(JSON.stringify({reviews: activeReviews}));
-			}
+			const activeReviews = reviews.filter(single => single.articleId === socket.articleId);
+			socket.send(JSON.stringify({reviews: activeReviews}));
 		});
 	}
 

@@ -42,13 +42,6 @@ class Review {
 				}
 			});
 		}
-		if (this.$closeReviews) {
-			[...this.$closeReviews].forEach($closeReview => {
-				if ($closeReview.parentElement.hasAttribute('data-position')) {
-					this.showEl($closeReview, true);
-				}
-			});
-		}
 	}
 
 	setupReviewButtons(type) {
@@ -237,8 +230,11 @@ class Review {
 	}
 
 	closeReview(e) {
-		this.showEl(e.target.parentElement, false);
-		this.removeSelection();
+		const $parent = e.target.parentElement;
+		this.showEl($parent, false);
+		if (!document.querySelector(`.review[data-element="${$parent}"]:not(.hidden)`)) {
+			this.removeSelection();
+		}
 		e.preventDefault();
 	}
 }

@@ -65,34 +65,34 @@ class Reviews {
 		if (data) {
 			const reviews = data.reviews;
 			if (reviews) {
-				reviews.forEach(review => {
-					const $existingReview = document.querySelector([`[data-reviewer="${review.userId}"][data-element="${review.element}"]`]);
-					if (!$existingReview && review.review.length > 0) {
-						const $review = this.createReview(review).$review;
-						const $closeButton = $review.children[0];
-
-						$closeButton.classList.remove('hidden');
-						$closeButton.addEventListener('click', reviewComponent.closeReview.bind(reviewComponent));
-						this.$reviewList.appendChild($review);
-
-						reviewComponent.positionReview($review, false);
-					} else {
-						if (review.review.length > 0) {
-							$existingReview.innerHTML = this.createReview(review).content;
-						} else {
-							this.$reviewList.removeChild($existingReview);
-						}
-					}
-				});
-				// this.setNotificationsCount(count);
+				reviews.forEach(this.updateReview.bind(this));
+				// reviewComponent.setupReviewButtons('review');
 			}
+		}
+	}
+
+	updateReview(review) {
+		const $existingReview = document.querySelector([`[data-reviewer="${review.userId}"][data-element="${review.element}"]`]);
+		if (!$existingReview && review.review.length > 0) {
+			const $review = this.createReview(review).$review;
+			const $closeButton = $review.children[0];
+
+			$closeButton.addEventListener('click', reviewComponent.closeReview.bind(reviewComponent));
+
+			reviewComponent.positionReview($review, false);
+			this.$reviewList.appendChild($review);
+		} else if (review.review.length > 0) {
+			$existingReview.innerHTML = this.createReview(review).content;
+			$existingReview.children[0].addEventListener('click', reviewComponent.closeReview.bind(reviewComponent));
+		} else {
+			this.$reviewList.removeChild($existingReview);
 		}
 	}
 
 	createReview(review) {
 		const $reviewItem = document.createElement('li');
 		const content = `
-		<button class="hidden" data-close-review>X</button>
+		<button data-close-review>X</button>
 		<p>${review.review}</p>
 		<span>type: ${review.type}</span>
 		`;
