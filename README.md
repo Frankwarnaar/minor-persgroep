@@ -40,7 +40,6 @@ npm run dev
 ### Could haves
 * [ ] Save reviews realtime
 * [ ] Review offline, and publish these reviews when connection is reastablished
-* [ ] Review articles offline and publish your review later
 * [ ] Show when someone else is reviewing the same article as you
 * [ ] Comment on reviews
 * [ ] Rate reviews
@@ -98,7 +97,7 @@ npm run dev
         * **atoms**: smallest components
         * **molecules**: components that contain a group of atoms
         * **organisms**: components that contains a group of molecules
-        * **tempaltes**: styling for template layouts
+        * **templates**: styling for template layouts
       * **vendor**: third party styling
      * **js**: javascript
        * **components**: scripts used for components
