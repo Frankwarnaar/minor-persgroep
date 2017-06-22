@@ -6,11 +6,14 @@ self.addEventListener('install', event => event.waitUntil(
 			'/img/logos/persgroep.png'
 		]))
 		.then(self.skipWaiting())
+		.catch(err => {
+			console.log(err);
+		})
 ));
 
 self.addEventListener('fetch', event => {
 	const req = event.request;
-	if (req.mode === 'navigate' && req.method === 'get') {
+	if (req.mode === 'navigate') {
 		event.respondWith(
 			fetch(req)
 				.then(res => cachePage(req, res))
