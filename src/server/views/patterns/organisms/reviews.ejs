@@ -3,7 +3,7 @@
 	<ul id="open-reviews" class="list--clean">
 		<% article.reviews.map(review => { %>
 			<% if (!review.handled) { %>
-				<%- include('../molecules/review', {article: article, review: review, footer: article.authorId == user._id, edit: edit}) %>
+				<%- include('../molecules/review', {article: article, review: review, user: user, edit: edit}) %>
 			<% } %>
 		<% }); %>
 	</ul>
@@ -16,7 +16,7 @@
 	<ul class="list--clean">
 		<% article.reviews.map(review => { %>
 			<% if (review.handled) { %>
-				<%- include('../molecules/review', {article: article, review: review, footer: article.authorId == user._id, edit: edit}) %>
+				<%- include('../molecules/review', {article: article, review: review, user: user, edit: edit}) %>
 			<% } %>
 		<% }); %>
 	</ul>

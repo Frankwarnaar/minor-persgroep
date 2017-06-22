@@ -8,33 +8,31 @@
 	<button data-close-review>X</button>
 	<p><%= review.review %></p>
 	<span>Type: <%= review.type %></span>
-	<% if (typeof(footer) !== 'undefined' && !review.accepted) { %>
-		<% if (footer) { %>
-			<footer>
+	<% if (article.authorId == user._id && !review.accepted) { %>
+		<footer>
 
-			<% if (!review.handled) { %>
-				<form method="POST" action="/review/close/<%= article._id %>/<%= article.author._id %>/<%= review._id %>/<%= edit ? true : false %>">
-			<% } else { %>
-				<form method="POST" action="/review/reopen/<%= article._id %>/<%= article.author._id %>/<%= review._id %>/<%= edit ? true : false %>">
+		<% if (!review.handled) { %>
+			<form method="POST" action="/review/close/<%= article._id %>/<%= article.author._id %>/<%= review._id %>/<%= edit ? true : false %>">
+		<% } else { %>
+			<form method="POST" action="/review/reopen/<%= article._id %>/<%= article.author._id %>/<%= review._id %>/<%= edit ? true : false %>">
+		<% } %>
+
+			<% if (!review.accepted) { %>
+				<input type="submit" class="<%= review.handled ? '' : 'secondary' %>" value="<%= review.handled ? 'Heropen' : 'Sluiten' %>"/>
 			<% } %>
 
-				<% if (!review.accepted) { %>
-					<input type="submit" class="<%= review.handled ? '' : 'secondary' %>" value="<%= review.handled ? 'Heropen' : 'Sluiten' %>"/>
-				<% } %>
+			<% if (!review.handled && !edit) { %>
+				<a class="btn" href="/articles/edit/<%=article._id %>#<%= review._id %>">Doorvoeren</a>
+			<% } %>
 
-				<% if (!review.handled && !edit) { %>
-					<a class="btn" href="/articles/edit/<%=article._id %>#<%= review._id %>">Doorvoeren</a>
-				<% } %>
+			</form>
 
+			<% if (!review.handled && edit) { %>
+				<form method="POST" action="/review/accept/<%= article._id %>/<%= article.author._id %>/<%= review._id %>">
+					<input type="submit" value="Doorgevoerd"/>
 				</form>
+			<% } %>
 
-				<% if (!review.handled && edit) { %>
-					<form method="POST" action="/review/accept/<%= article._id %>/<%= article.author._id %>/<%= review._id %>">
-						<input type="submit" value="Doorgevoerd"/>
-					</form>
-				<% } %>
-
-			</footer>
-		<% } %>
+		</footer>
 	<% } %>
 </li>

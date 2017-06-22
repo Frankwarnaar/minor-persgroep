@@ -59,9 +59,24 @@ class Reviews {
 	handleMessage({data}) {
 		data = JSON.parse(data);
 		if (data) {
-			const reviews = data.reviews;
+			const {reviews, finishedReview} = data;
 			if (reviews) {
 				reviews.forEach(this.updateReview.bind(this));
+				this.updateCountButtons();
+			} else {
+				const $unfinishedReviews = document.querySelectorAll('.review[data-unfinished]');
+				[...$unfinishedReviews].forEach($review => {
+					this.$reviewList.removeChild($review);
+				});
+			}
+
+			if (finishedReview) {
+				const $newReview = this.createReview(finishedReview, true).$review;
+				const $closeButton = $newReview.children[0];
+
+				$closeButton.addEventListener('click', this.app.review.closeReview.bind(this.app.review));
+				this.$reviewList.appendChild($newReview);
+				this.app.review.positionReview($newReview);
 				this.updateCountButtons();
 			}
 		}
@@ -86,7 +101,6 @@ class Reviews {
 	}
 
 	updateCountButtons() {
-		console.log('update');
 		const $buttons = document.querySelectorAll('button[data-review-element]');
 		[...$buttons].forEach($button => {
 			const dataElement = $button.getAttribute('data-review-element');
@@ -96,7 +110,6 @@ class Reviews {
 			const $unfinishedReviews = document.querySelectorAll(`[data-element="${dataElement}"][data-unfinished]:not([data-handled])`);
 			const unfinishedCount = $unfinishedReviews.length;
 
-			console.log($unfinishedReviews);
 			if (unfinishedCount > 0) {
 				$button.innerHTML = `${finishedCount} (${unfinishedCount})`;
 				$button.classList.remove('hidden');
@@ -109,7 +122,7 @@ class Reviews {
 		});
 	}
 
-	createReview(review) {
+	createReview(review, finished) {
 		const $reviewItem = document.createElement('li');
 		const content = `
 		<button data-close-review>X</button>
@@ -118,10 +131,13 @@ class Reviews {
 		`;
 
 		$reviewItem.classList.add('review');
-		$reviewItem.setAttribute('data-unfinished', 'true');
 		$reviewItem.setAttribute('data-element', review.element);
 		$reviewItem.setAttribute('data-reviewer', review.userId);
 		$reviewItem.insertAdjacentHTML('beforeend', content);
+
+		if (!finished) {
+			$reviewItem.setAttribute('data-unfinished', 'true');
+		}
 
 		return ({
 			$review: $reviewItem,

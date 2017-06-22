@@ -165,7 +165,17 @@ gulp.task('images:responsive', () => {
 	.pipe(responsive({
 		'logos/*': {
 			height: 87
-		}
+		},
+		'app-icons/*': [
+			{
+				width: 256
+			}, {
+				width: 128,
+				rename: {
+					suffix: '-sm'
+				}
+			}
+		]
 	}, {
 		quality: 70,
 		progressive: true,

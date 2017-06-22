@@ -29,9 +29,12 @@ class Notifications {
 	handleMessage({data}) {
 		data = JSON.parse(data);
 		if (data) {
-			const count = data.notificationsCount;
+			const {count, review} = data;
 			if (count) {
 				this.setNotificationsCount(count);
+			}
+			if (review && showNotification) {
+				showNotification(review);
 			}
 		}
 	}
