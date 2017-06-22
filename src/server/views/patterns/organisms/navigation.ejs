@@ -7,12 +7,10 @@
 		</picture>
 	</a>
 	<ul>
+		<li>
+			<a class="btn" href="/articles/new">Nieuw artikel</a>
+		</li>
 		<% if (typeof(user) === 'object') { %>
-			<% if (user.author) { %>
-				<li>
-					<a class="btn" href="/articles/new">Nieuw artikel</a>
-				</li>
-			<% } %>
 			<li>
 				<a id="notifications" href="/notifications" <%= notifications > 0 ? 'data-has-notifications' : '' %>>
 					<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -25,10 +23,10 @@
 			<li>
 				<a href="/users/logout">Log uit</a>
 			</li>
-			<% } else { %>
-				<li>
-					<a class="btn" href="/users/login">Login</a>
-				</li>
-			<% } %>
+		<% } else { %>
+			<li>
+				<a class="btn" href="/users/login">Login</a>
+			</li>
+		<% } %>
 	</ul>
 </nav>

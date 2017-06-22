@@ -38,13 +38,32 @@ function postReview(req, res) {
 	db.reviews.insert(req.db, req.body, articleId, req.session.user._id).then(data => {
 		const [review] = data.ops;
 
+		let reviewIndex = -1;
+		reviews.forEach((single, i) => {
+			if (single.userId === review.userId && single.articleId === review.articleId) {
+				reviewIndex = i;
+			}
+		});
+
+		if (reviewIndex >= 0) {
+			reviews.splice(reviewIndex, 1);
+			updateReviews();
+		}
+
 		sockets.forEach(socket => {
 			if (socket.userId === req.body.authorId) {
 				db.connect(database => {
 					db.notifications.get(database, req.body.authorId, (err, results) => {
-						socket.send(`{"notificationsCount": "${results.length}"}`);
+						socket.send(JSON.stringify({
+							count: results.length,
+							review
+						}));
 					});
 				});
+			} else if (socket.articleId === articleId) {
+				socket.send(JSON.stringify({
+					finishedReview: review
+				}));
 			}
 		});
 		res.redirect(`/review/${articleId}#${review._id}`);
@@ -130,13 +149,6 @@ function onSocketConnection(socket) {
 		updateReviews();
 	}
 
-	function updateReviews() {
-		sockets.forEach(socket => {
-			const activeReviews = reviews.filter(single => single.articleId === socket.articleId);
-			socket.send(JSON.stringify({reviews: activeReviews}));
-		});
-	}
-
 	function onSocketClose() {
 		console.log('Client disconnected');
 		sockets = sockets.filter(single => {
@@ -146,6 +158,15 @@ function onSocketConnection(socket) {
 			return single.userId !== socket.userId;
 		});
 	}
+}
+
+function updateReviews() {
+	sockets.forEach(socket => {
+		const activeReviews = reviews.filter(review => {
+			return review.articleId === socket.articleId && review.userId !== socket.userId;
+		});
+		socket.send(JSON.stringify({reviews: activeReviews}));
+	});
 }
 
 module.exports = router;
