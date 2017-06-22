@@ -13,14 +13,72 @@ The first is [setting up a mongo database](http://mongodb.github.io/node-mongodb
 ```bash
 git clone https://github.com/Frankwarnaar/minor-persgroep.git
 npm install
-npm run build
+gulp build
 npm start
 ```
 
 ## Development
 After installation, run in your terminal:
 ```bash
-npm run dev
+gulp default
+```
+Start watch and browser-sync tasks
+
+### Build tasks
+
+#### Main tasks
+* Start `watch`, `browser-sync` and `server` tasks
+```bash
+gulp default
+```
+* Start build
+```bash
+gulp build
+```
+* Clean dist folder
+```bash
+gulp clean
+```
+
+#### Sub tasks
+* Start server that restarts on changes
+```bash
+gulp server
+```
+
+* Start all watch tasks
+```bash
+gulp watch
+```
+
+* Watch views, refresh browser-sync on changes
+```bash
+gulp watch:html
+```
+
+* Watch scss files for changes, rebuild to css on changes
+```bash
+gulp watch:styles
+```
+
+* Compile scss to css
+```bash
+gulp styles
+```
+
+* Watch for changes in javascript if debug is enabled in config, otherwise build once
+```bash
+gulp watchify
+```
+
+* Start browser-sync server for displaying changes in client side code realtime in the browsr
+```bash
+gulp browser-sync
+```
+
+* Compress images
+```bash
+gulp images
 ```
 
 ## Features
