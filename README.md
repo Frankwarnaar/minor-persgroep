@@ -133,7 +133,7 @@ gulp images
 * [x] Notify an author when there are new reviews on his/her article
 
 ### Week 4
-* [ ] Show it when others are reviewing the same article as you are realtime
+* [x] Show it when others are reviewing the same article as you are realtime
 * [ ] Notifications with service worker
 * [ ] Version control?
 
