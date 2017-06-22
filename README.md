@@ -98,7 +98,7 @@ gulp images
 ### Could haves
 * [ ] Save reviews realtime
 * [ ] Review offline, and publish these reviews when connection is reastablished
-* [ ] Show when someone else is reviewing the same article as you
+* [x] Show when someone else is reviewing the same article as you
 * [ ] Comment on reviews
 * [ ] Rate reviews
 * [ ] Version control on articles to on what content reviews were done
