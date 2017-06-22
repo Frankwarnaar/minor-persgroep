@@ -82,9 +82,12 @@ button,
 	}
 
 	&[data-show-reviews] {
-		padding-top: 0;
+		padding: 0;
+		width: 2.5rem;
+		height: 2.5rem;
+
 		color: $color-darkest;
-		font-size: $font-size-xs;
+		font-size: $font-size-xxs;
 
 		@media screen and (min-width: $break-lg-min) {
 			opacity: 1;

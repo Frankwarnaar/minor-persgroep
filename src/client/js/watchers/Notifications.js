@@ -1,11 +1,10 @@
 class Notifications {
-	constructor() {
-		const $nav = document.getElementsByClassName('navigation')[0];
+	constructor(app) {
+		this.app = app;
 		this.$notifications = document.getElementById('notifications');
 		this.$notificationsCount = document.querySelector('#notifications span');
-		this.userId = $nav.getAttribute('data-user-id');
 
-		if (this.$notifications && this.$notificationsCount && this.userId) {
+		if (this.$notifications && this.$notificationsCount && this.app.userId) {
 			this.init();
 		}
 	}
@@ -24,7 +23,7 @@ class Notifications {
 	}
 
 	sendUserId() {
-		this.socket.send(`{"userId": "${this.userId}"}`);
+		this.socket.send(`{"userId": "${this.app.userId}"}`);
 	}
 
 	handleMessage({data}) {

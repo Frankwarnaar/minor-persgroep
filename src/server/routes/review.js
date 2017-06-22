@@ -15,6 +15,7 @@ const wss = require('../app.js')
 	.on('connection', onSocketConnection);
 
 let sockets = [];
+let reviews = [];
 
 /*	==================================================
 	Routes handlers
@@ -90,17 +91,58 @@ function onSocketConnection(socket) {
 		message = JSON.parse(message);
 
 		if (message.userId) {
-			const userId = message.userId;
-			console.log(`Client ${userId} connected`);
-
-			socket.userId = userId;
+			const id = message.userId;
+			setValue('userId', id);
+			console.log(`Client ${id} connected`);
 			sockets.push(socket);
 		}
+
+		if (message.articleId) {
+			setValue('articleId', message.articleId);
+
+			const activeReviews = reviews.filter(single => single.articleId === socket.articleId);
+			socket.send(JSON.stringify({reviews: activeReviews}));
+		}
+
+		if (message.review) {
+			onReviewEdit(message.review);
+		}
+	}
+
+	function setValue(key, value) {
+		socket[key] = value;
+	}
+
+	function onReviewEdit(review) {
+		let matchingIndex = -1;
+		reviews.forEach((single, i) => {
+			if (review.articleId === single.articleId && review.element === single.element) {
+				matchingIndex = i;
+			}
+		});
+
+		if (matchingIndex >= 0) {
+			reviews[matchingIndex] = review;
+		} else {
+			reviews.push(review);
+		}
+
+		updateReviews();
+	}
+
+	function updateReviews() {
+		sockets.forEach(socket => {
+			const activeReviews = reviews.filter(single => single.articleId === socket.articleId);
+			socket.send(JSON.stringify({reviews: activeReviews}));
+		});
 	}
 
 	function onSocketClose() {
 		console.log('Client disconnected');
 		sockets = sockets.filter(single => {
+			return single.userId !== socket.userId;
+		});
+		reviews = reviews.filter(single => {
 			return single.userId !== socket.userId;
 		});
 	}

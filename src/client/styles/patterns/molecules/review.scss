@@ -6,6 +6,7 @@
 
 	button {
 		float: right;
+		display: none;
 	}
 
 	form {
@@ -52,5 +53,14 @@
 			left: calc(40rem + 1rem + ((100vw - 40rem) / 5));
 			transform: none;
 		}
+
+		button {
+			display: inline-block;
+		}
+	}
+
+	&[data-unfinished] {
+		border: 1px solid $color-highlight-warning;
+		color: $color-gray-midnight;
 	}
 }
