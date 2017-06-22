@@ -2,11 +2,14 @@
 
 <section>
 	<% articles.map(article => { %>
-		<article>
+		<article class="article link">
 			<a href="articles/single/<%= article._id %>">
 				<h2><%= article.title %></h2>
 			</a>
-			<p>Geschreven op <date><%= new Date(article.timestamp).toLocaleString('NL-nl') %></date> door <%= article.author.name.first %> <%= article.author.name.last %></p>
+			<p><%= article.author.name.first %> <%= article.author.name.last %> -
+			<date><%= new Date(article.timestamp).toLocaleString('NL-nl') %></date></p>
 		</article>
 	<% }); %>
 </section>
+
+<%- include('../patterns/organisms/tour.ejs'); %>

@@ -4,6 +4,6 @@ a {
 	font-weight: $font-weight-semibold;
 
 	&:hover {
-		text-decoration: underline;
+		color: $color-primary-lightest;
 	}
 }
