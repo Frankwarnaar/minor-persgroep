@@ -9,10 +9,25 @@
 		display: none;
 	}
 
+	&[data-edit] {
+		display: flex;
+
+		button {
+			margin-left: 1rem;
+			order: 1;
+		}
+	}
+
 	form {
 		margin: 0;
 		padding: 0;
+	}
 
+	> form {
+		width: 90%;
+	}
+
+	footer form {
 		display: inline-block;
 	}
 

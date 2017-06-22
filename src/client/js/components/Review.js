@@ -1,7 +1,4 @@
-const StretchTextareas = require('../watchers/stretch-textareas.js');
 const getPosition = require('../utils/getPosition.js');
-
-new StretchTextareas();
 
 class Review {
 	constructor() {

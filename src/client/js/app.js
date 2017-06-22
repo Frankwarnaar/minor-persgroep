@@ -21,12 +21,12 @@
 				Watchers
 				=================================================== */
 
-			const Notifications = require('./watchers/Notifications.js');
 			const StretchTextareas = require('./watchers/stretch-textareas.js');
+			const Notifications = require('./watchers/Notifications.js');
 			const ReviewsWatcher = require('./watchers/Reviews');
 
+			this.stretchTextareas = new StretchTextareas();
 			new Notifications(this);
-			new StretchTextareas();
 			new ReviewsWatcher(this);
 		}
 	}
