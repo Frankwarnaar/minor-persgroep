@@ -6,12 +6,12 @@
 	"theme_color": "#eb6909",
 	"background_color": "#ffffff",
 	"icons": [{
-		"src": "img/app-icons/favicon.ico",
+		"src": "/img/app-icons/favicon.png",
 		"sizes": "256x256",
-		"type": "image/ico"
+		"type": "image/png"
 	},{
-		"src": "img/app-icons/favicon-sm.ico",
+		"src": "/img/app-icons/favicon-sm.png",
 		"sizes": "128x128",
-		"type": "image/ico"
+		"type": "image/png"
 	}]
 }

@@ -15,6 +15,8 @@ const sourcemaps  = require('gulp-sourcemaps');
 const watchify    = require('watchify');
 const responsive  = require('gulp-responsive');
 const webp        = require('gulp-webp');
+const cleancss    = require('gulp-clean-css');
+const uglify      = require('gulp-uglify');
 
 /* ============================================================
 Configuration
@@ -95,9 +97,12 @@ const handleError = err => {
 gulp.task('styles', () => {
 	return gulp.src(config.assetsPath + '/styles/style.scss')
 		.pipe(sass())
+		.pipe(gulpif(config.debug, sourcemaps.init()))
 		.pipe(plumber({
 			errorHandler: handleError
 		}))
+		.pipe(gulpif(!config.debug, cleancss()))
+		.pipe(gulpif(config.debug, sourcemaps.write('./')))
 		.pipe(gulp.dest(config.distPath + '/css'))
 		.pipe(browserSync.stream());
 });
@@ -125,6 +130,7 @@ gulp.task('watchify', () =>  {
 			.pipe(sourcemaps.init({
 				loadMaps: config.debug
 			}))
+			.pipe(gulpif(!config.debug, uglify()))
 			.pipe(gulpif(config.debug, sourcemaps.write('./')))
 			.pipe(gulp.dest(config.distPath + '/js/'))
 			.pipe(browserSync.stream());
