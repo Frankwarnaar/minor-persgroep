@@ -96,12 +96,13 @@ gulp images
 * [x] Notify an author when there are new reviews on his/her article
 
 ### Could haves
+* [x] Show when someone else is reviewing the same article as you
+* [ ] Send an author a push notification when there are new reviews
 * [ ] Save reviews realtime
 * [ ] Review offline, and publish these reviews when connection is reastablished
-* [x] Show when someone else is reviewing the same article as you
 * [ ] Comment on reviews
 * [ ] Rate reviews
-* [ ] Version control on articles to on what content reviews were done
+* [ ] Version control on articles to show on what content reviews were done
 
 ### Would haves
 * [ ] Create ranking with reviewers
