@@ -142,10 +142,9 @@ gulp images
 
 ### Week 4
 * [x] Show it when others are reviewing the same article as you are realtime
-* [ ] Notifications with service worker
+* [x] Notifications with service worker
+* [ ] Guide for users
 * [ ] Version control?
-
-###
 
 ## Project structure
 
