@@ -6,6 +6,7 @@
 			<a href="articles/single/<%= article._id %>">
 				<h2><%= article.title %></h2>
 			</a>
+			<p>Geschreven op <date><%= new Date(article.timestamp).toLocaleString('NL-nl') %></date> door <%= article.author.name.first %> <%= article.author.name.last %></p>
 		</article>
 	<% }); %>
 </section>

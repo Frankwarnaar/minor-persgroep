@@ -1,3 +1,7 @@
 section {
 	@extend .article;
+
+	&[data-open-reviews] {
+		position: static;
+	}
 }
