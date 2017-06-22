@@ -21,11 +21,17 @@ textarea {
 	&[data-stretch] {
 		resize: none;
 		min-height: 2rem;
-		max-height: 100px;
 	}
 }
 
 body:not(.no-js) [data-stretch] {
-	overflow: hidden;
-	height: 2rem;
+	&:empty {
+		max-height: 2rem;
+	}
+
+	&.stretched {
+		overflow: hidden;
+		height: 2rem;
+		max-height: 100px;
+	}
 }

@@ -1,18 +1,18 @@
 class StretchTextareas {
 	constructor() {
-		this.textareas = document.querySelectorAll('[data-stretch]');
-		this.bindEvents();
+		this.$textareas = document.querySelectorAll('[data-stretch]');
+		this.init();
 	}
 
-	bindEvents() {
-		this.textareas.forEach(textarea => {
-			textarea.addEventListener('input', this.autoGrow.bind(this, textarea));
+	init() {
+		this.$textareas.forEach($textarea => {
+			$textarea.addEventListener('input', this.autoGrow.bind(this, $textarea));
 		});
 	}
 
-	autoGrow(textarea) {
-		textarea.style.height = '5px';
-		textarea.style.height = `${textarea.scrollHeight + 5}px`;
+	autoGrow($textarea) {
+		$textarea.classList.add('stretched');
+		$textarea.style.height = `${$textarea.scrollHeight}px`;
 	}
 }
 

@@ -3,23 +3,28 @@
 	id="<%= review._id %>"
 	<%= review.element ? `data-element=${review.element}` : '' %> <%= review.accepted ? 'data-accepted' : '' %>
 	<%= review.handled ? 'data-handled' : '' %>
+	<%= user._id == review.userId && !review.handled ? 'data-edit' : '' %>
 	>
 
 	<button data-close-review>X</button>
-	<p><%= review.review %></p>
-	<span>Type:
-		<% if (review.type === 'syntax') { %>
-			Grammaticaal
-		<% } else if (review.type === 'content') { %>
-			Inhoud
-		<% } else if (review.type === 'style') { %>
-			Stijl
-		<% } else if (review.type === 'layout') { %>
-			Opmaak
-		<% } else { %>
-			<%= review.type %>
-		<% } %>
-	</span>
+	<% if (user._id == review.userId && !review.handled)  { %>
+		<%- include('./edit-review-form.ejs', {review: review}); %>
+	<% } else { %>
+		<p><%= review.review %></p>
+		<span>Type:
+			<% if (review.type === 'syntax') { %>
+				Grammaticaal
+			<% } else if (review.type === 'content') { %>
+				Inhoud
+			<% } else if (review.type === 'style') { %>
+				Stijl
+			<% } else if (review.type === 'layout') { %>
+				Opmaak
+			<% } else { %>
+				<%= review.type %>
+			<% } %>
+		</span>
+	<% } %>
 	<% if (article.authorId == user._id && !review.accepted) { %>
 		<footer>
 

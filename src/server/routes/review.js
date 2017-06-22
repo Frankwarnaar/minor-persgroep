@@ -7,6 +7,7 @@ const router = Router()
 	.use(forceLogin)
 	.get('/:_id', getReview)
 	.post('/:_id', postReview)
+	.post('/edit/:articleId/:reviewId', editReview)
 	.post('/reopen/:articleId/:authorId/:reviewId/:edit', reopenReview)
 	.post('/close/:articleId/:authorId/:reviewId/:edit', closeReview)
 	.post('/accept/:articleId/:authorId/:reviewId/', acceptReview);
@@ -67,6 +68,13 @@ function postReview(req, res) {
 			}
 		});
 		res.redirect(`/review/${articleId}#${review._id}`);
+	});
+}
+
+function editReview(req, res) {
+	const {articleId, reviewId} = req.params;
+	db.reviews.edit(req.db, req.body, reviewId).then(() => {
+		res.redirect(`/review/${articleId}`);
 	});
 }
 

@@ -1,0 +1,17 @@
+<form method="POST" action="/review/edit/<%= review.articleId %>/<%= review._id %>">
+	<label>
+		Review
+		<textarea required data-stretch name="review"><%= review.review %></textarea>
+	</label>
+	<label>
+		Type review
+		<select name="type" required>
+			<option <%= review.type === '' ? 'selected' : '' %> disabled>Selecteer een type</option>
+			<option <%= review.type === 'syntax' ? 'selected' : '' %> value="syntax">Grammaticaal</option>
+			<option <%= review.type === 'style' ? 'selected' : '' %> value="style">Stijl</option>
+			<option <%= review.type === 'content' ? 'selected' : '' %> value="content">Inhoud</option>
+			<option <%= review.type === 'layout' ? 'selected' : '' %> value="layout">Opmaak</option>
+		</select>
+	</label>
+	<input type="submit" value="Wijzig">
+</form>
