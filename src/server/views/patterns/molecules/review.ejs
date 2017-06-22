@@ -7,29 +7,39 @@
 
 	<button data-close-review>X</button>
 	<p><%= review.review %></p>
-	<span>Type: <%= review.type %></span>
+	<span>Type:
+		<% if (review.type === 'syntax') { %>
+			Grammaticaal
+		<% } else if (review.type === 'content') { %>
+			Inhoud
+		<% } else if (review.type === 'style') { %>
+			Stijl
+		<% } else if (review.type === 'layout') { %>
+			Opmaak
+		<% } else { %>
+			<%= review.type %>
+		<% } %>
+	</span>
 	<% if (article.authorId == user._id && !review.accepted) { %>
 		<footer>
 
-		<% if (!review.handled) { %>
-			<form method="POST" action="/review/close/<%= article._id %>/<%= article.author._id %>/<%= review._id %>/<%= edit ? true : false %>">
-		<% } else { %>
-			<form method="POST" action="/review/reopen/<%= article._id %>/<%= article.author._id %>/<%= review._id %>/<%= edit ? true : false %>">
-		<% } %>
+			<% if (!review.handled) { %>
 
-			<% if (!review.accepted) { %>
-				<input type="submit" class="<%= review.handled ? '' : 'secondary' %>" value="<%= review.handled ? 'Heropen' : 'Sluiten' %>"/>
-			<% } %>
+				<% if (!edit) { %>
+					<a class="btn" href="/articles/edit/<%=article._id %>#<%= review._id %>">Doorvoeren</a>
+				<% } else { %>
+					<form method="POST" action="/review/accept/<%= article._id %>/<%= article.author._id %>/<%= review._id %>">
+						<input type="submit" value="Doorgevoerd"/>
+					</form>
+				<% } %>
 
-			<% if (!review.handled && !edit) { %>
-				<a class="btn" href="/articles/edit/<%=article._id %>#<%= review._id %>">Doorvoeren</a>
-			<% } %>
+				<form method="POST" action="/review/close/<%= article._id %>/<%= article.author._id %>/<%= review._id %>/<%= edit ? true : false %>">
+					<input type="submit" class="<%= review.handled ? '' : 'secondary' %>" value="Sluiten"/>
+				</form>
 
-			</form>
-
-			<% if (!review.handled && edit) { %>
-				<form method="POST" action="/review/accept/<%= article._id %>/<%= article.author._id %>/<%= review._id %>">
-					<input type="submit" value="Doorgevoerd"/>
+			<% } else if (!review.accepted) { %>
+				<form method="POST" action="/review/reopen/<%= article._id %>/<%= article.author._id %>/<%= review._id %>/<%= edit ? true : false %>">
+					<input type="submit" class="<%= review.handled ? '' : 'secondary' %>" value="Heropen"/>
 				</form>
 			<% } %>
 
