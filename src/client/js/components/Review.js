@@ -58,6 +58,7 @@ class Review {
 					}
 					$button.setAttribute('data-show-reviews', 'true');
 					$button.setAttribute('data-review-element', dataChild);
+					$button.setAttribute('title', 'Aantal reviews');
 					break;
 				default:
 					const $img = document.createElement('img');
@@ -65,6 +66,7 @@ class Review {
 					$img.setAttribute('src', '/img/icons/review.svg');
 					$img.setAttribute('alt', 'review');
 
+					$button.setAttribute('title', 'Schrijf nieuwe review');
 					$button.appendChild($img);
 					$button.setAttribute('data-show-review-form', 'true');
 			}

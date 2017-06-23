@@ -182,7 +182,7 @@ gulp.task('images:responsive', () => {
 				}
 			}
 		],
-		'tour/mob-*': [
+		'tour/**/mob-*': [
 			{width: 662},
 			{
 				width: 480,
@@ -191,7 +191,7 @@ gulp.task('images:responsive', () => {
 				}
 			}
 		],
-		'tour/tab-*': [
+		'tour/**/tab-*': [
 			{width: 770},
 			{
 				width: 640,
@@ -200,7 +200,7 @@ gulp.task('images:responsive', () => {
 				}
 			}
 		],
-		'tour/des-*': [
+		'tour/**/des-*': [
 			{
 				width: 1600,
 				rename: {
