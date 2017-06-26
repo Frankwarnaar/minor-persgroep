@@ -33,6 +33,7 @@ const usersRouter = require('./routes/users.js');
 const articlesRouter = require('./routes/articles.js');
 const reviewRouter = require('./routes/review.js');
 const notificationsRouter = require('./routes/notifications.js');
+const tourRouter = require('./routes/tour.js');
 const db = require('./lib/db/index.js');
 
 app
@@ -54,6 +55,7 @@ app
 	.use('/articles', articlesRouter)
 	.use('/review', reviewRouter)
 	.use('/notifications', notificationsRouter)
+	.use('/tour', tourRouter)
 	.listen(port, host, err => {
 		err ? console.error(err) : console.log(`app running on http://localhost:${port}`);
 	});

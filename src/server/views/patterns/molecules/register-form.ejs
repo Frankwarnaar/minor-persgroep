@@ -11,7 +11,11 @@
 	<label for="password">Wachtwoord
 		<input type="password" name="password"/>
 	</label>
-	<input id="author" type="checkbox" name="author" <%= typeof(prefill) !== 'undefined' && user.author ? 'checked' : '' %> />
+	<% let checked = true; %>
+	<% if (typeof(prefill) !== 'undefined') { %>
+		<% checked = user.author; %>
+	<% } %>
+	<input id="author" type="checkbox" name="author" <%= checked ? 'checked' : '' %> />
 	<label for="author">
 		Ik ben een schrijver
 	</label>

@@ -1,15 +1,17 @@
 <% extend("../_base/layout") %>
 
-<section>
-	<% articles.map(article => { %>
-		<article class="article link">
-			<a href="articles/single/<%= article._id %>">
-				<h2><%= article.title %></h2>
-			</a>
-			<p><%= article.author.name.first %> <%= article.author.name.last %> -
-			<date><%= new Date(article.timestamp).toLocaleString('NL-nl') %></date></p>
-		</article>
-	<% }); %>
-</section>
+<% if (articles[0]) { %>
+	<section>
+		<%- include('../patterns/molecules/article-link.ejs', {article: articles[0]}); %>
+	</section>
+<% } %>
 
-<%- include('../patterns/organisms/tour.ejs'); %>
+<%- include('../patterns/organisms/tour-intro.ejs'); %>
+
+<section>
+	<% for (let i = 1; i < articles.length; i++) { %>
+		<% if (articles[i]) { %>
+			<%- include('../patterns/molecules/article-link.ejs', {article: articles[i]}); %>
+		<% } %>
+	<% } %>
+</section>
