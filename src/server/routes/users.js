@@ -33,7 +33,7 @@ function postLogin(req, res) {
 				if (result) {
 					delete user.password;
 					req.session.user = user;
-					res.redirect('/');
+					res.redirect(req.session.redirectUrl ? req.session.redirectUrl : '/');
 				} else {
 					res.render('users/login', {
 						error: `Password didn't match for ${email}`
