@@ -11,15 +11,17 @@
 		</header>
 	<% } %>
 	<%- article.content %>
-	<% if (typeof(footer) !== 'undefined' && typeof(user) !== 'undefined') { %>
-		<% if (user.author) { %>
-			<footer>
+	<% if (typeof(footer) !== 'undefined') { %>
+		<footer>
+			<% if (typeof(user) !== 'undefined') { %>
 				<% if (user._id == article.authorId) { %>
 					<a class="btn" href="/articles/edit/<%= article._id %>">Bewerk</a>
 				<% } else { %>
 					<a class="btn" href="/review/<%= article._id %>">Review</a>
 				<% } %>
-			</footer>
-		<% } %>
+			<% } else { %>
+				<a class="btn" href="/review/<%= article._id %>">Review</a>
+			<% } %>
+		</footer>
 	<% } %>
 </article>
