@@ -40,14 +40,24 @@ function getArticle(req, res) {
 }
 
 function getEdit(req, res) {
-	db.articles.get(req.db, req.params._id, (err, [article]) => {
+	const articleId = req.params._id;
+	db.articles.get(req.db, articleId, (err, [article]) => {
 		if (err) {
+			console.log(err);
 			res.sendStatus(404);
+			return;
 		}
 
-		res.render('articles/edit', {
-			article
-		});
+		if (req.session.user) {
+			if (article.authorId === req.session.user._id) {
+				res.render('articles/edit', {
+					article
+				});
+			} else {
+				res.redirect(`/articles/single/${articleId}`);
+				console.log('user not matching');
+			}
+		}
 	});
 }
 
