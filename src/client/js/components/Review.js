@@ -156,6 +156,7 @@ class Review {
 
 		this.positionReview($parent);
 		this.removeSelection();
+
 		$parent.classList.add('highlight');
 
 		this.$reviewElement.value = $parent.getAttribute('data-child');
@@ -171,7 +172,9 @@ class Review {
 
 	showReviews($parent, dataChild) {
 		this.removeSelection();
-		$parent.classList.add('highlight');
+		if ($parent) {
+			$parent.classList.add('highlight');
+		}
 		const $reviews = document.querySelectorAll(`[data-element="${dataChild}"]`);
 		[...$reviews].forEach($review => this.showEl($review, true));
 	}
