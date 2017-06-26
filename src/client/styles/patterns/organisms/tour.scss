@@ -1,6 +1,10 @@
 .tour-container {
-	border-top: 1px solid $color-gray-clouds;
+	border: 1px solid $color-gray-clouds;
 	background: $color-light;
+
+	&:last-child {
+		border-bottom: none;
+	}
 }
 
 .tour {
