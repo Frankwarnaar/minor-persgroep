@@ -5,6 +5,14 @@
 	&:last-child {
 		border-bottom: none;
 	}
+
+	&:not(:last-child) {
+		@media screen and (max-width: $break-md) {
+			img {
+				display: none;
+			}
+		}
+	}
 }
 
 .tour {
@@ -13,12 +21,6 @@
 
 	a {
 		margin-bottom: .5rem;
-	}
-
-	@media screen and (max-width: $break-md) {
-		img {
-			display: none;
-		}
 	}
 
 	.flex-wrapper {
