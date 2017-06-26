@@ -1,10 +1,19 @@
-.article {
-	padding: 1em;
-	margin: 0 auto;
-	margin-bottom: 1rem;
-	max-width: 40em;
-	background: $color-lightest;
+article.link {
 	position: relative;
+	border: 1px solid $color-gray-clouds;
+	margin-bottom: 0;
+
+	&:not(:last-child) {
+		border-bottom: none;
+	}
+
+	a {
+		color: $color-darkest;
+
+		&:hover {
+			color: $color-primary;
+		}
+	}
 
 	> a:first-child:after {
 		content: '';
@@ -18,6 +27,14 @@
 	a > h2 {
 		margin-bottom: .325rem;
 	}
+}
+
+.article {
+	padding: 1em;
+	margin: 0 auto;
+	margin-bottom: 1rem;
+	max-width: 40em;
+	background: $color-lightest;
 
 	h1 {
 		color: $color-primary;

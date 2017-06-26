@@ -1,0 +1,36 @@
+.tour-container {
+	border-top: 1px solid $color-gray-clouds;
+	background: $color-light;
+}
+
+.tour {
+	background: none;
+	margin-bottom: 0;
+
+	a {
+		margin-bottom: .5rem;
+	}
+
+	@media screen and (max-width: $break-md) {
+		img {
+			display: none;
+		}
+	}
+
+	.flex-wrapper {
+		@media screen and (min-width: $break-md-min) {
+			display: flex;
+
+			section {
+				width: 50%;
+				margin: 0;
+				margin-right: 1rem;
+			}
+		}
+	}
+
+	section {
+		padding: 0;
+		background: none;
+	}
+}

@@ -43,16 +43,18 @@ button,
 
 .btn--review {
 	padding: .5rem;
-	width: 2.25rem;
-	height: 2.25rem;
+	width: 2.5rem;
+	height: 2.5rem;
 
 	position: relative;
+	margin: 0 .25rem;
 
 	background: $color-lightest;
 	border: 1px solid $color-gray-clouds;
 	border-radius: 50%;
 	line-height: 2.25rem;
 	cursor: pointer;
+
 
 	&:hover,
 	&:focus {
@@ -86,12 +88,15 @@ button,
 		width: 2.5rem;
 		height: 2.5rem;
 
+		top: -.4rem;
+
 		color: $color-darkest;
 		font-size: $font-size-xxs;
 
 		@media screen and (min-width: $break-lg-min) {
 			opacity: 1;
 
+			top: 50%;
 			transform: translate(150%, -50%);
 			-ms-transform: translate(150%, -50%);
 		}

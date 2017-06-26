@@ -1,0 +1,17 @@
+<% extend("../_base/layout") %>
+
+<div class="tour-container">
+	<section class="tour">
+		<h2>Nieuws creatie platform</h2>
+		<p>Welkom bij het nieuws creatie platform van <a href="//www.persgroep.nl" target="_blank">De Persgroep</a>. Hier kun je nieuws lezen, schrijven en reviewen.</p>
+
+		<section>
+			<h3>Reviewen</h3>
+			<ol>
+				<% for (let i = 1; i < 6; i++) { %>
+					<%- include(`../patterns/molecules/tour-steps/review/1.ejs`); %>
+				<% } %>
+			</ol>
+		</section>
+	</section>
+</div>

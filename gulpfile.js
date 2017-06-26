@@ -181,6 +181,58 @@ gulp.task('images:responsive', () => {
 					suffix: '-sm'
 				}
 			}
+		],
+		'tour/**/mob-*': [
+			{width: 662},
+			{
+				width: 480,
+				rename: {
+					suffix: '-sm'
+				}
+			}
+		],
+		'tour/**/tab-*': [
+			{width: 770},
+			{
+				width: 640,
+				rename: {
+					suffix: '-sm'
+				}
+			}
+		],
+		'tour/**/des-*': [
+			{
+				width: 1600,
+				rename: {
+					suffix: '-xl'
+				}
+			}, {
+				width: 1280,
+				rename: {
+					suffix: '-lg'
+				}
+			},
+			{
+				width: 992,
+				rename: {
+					suffix: '-md'
+				}
+			}, {
+				width: 720,
+				rename: {
+					suffix: '-sm'
+				}
+			}, {
+				width: 540,
+				rename: {
+					suffix: '-xs'
+				}
+			}, {
+				width: 480,
+				rename: {
+					suffix: '-xxs'
+				}
+			}
 		]
 	}, {
 		quality: 70,
