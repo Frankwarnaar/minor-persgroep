@@ -6,7 +6,8 @@ function postArticle(db, article, id) {
 		{
 			$set: {
 				title: article.title,
-				content: article.content
+				content: article.content,
+				lastUpdate: new Date().getTime()
 			}
 		}
 	);

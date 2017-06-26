@@ -11,7 +11,7 @@
 		<%- include('./edit-review-form.ejs', {review: review}); %>
 	<% } else { %>
 		<p><%= review.review %></p>
-		<span>Type:
+		<p>Type:
 			<% if (review.type === 'syntax') { %>
 				Grammaticaal
 			<% } else if (review.type === 'content') { %>
@@ -23,7 +23,12 @@
 			<% } else { %>
 				<%= review.type %>
 			<% } %>
-		</span>
+		</p>
+		<% if (review.lastUpdate && article.lastUpdate > review.lastUpdate) { %>
+			<p><em>Dit artikel is bewerkt nadat deze review is geschreven.</em></p>
+		<% } else if (article.lastUpdate > review.timestamp) { %>
+			<p><em>Dit artikel is bewerkt nadat deze review is geschreven.</em></p>
+		<% } %>
 	<% } %>
 	<% if (article.authorId == user._id && !review.accepted) { %>
 		<footer>
