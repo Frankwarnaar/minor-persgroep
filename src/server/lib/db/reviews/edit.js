@@ -6,7 +6,8 @@ function postArticle(db, review, id) {
 		{
 			$set: {
 				type: review.type,
-				review: review.review
+				review: review.review,
+				lastUpdate: new Date().getTime()
 			}
 		}
 	);
