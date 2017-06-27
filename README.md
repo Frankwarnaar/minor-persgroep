@@ -1,6 +1,4 @@
 # P-Review
-NOTE: This app is still in development
-
 ![screenshot of this app](https://raw.githubusercontent.com/Frankwarnaar/minor-persgroep/master/readme_screens/review.png)
 
 This app is a plaform for young writers. Young people (20 - 30 years old) seem to lose interest in the news these days. By making a platform for these people and making them involved in writing the articles, the articles become more relevant for the target group itself.
@@ -26,7 +24,7 @@ npm start
 ## Development
 After installation, run in your terminal:
 ```bash
-gulp default
+gulp
 ```
 Start watch and browser-sync tasks
 
@@ -143,8 +141,7 @@ gulp images
 ### Week 4
 * [x] Show it when others are reviewing the same article as you are realtime
 * [x] Notifications with service worker
-* [ ] Guide for users
-* [ ] Version control?
+* [x] Guide for users
 
 ## Project structure
 
