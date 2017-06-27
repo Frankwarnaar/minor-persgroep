@@ -2,8 +2,12 @@
 	border: 1px solid $color-gray-clouds;
 	background: $color-light;
 
-	&:last-child {
+	&.small {
 		border: none;
+
+		.tour {
+			max-width: 40em;
+		}
 	}
 
 	&:not(:last-child) {
@@ -16,8 +20,14 @@
 }
 
 .tour {
+	max-width: 100%;
 	background: none;
 	margin-bottom: 0;
+
+	> h2,
+	> p {
+		max-width: 40em;
+	}
 
 	a {
 		margin-bottom: .5rem;
@@ -30,7 +40,11 @@
 			section {
 				width: 50%;
 				margin: 0;
-				margin-right: 1rem;
+				margin-right: 4rem;
+
+				&:last-child {
+					margin-right: 0;
+				}
 			}
 		}
 	}
