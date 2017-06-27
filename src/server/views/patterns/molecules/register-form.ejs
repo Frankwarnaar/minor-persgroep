@@ -21,6 +21,8 @@
 	</label>
 	<input type="submit" value="<%= typeof(prefill) !== 'undefined' ? 'Wijzig' :  'Registreer' %>"/>
 	<% if (typeof(error) !== 'undefined') { %>
-		<p><%= error %></p>
+		<% if (error) { %>
+			<p><%= error %></p>
+		<% } %>
 	<% } %>
 </form>
