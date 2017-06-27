@@ -101,9 +101,9 @@ gulp images
 
 ### Could haves
 * [x] Show when someone else is reviewing the same article as you
-* [ ] Send an author a push notification when there are new reviews
+* [x] Send an author a push notification when there are new reviews
 * [ ] Save reviews realtime
-* [ ] Edit reviews
+* [x] Edit reviews
 * [ ] Review offline, and publish these reviews when connection is reastablished
 * [ ] Comment on reviews
 * [ ] Rate reviews
