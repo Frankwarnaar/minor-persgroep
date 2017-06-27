@@ -72,7 +72,7 @@ class Reviews {
 
 			if (finishedReview) {
 				const $newReview = this.createReview(finishedReview, true).$review;
-				const $closeButton = $newReview.children[0];
+				const $closeButton = $newReview.children[2];
 
 				$closeButton.addEventListener('click', this.app.review.closeReview.bind(this.app.review));
 				this.$reviewList.appendChild($newReview);
@@ -86,7 +86,7 @@ class Reviews {
 		const $existingReview = document.querySelector([`[data-reviewer="${review.userId}"][data-element="${review.element}"]`]);
 		if (!$existingReview && review.review.length > 0) {
 			const $review = this.createReview(review).$review;
-			const $closeButton = $review.children[0];
+			const $closeButton = $review.children[2];
 
 			$closeButton.addEventListener('click', this.app.review.closeReview.bind(this.app.review));
 
@@ -112,33 +112,40 @@ class Reviews {
 
 			if (unfinishedCount > 0) {
 				$button.innerHTML = `${finishedCount} (${unfinishedCount})`;
+				$button.setAttribute('data-has-unfinished-reviews', 'true');
 				$button.classList.remove('hidden');
 			} else if (finishedCount > 0) {
 				$button.innerHTML = finishedCount;
 				$button.classList.remove('hidden');
+				$button.removeAttribute('data-has-unfinished-reviews');
 			} else {
 				$button.classList.add('hidden');
+				$button.removeAttribute('data-has-unfinished-reviews');
 			}
 		});
 	}
 
 	createReview(review, finished) {
 		const $reviewItem = document.createElement('li');
-		const content = `
+		let content = `
+		<h3>Review</h3>
+		<date>${review.date ? new Date(review.date).toLocaleString() : 'Nu'}</date>
 		<button data-close-review>X</button>
 		<p>${review.review}</p>
-		<span>type: ${review.type}</span>
+		<p>type: ${review.type}</p>
 		`;
 
 		$reviewItem.classList.add('review');
 		$reviewItem.setAttribute('data-element', review.element);
 		$reviewItem.setAttribute('data-reviewer', review.userId);
-		$reviewItem.insertAdjacentHTML('beforeend', content);
 
 		if (!finished) {
 			$reviewItem.setAttribute('data-unfinished', 'true');
+			content += '<p><em>Deze review wordt momenteel geschreven</em></p>';
 		}
+		content += '<a href="/tour/review">Wat is dit?</a>';
 
+		$reviewItem.insertAdjacentHTML('beforeend', content);
 		return ({
 			$review: $reviewItem,
 			content

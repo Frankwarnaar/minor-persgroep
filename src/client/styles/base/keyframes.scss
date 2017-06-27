@@ -1,0 +1,23 @@
+@keyframes blink-border {
+	0% {
+		border-color: $color-gray-clouds;
+	}
+
+	50% {
+		border-color: $color-secondary;
+	}
+}
+
+@keyframes blink-border-hover {
+	0% {
+		border-color: $color-gray-clouds;
+	}
+
+	50% {
+		border-color: $color-primary;
+	}
+
+	100% {
+		border-color: $color-gray-clouds;
+	}
+}

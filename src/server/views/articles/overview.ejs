@@ -2,14 +2,18 @@
 
 <% if (articles[0]) { %>
 	<section>
-		<%- include('../patterns/molecules/article-link.ejs', {article: articles[0]}); %>
+		<% for (let i = 0; i < 2; i++) { %>
+			<% if (articles[i]) { %>
+				<%- include('../patterns/molecules/article-link.ejs', {article: articles[i]}); %>
+			<% } %>
+		<% } %>
 	</section>
 <% } %>
 
 <%- include('../patterns/organisms/tour-intro.ejs'); %>
 
 <section>
-	<% for (let i = 1; i < articles.length; i++) { %>
+	<% for (let i = 2; i < articles.length; i++) { %>
 		<% if (articles[i]) { %>
 			<%- include('../patterns/molecules/article-link.ejs', {article: articles[i]}); %>
 		<% } %>

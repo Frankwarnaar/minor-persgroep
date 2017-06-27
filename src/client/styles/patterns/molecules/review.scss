@@ -4,14 +4,18 @@
 
 	border-bottom: 1px solid $color-gray-clouds;
 
+	h3 {
+		display: inline-block;
+		margin-right: 1rem;
+		margin-bottom: 1rem;
+	}
+
 	button {
 		float: right;
 		display: none;
 	}
 
 	&[data-edit] {
-		display: flex;
-
 		button {
 			margin-left: 1rem;
 			order: 1;
@@ -75,7 +79,8 @@
 	}
 
 	&[data-unfinished] {
-		border: 1px solid $color-highlight-warning;
 		color: $color-gray-midnight;
+		border: 1px solid $color-gray-clouds;
+		animation: blink-border 1s infinite;
 	}
 }
