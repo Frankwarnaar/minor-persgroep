@@ -1,7 +1,7 @@
 <li
 	class="review"
 	id="<%= review._id %>"
-	<%= review.element ? `data-element=${review.element}` : '' %> <%= review.accepted ? 'data-accepted' : '' %>
+	<%= review.element ? `data-element=${review.element}` : '' %>
 	<%= review.handled ? 'data-handled' : '' %>
 	<%= user._id == review.userId && !review.handled ? 'data-edit' : '' %>
 	>
@@ -9,10 +9,12 @@
 	<h3>Review</h3>
 	<date><%= new Date(review.timestamp).toLocaleString() %></date>
 	<button data-close-review>X</button>
+
 	<% if (user._id == review.userId && !review.handled)  { %>
 		<%- include('./edit-review-form.ejs', {review: review}); %>
 	<% } else { %>
 		<p><%= review.review %></p>
+
 		<p>Type:
 			<% if (review.type === 'syntax') { %>
 				Grammaticaal
@@ -26,13 +28,18 @@
 				<%= review.type %>
 			<% } %>
 		</p>
+
+		<% if (review.accepted) { %>
+			<p class="highlight-success"></em>✓ Deze review is geaccepteerd</em></p>
+		<% } %>
+
 		<% if (review.lastUpdate && article.lastUpdate > review.lastUpdate) { %>
 			<p><em>Dit artikel is bewerkt nadat deze review is geschreven.</em></p>
 		<% } else if (article.lastUpdate > review.timestamp) { %>
 			<p><em>Dit artikel is bewerkt nadat deze review is geschreven.</em></p>
 		<% } %>
 	<% } %>
-	<% if (user._id != review.userId)  { %>
+	<% if (user._id != review.userId) { %>
 		<a href="/tour/review">Wat is dit?</a>
 	<% } %>
 	<% if (article.authorId == user._id && !review.accepted) { %>
