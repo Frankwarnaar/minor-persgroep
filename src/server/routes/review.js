@@ -38,6 +38,7 @@ function postReview(req, res) {
 	const articleId = req.params._id;
 	db.reviews.insert(req.db, req.body, articleId, req.session.user._id).then(data => {
 		const [review] = data.ops;
+		review.date = new Date().getTime();
 
 		let reviewIndex = -1;
 		reviews.forEach((single, i) => {

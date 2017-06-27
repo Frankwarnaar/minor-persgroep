@@ -6,6 +6,8 @@
 	<%= user._id == review.userId && !review.handled ? 'data-edit' : '' %>
 	>
 
+	<h3>Review</h3>
+	<date><%= new Date(review.timestamp).toLocaleString() %></date>
 	<button data-close-review>X</button>
 	<% if (user._id == review.userId && !review.handled)  { %>
 		<%- include('./edit-review-form.ejs', {review: review}); %>
@@ -30,6 +32,7 @@
 			<p><em>Dit artikel is bewerkt nadat deze review is geschreven.</em></p>
 		<% } %>
 	<% } %>
+	<a href="/tour/review">Wat is dit?</a>
 	<% if (article.authorId == user._id && !review.accepted) { %>
 		<footer>
 

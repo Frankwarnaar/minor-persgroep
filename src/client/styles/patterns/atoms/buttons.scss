@@ -114,4 +114,13 @@ button,
 			right: auto;
 		}
 	}
+
+	&[data-has-unfinished-reviews] {
+		animation: blink-border 1s infinite;
+
+		&:hover,
+		&:focus {
+			color: $color-gray-concrete;
+		}
+	}
 }
