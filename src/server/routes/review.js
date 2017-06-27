@@ -25,7 +25,8 @@ let reviews = [];
 function getReview(req, res) {
 	db.articles.get(req.db, req.params._id, (err, [article]) => {
 		if (err) {
-			res.sendStatus(404);
+			res.sendStatus(502);
+			return;
 		}
 
 		res.render('review/single', {

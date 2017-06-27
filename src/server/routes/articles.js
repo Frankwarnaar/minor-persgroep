@@ -30,7 +30,8 @@ function postNewArticle(req, res) {
 function getArticle(req, res) {
 	db.articles.get(req.db, req.params._id, (err, [article]) => {
 		if (err) {
-			res.sendStatus(404);
+			res.sendStatus(502);
+			return;
 		}
 
 		res.render('articles/single', {
@@ -43,7 +44,7 @@ function getEdit(req, res) {
 	const articleId = req.params._id;
 	db.articles.get(req.db, articleId, (err, [article]) => {
 		if (err) {
-			res.sendStatus(404);
+			res.sendStatus(502);
 			return;
 		}
 

@@ -11,7 +11,8 @@ const router = Router()
 function renderIndex(req, res) {
 	db.articles.getAll(req.db, (err, articles) => {
 		if (err) {
-			console.log(err);
+			res.sendStatus(502);
+			return;
 		}
 
 		res.render('articles/overview', {

@@ -28,8 +28,18 @@ function postLogin(req, res) {
 	const email = req.body.email;
 	const password = req.body.password;
 	req.db.collection('users').findOne({email}, (err, user) => {
+		if (err) {
+			res.sendStatus(502);
+			return;
+		}
+
 		if (user) {
 			bcrypt.compare(password, user.password, (err, result) => {
+				if (err) {
+					res.sendStatus(502);
+					return;
+				}
+
 				if (result) {
 					delete user.password;
 					req.session.user = user;

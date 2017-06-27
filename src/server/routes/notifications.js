@@ -10,7 +10,8 @@ const router = Router()
 function getNotifications(req, res) {
 	db.notifications.get(req.db, req.session.user._id, (err, reviews) => {
 		if (err) {
-			res.sendStatus(404);
+			res.sendStatus(502);
+			return;
 		}
 
 		db.notifications.update(req.db, reviews);
