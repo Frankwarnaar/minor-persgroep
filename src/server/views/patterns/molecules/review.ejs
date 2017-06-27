@@ -32,7 +32,9 @@
 			<p><em>Dit artikel is bewerkt nadat deze review is geschreven.</em></p>
 		<% } %>
 	<% } %>
-	<a href="/tour/review">Wat is dit?</a>
+	<% if (user._id != review.userId)  { %>
+		<a href="/tour/review">Wat is dit?</a>
+	<% } %>
 	<% if (article.authorId == user._id && !review.accepted) { %>
 		<footer>
 
