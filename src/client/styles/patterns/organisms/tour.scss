@@ -40,7 +40,33 @@
 		background: none;
 	}
 
+	ol {
+		padding: 0;
+		list-style-type: none;
+	}
+
 	li {
 		padding-bottom: 3rem;
+		counter-increment: item;
+
+		&:before {
+			content: counter(item);
+			margin-right: 1rem;
+			border-radius: 50%;
+			margin-right: .5rem;
+			width: 1.2em;
+
+			display: inline-block;
+			text-align: center;
+
+			background: $color-primary;
+			color: $color-lightest;
+			font-size: $font-size-xxl;
+		}
 	}
+
+	h3 {
+		display: inline-block;
+	}
+
 }
