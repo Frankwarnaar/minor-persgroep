@@ -94,7 +94,7 @@ class Reviews {
 			this.$reviewList.appendChild($review);
 		} else if (review.review.length > 0) {
 			$existingReview.innerHTML = this.createReview(review).content;
-			$existingReview.children[0].addEventListener('click', this.app.review.closeReview.bind(this.app.review));
+			$existingReview.children[2].addEventListener('click', this.app.review.closeReview.bind(this.app.review));
 		} else if ($existingReview) {
 			this.$reviewList.removeChild($existingReview);
 		}
