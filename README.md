@@ -143,6 +143,10 @@ gulp images
 * [x] Notifications with service worker
 * [x] Guide for users
 
+### Week 5
+* [x] final fixes
+* [x] Poster
+
 ## Project structure
 
 ### Code base
@@ -212,7 +216,7 @@ This app contains work from the next courses:
 ## 1. Web app from scratch
 The whole client side javascript is built with the structure learned at WAFS. This can be found at [src/client/js](https://github.com/Frankwarnaar/minor-persgroep/tree/master/src/client/js)
 ## 2. Browser technologies
-The following things are built progressive enhanced:
+The following things are progressive enhanced:
 1. The reviewing system
   * [Server side baseline code](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/server/routes/review.js)
   * [Client side javascript enhancements](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/client/js/components/Review.js)
@@ -220,7 +224,7 @@ The following things are built progressive enhanced:
   * [Server side notifications in navigation](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/server/app.js#L75)
   * [Client side realtime enhanced notifications](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/client/js/watchers/Notifications.js)
 ## 3. Performance matters
-The app uses a service worker for viewing pages offline and for notifying the user when there are new reviews on his/her articles
+The app uses a service worker for viewing pages offline and for notifying the user when there are new reviews on his/her articles with push notifications.
 * [Service worker](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/client/js/sw.js)
 * [Notifications](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/client/js/watchers/Notifications.js)
 
@@ -231,3 +235,9 @@ Besides that, some optimizations are done, like:
 The app has a realtime enhancement to show when someone is reviewing the same article. 
 * [Server side code](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/server/routes/review.js#L113)
 * [Client side code](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/client/js/watchers/Reviews.js)
+
+
+## Reflection
+What I'm the most proud of, is the way I've approached this project. From the start, I've built everything progressive enhanced, starting by making it work server side. Where value was added for the user, I enhanced my project with javascript and realtime features. 
+
+Besides that, I'm proud of my workflow. What I did during the project, was writing down all possible features that this project would have, prioritize them and work out the most important ones. This way, in my eyes, I came to a really decent product.
