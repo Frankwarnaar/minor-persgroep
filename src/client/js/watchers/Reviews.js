@@ -61,13 +61,15 @@ class Reviews {
 		if (data) {
 			const {reviews, finishedReview} = data;
 			if (reviews) {
-				reviews.forEach(this.updateReview.bind(this));
+				if (reviews.length) {
+					reviews.forEach(this.updateReview.bind(this));
+				} else {
+					const $unfinishedReviews = document.querySelectorAll('.review[data-unfinished]');
+					[...$unfinishedReviews].forEach($review => {
+						this.$reviewList.removeChild($review);
+					});
+				}
 				this.updateCountButtons();
-			} else {
-				const $unfinishedReviews = document.querySelectorAll('.review[data-unfinished]');
-				[...$unfinishedReviews].forEach($review => {
-					this.$reviewList.removeChild($review);
-				});
 			}
 
 			if (finishedReview) {
