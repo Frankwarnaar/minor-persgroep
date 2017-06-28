@@ -12,6 +12,7 @@ class Notifications {
 	init() {
 		try {
 			this.socket = new WebSocket(`ws://${window.location.hostname}:8000`, 'echo-protocol');
+			this.requestNotifications();
 
 			this.socket.onopen = this.sendUserId.bind(this)
 			this.socket.onmessage = this.handleMessage.bind(this);
@@ -19,6 +20,28 @@ class Notifications {
 		catch (e) {
 			console.log(e);
 			console.log('could not setup a websocket connection');
+		}
+	}
+
+	requestNotifications() {
+		if ('Notification' in window) {
+			Notification.requestPermission();
+		}
+	}
+
+	showNotification(review) {
+		if ('Notification' in window) {
+			Notification.requestPermission(result => {
+				if (result === 'granted') {
+					navigator.serviceWorker.ready.then(registration => {
+						registration.showNotification('New review', {
+							body: 'There is a new review on your article',
+							icon: '/img/app-icons/favicon.png',
+							vibrate: [200, 100, 200]
+						});
+					});
+				}
+			});
 		}
 	}
 
@@ -33,8 +56,8 @@ class Notifications {
 			if (count) {
 				this.setNotificationsCount(count);
 			}
-			if (review && showNotification) {
-				showNotification(review);
+			if (review) {
+				this.showNotification(review);
 			}
 		}
 	}
