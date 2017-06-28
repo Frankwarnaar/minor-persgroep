@@ -206,3 +206,29 @@ Reviews have the next keys:
 * `read`: Whether the author of the article has already been notified (boolean)
 * `handled`: Whether the review has already been handled (boolean)
 * `accepted`: whether the review has already been accepted (boolean)
+
+## Courses
+This app contains work from the next courses:
+## 1. Web app from scratch
+The whole client side javascript is built with the structure learned at WAFS. This can be found at [src/client/js](https://github.com/Frankwarnaar/minor-persgroep/tree/master/src/client/js)
+## 2. Browser technologies
+The following things are built progressive enhanced:
+1. The reviewing system
+  * [Server side baseline code](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/server/routes/review.js)
+  * [Client side javascript enhancements](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/client/js/components/Review.js)
+2. Notifications
+  * [Server side notifications in navigation](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/server/app.js#L75)
+  * [Client side realtime enhanced notifications](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/client/js/watchers/Notifications.js)
+## 3. Performance matters
+The app uses a service worker for viewing pages offline and for notifying the user when there are new reviews on his/her articles
+* [Service worker](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/client/js/sw.js)
+* [Notifications (1/2)](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/server/views/_base/layout.ejs#L17)
+* [Notifications (2/2)](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/client/js/watchers/Notifications.js#L17)
+
+Besides that, some optimizations are done, like:
+* [Minify js & css](https://github.com/Frankwarnaar/minor-persgroep/pull/23/commits)
+* [Use picture elements with different sizes for big images](https://github.com/Frankwarnaar/minor-persgroep/pull/26)
+## 4. Realtime web
+The app has a realtime enhancement to show when someone is reviewing the same article. 
+* [Server side code](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/server/routes/review.js#L113)
+* [Client side code](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/client/js/watchers/Reviews.js)
