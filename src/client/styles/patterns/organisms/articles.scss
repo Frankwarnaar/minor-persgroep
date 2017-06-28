@@ -36,6 +36,8 @@ article.link {
 	max-width: 40em;
 	background: $color-lightest;
 
+	position: relative;
+
 	h1 {
 		color: $color-primary;
 	}
@@ -67,4 +69,45 @@ body:not(.no-js) .article[data-align-reviews=true] {
 			}
 		}
 	}
+}
+
+.reviews-wrapper {
+	z-index: 1;
+
+	@media screen and (max-width: $break-lg) {
+		margin: 0 -1rem;
+		padding: 0 1rem;
+
+		max-height: 20rem;
+		overflow: auto;
+		background: $color-lightest;
+
+		button {
+			float: right;
+		}
+	}
+
+	@media screen and (min-width: $break-lg-min) {
+		width: calc(100vw - 100% - 2rem - ((100vw - 40rem) / 5));
+
+		position: absolute;
+		top: 0;
+		right: -1rem;
+		transform: translateX(100%);
+		-ms-transform: translateX(100%);
+
+	}
+
+	.review {
+		padding: 1rem;
+
+		@media screen and (max-width: $break-lg) {
+			margin: 0 -1rem;
+		}
+
+		@media screen and (min-width: $break-lg-min) {
+			box-shadow: 0 0 1rem 0 rgba(0,0,0,.4);
+		}
+	}
+
 }

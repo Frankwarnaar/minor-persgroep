@@ -1,5 +1,9 @@
 section {
-	@extend .article;
+	padding: 1em;
+	margin: 0 auto;
+	margin-bottom: 1rem;
+	max-width: 40em;
+	background: $color-lightest;
 
 	&[data-open-reviews] {
 		position: static;
