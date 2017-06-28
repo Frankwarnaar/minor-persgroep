@@ -222,8 +222,7 @@ The following things are built progressive enhanced:
 ## 3. Performance matters
 The app uses a service worker for viewing pages offline and for notifying the user when there are new reviews on his/her articles
 * [Service worker](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/client/js/sw.js)
-* [Notifications (1/2)](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/server/views/_base/layout.ejs#L17)
-* [Notifications (2/2)](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/client/js/watchers/Notifications.js#L17)
+* [Notifications (2/2)](https://github.com/Frankwarnaar/minor-persgroep/blob/master/src/client/js/watchers/Notifications.js)
 
 Besides that, some optimizations are done, like:
 * [Minify js & css](https://github.com/Frankwarnaar/minor-persgroep/pull/23/commits)
