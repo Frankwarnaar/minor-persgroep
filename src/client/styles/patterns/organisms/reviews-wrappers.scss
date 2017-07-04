@@ -31,7 +31,7 @@
 		.review {
 			margin-bottom: 0;
 
-			&:last-child {
+			&:last-child:not([data-unfinished]) {
 				border: none;
 			}
 		}
@@ -47,7 +47,7 @@
 		font-size: $font-size-base;
 		padding: 1rem;
 
-		&:last-child {
+		&:last-child:not([data-unfinished]) {
 			margin-bottom: 0;
 			border: none;
 		}

@@ -50,8 +50,9 @@ class Review {
 
 	setupReviewContainers() {
 		if (this.$articleElements.length > 1) {
-			[...this.$articleElements].forEach($element => {
+			[...this.$articleElements].forEach(($element, i) => {
 				const $container = this.createContainer();
+				$container.setAttribute('data-wrapper-child', i === 0 ? 'title' : i - 1);
 				$element.appendChild($container);
 			});
 		} else if (this.$article.classList.contains('ql-editor')) {

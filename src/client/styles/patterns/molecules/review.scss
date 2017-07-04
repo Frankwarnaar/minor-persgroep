@@ -77,8 +77,9 @@
 	}
 
 	&[data-unfinished] {
+		margin: 0;
 		color: $color-gray-midnight;
-		border: 1px solid $color-gray-clouds;
+		border: 1px solid $color-lightest;
 		animation: blink-border 1s infinite;
 	}
 }

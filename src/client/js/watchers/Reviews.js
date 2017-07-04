@@ -66,7 +66,7 @@ class Reviews {
 			} else {
 				const $unfinishedReviews = document.querySelectorAll('.review[data-unfinished]');
 				[...$unfinishedReviews].forEach($review => {
-					this.$reviewList.removeChild($review);
+					$review.parentElement.removeChild($review);
 				});
 			}
 
@@ -75,8 +75,12 @@ class Reviews {
 				const $closeButton = $newReview.children[2];
 
 				$closeButton.addEventListener('click', this.app.review.closeReview.bind(this.app.review));
-				this.$reviewList.appendChild($newReview);
-				this.app.review.positionReview($newReview);
+				const $reviewContainer = document.querySelector(`[data-wrapper-child="${finishedReview.element}"]`);
+				if ($reviewContainer) {
+					$reviewContainer.appendChild($newReview);
+				} else {
+					this.$reviewList.appendChild($newReview);
+				}
 				this.updateCountButtons();
 			}
 		}
@@ -90,13 +94,17 @@ class Reviews {
 
 			$closeButton.addEventListener('click', this.app.review.closeReview.bind(this.app.review));
 
-			this.app.review.positionReview($review, false);
-			this.$reviewList.appendChild($review);
+			const $reviewContainer = document.querySelector(`[data-wrapper-child="${review.element}"]`);
+			if ($reviewContainer) {
+				$reviewContainer.appendChild($review);
+			} else {
+				this.$reviewList.appendChild($review);
+			}
 		} else if (review.review.length > 0) {
 			$existingReview.innerHTML = this.createReview(review).content;
 			$existingReview.children[2].addEventListener('click', this.app.review.closeReview.bind(this.app.review));
 		} else if ($existingReview) {
-			this.$reviewList.removeChild($existingReview);
+			$existingReview.parentElement.removeChild($existingReview);
 		}
 	}
 
@@ -126,7 +134,7 @@ class Reviews {
 	}
 
 	createReview(review, finished) {
-		const $reviewItem = document.createElement('li');
+		const $reviewItem = document.createElement('section');
 		let content = `
 		<h3>Review</h3>
 		<date>${review.date ? new Date(review.date).toLocaleString() : 'Nu'}</date>
