@@ -25,12 +25,12 @@ class Review {
 				this.setupReviewButtons('review');
 			}
 
-			if (this.$article.getAttribute('data-align-reviews') === 'true' || this.$article.classList.contains('ql-editor')) {
-				this.setupReviewContainers();
-			}
-
 			if (this.$article.getAttribute('data-review') === 'true') {
 				this.setupReviewButtons('form');
+			}
+
+			if (this.$article.getAttribute('data-align-reviews') === 'true' || this.$article.classList.contains('ql-editor')) {
+				this.setupReviewContainers();
 			}
 
 			this.bindEvents();
@@ -271,7 +271,14 @@ class Review {
 
 		if ($target) {
 			const yPosition = windowWidth > breakpoint || isButton ? getPosition($target).y : getPosition($target).y +  $target.offsetHeight;
-			const width = windowWidth > breakpoint ? `calc(${windowWidth - articleWidth}px - 2rem - ((100vw - 40rem) / 5))` : 'calc(100vw - 2rem)';
+			let width;
+			if (windowWidth > breakpoint) {
+				width = `calc(${windowWidth - articleWidth}px - 2rem - ((100vw - 40rem) / 5))`;
+			} else if ($element === this.$review) {
+				width = 'calc(100vw - 2rem)';
+			} else {
+				width = 'auto';
+			}
 
 			$element.setAttribute('data-position', true);
 			$element.setAttribute('data-is-button', true);
