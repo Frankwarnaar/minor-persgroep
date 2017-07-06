@@ -166,6 +166,8 @@ function onSocketConnection(socket) {
 		reviews = reviews.filter(single => {
 			return single.userId !== socket.userId;
 		});
+
+		updateReviews();
 	}
 }
 

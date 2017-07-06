@@ -13,20 +13,6 @@
 		if ('serviceWorker' in navigator) {
 			navigator.serviceWorker.register('/sw.js');
 		}
-
-		function showNotification(review) {
-			Notification.requestPermission(result => {
-				if (result === 'granted') {
-					navigator.serviceWorker.ready.then(registration => {
-						registration.showNotification('New review', {
-							body: 'There is a new review on your article',
-							icon: '/img/app-icons/favicon.png',
-							vibrate: [200, 100, 200]
-						});
-					});
-				}
-			});
-		}
 		</script>
 	</head>
 
