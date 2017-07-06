@@ -1,0 +1,10 @@
+<section class="hero">
+	<div class="container">
+		<img src="<%= hero.img.src %>" alt="<%= hero.img.alt %>"/>
+		<h1><%= hero.title %></h1>
+		<h2><%= hero.subTitle %></h2>
+		<% hero.callsToAction.map(cta => { %>
+			<a class="btn" href="<%= cta.url %>"><%= cta.title %></a>
+		<% }) %>
+	</div>
+</section>
