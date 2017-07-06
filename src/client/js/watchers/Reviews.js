@@ -63,14 +63,21 @@ class Reviews {
 				reviews = reviews.filter(review => review.review.length > 0);
 				if (reviews.length) {
 					reviews.forEach(this.updateReview.bind(this));
-					this.updateCountButtons();
 				} else {
 					const $unfinishedReviews = document.querySelectorAll('.review[data-unfinished]');
+					const $parents = [];
 					[...$unfinishedReviews].forEach($review => {
-						$review.parentElement.classList.add('hidden');
+						$parents.push($review.parentElement);
 						$review.parentElement.removeChild($review);
 					});
+
+					[...$parents].forEach($parent => {
+						if ($parent.children.length < 2) {
+							$parent.classList.add('hidden');
+						}
+					});
 				}
+				this.updateCountButtons();
 			}
 
 			if (finishedReview) {
