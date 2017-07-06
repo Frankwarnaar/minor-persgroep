@@ -3,9 +3,9 @@ class Reviews {
 		this.app = app;
 		this.$article = document.querySelector('[data-article-id]');
 		this.$review = document.getElementsByClassName('review-form')[0];
-		this.$reviewElement = document.querySelector('[name="review-element"]');
-		this.$reviewContent = document.querySelector('[name="review"]');
-		this.$reviewType = document.querySelector('[name="type"]');
+		this.$reviewElement = document.querySelector('.review-form [name="review-element"]');
+		this.$reviewContent = document.querySelector('.review-form [name="review"]');
+		this.$reviewType = document.querySelector('.review-form [name="type"]');
 		this.$reviewButtons = document.getElementsByClassName('button--review');
 		this.$reviewList = document.getElementById('open-reviews');
 
@@ -52,21 +52,29 @@ class Reviews {
 			review: this.$reviewContent.value,
 			type: this.$reviewType.value
 		};
-
 		this.socket.send(JSON.stringify({review}));
 	}
 
 	handleMessage({data}) {
 		data = JSON.parse(data);
 		if (data) {
-			const {reviews, finishedReview} = data;
+			let {reviews, finishedReview} = data;
 			if (reviews) {
+				reviews = reviews.filter(review => review.review.length > 0);
 				if (reviews.length) {
 					reviews.forEach(this.updateReview.bind(this));
 				} else {
 					const $unfinishedReviews = document.querySelectorAll('.review[data-unfinished]');
+					const $parents = [];
 					[...$unfinishedReviews].forEach($review => {
-						this.$reviewList.removeChild($review);
+						$parents.push($review.parentElement);
+						$review.parentElement.removeChild($review);
+					});
+
+					[...$parents].forEach($parent => {
+						if ($parent.children.length < 2) {
+							$parent.classList.add('hidden');
+						}
 					});
 				}
 				this.updateCountButtons();
@@ -77,8 +85,12 @@ class Reviews {
 				const $closeButton = $newReview.children[2];
 
 				$closeButton.addEventListener('click', this.app.review.closeReview.bind(this.app.review));
-				this.$reviewList.appendChild($newReview);
-				this.app.review.positionReview($newReview);
+				const $reviewContainer = document.querySelector(`[data-wrapper-child="${finishedReview.element}"]`);
+				if ($reviewContainer) {
+					$reviewContainer.appendChild($newReview);
+				} else {
+					this.$reviewList.appendChild($newReview);
+				}
 				this.updateCountButtons();
 			}
 		}
@@ -92,13 +104,17 @@ class Reviews {
 
 			$closeButton.addEventListener('click', this.app.review.closeReview.bind(this.app.review));
 
-			this.app.review.positionReview($review, false);
-			this.$reviewList.appendChild($review);
+			const $reviewContainer = document.querySelector(`[data-wrapper-child="${review.element}"]`);
+			if ($reviewContainer) {
+				$reviewContainer.appendChild($review);
+			} else {
+				this.$reviewList.appendChild($review);
+			}
 		} else if (review.review.length > 0) {
 			$existingReview.innerHTML = this.createReview(review).content;
 			$existingReview.children[2].addEventListener('click', this.app.review.closeReview.bind(this.app.review));
 		} else if ($existingReview) {
-			this.$reviewList.removeChild($existingReview);
+			$existingReview.parentElement.removeChild($existingReview);
 		}
 	}
 
@@ -128,7 +144,7 @@ class Reviews {
 	}
 
 	createReview(review, finished) {
-		const $reviewItem = document.createElement('li');
+		const $reviewItem = document.createElement('section');
 		let content = `
 		<h3>Review</h3>
 		<date>${review.date ? new Date(review.date).toLocaleString() : 'Nu'}</date>

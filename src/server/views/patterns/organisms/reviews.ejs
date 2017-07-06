@@ -1,25 +1,23 @@
 <section data-open-reviews>
 	<h2>Open reviews</h2>
-	<ul id="open-reviews" class="list--clean">
+	<div id="open-reviews">
 		<% article.reviews.map(review => { %>
 			<% if (!review.handled) { %>
 				<%- include('../molecules/review', {article: article, review: review, user: user, edit: edit}) %>
 			<% } %>
 		<% }); %>
-	</ul>
+	</div>
 	<% if (article.reviews.filter(review => !review.handled).length === 0) { %>
 		<p>Er zijn momenteel onbehandelde reviews op dit artikel.</p>
 	<% } %>
 </section>
 <section>
 	<h2>Gesloten reviews</h2>
-	<ul class="list--clean">
-		<% article.reviews.map(review => { %>
-			<% if (review.handled) { %>
-				<%- include('../molecules/review', {article: article, review: review, user: user, edit: edit}) %>
-			<% } %>
-		<% }); %>
-	</ul>
+	<% article.reviews.map(review => { %>
+		<% if (review.handled) { %>
+			<%- include('../molecules/review', {article: article, review: review, user: user, edit: edit}) %>
+		<% } %>
+	<% }); %>
 	<% if (article.reviews.filter(review => review.handled).length === 0) { %>
 		<p>Er zijn momenteel behandelde reviews op dit artikel.</p>
 	<% } %>

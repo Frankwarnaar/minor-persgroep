@@ -5,9 +5,11 @@ class Review {
 		this.$article = document.querySelector('[data-align-reviews=true]') || document.getElementsByClassName('ql-editor')[0];
 		this.$review = document.getElementsByClassName('review-form')[0];
 		this.$closeReviews = document.querySelectorAll('[data-close-review]');
+		this.$articleElements = document.querySelectorAll('[data-child]');
 		this.$reviewElement = document.querySelector('[name=review-element]');
 		this.$reviewContent = document.querySelector('[name=review]');
 		this.$reviews = document.querySelectorAll('.review[data-element]');
+		this.$reviewList = document.querySelector('[data-open-reviews]');
 		this.history = {};
 
 		this.init();
@@ -17,13 +19,18 @@ class Review {
 		if (this.$article) {
 			this.originalContent = this.$article.innerHTML;
 
-			if (this.$article.getAttribute('data-review') === 'true') {
-				this.setupReviewButtons('form');
-			}
 			if (this.$article.classList.contains('ql-editor')) {
 				this.setupEditorButtons();
 			} else {
 				this.setupReviewButtons('review');
+			}
+
+			if (this.$article.getAttribute('data-review') === 'true') {
+				this.setupReviewButtons('form');
+			}
+
+			if (this.$article.getAttribute('data-align-reviews') === 'true' || this.$article.classList.contains('ql-editor')) {
+				this.setupReviewContainers();
 			}
 
 			this.bindEvents();
@@ -35,15 +42,43 @@ class Review {
 		if (this.$reviews) {
 			[...this.$reviews].forEach($review => {
 				if (!$review.hasAttribute('data-handled')) {
-					this.positionReview($review);
+					this.transferReview($review);
 				}
 			});
 		}
 	}
 
-	setupReviewButtons(type) {
-		this.$articleElements = document.querySelectorAll('[data-child]');
+	setupReviewContainers() {
+		if (this.$articleElements.length > 1) {
+			[...this.$articleElements].forEach(($element, i) => {
+				const $container = this.createContainer();
+				$container.setAttribute('data-wrapper-child', i === 0 ? 'title' : i - 1);
+				$element.appendChild($container);
+			});
+		} else if (this.$article.classList.contains('ql-editor')) {
+			const $children = [...document.querySelectorAll('[data-child="title"]'), ...this.$article.children];
+			[...$children].forEach(($child, i) => {
+				const $container = this.createContainer();
+				$container.setAttribute('data-review-container-child', i === 0 ? 'title' : i - 1);
+				this.$reviewList.appendChild($container);
+				this.positionEl($container);
+			});
+		}
+	}
 
+	createContainer() {
+		const $container = document.createElement('div');
+		const $button = document.createElement('button');
+		$button.innerHTML = 'X';
+		$button.addEventListener('click', this.closeContainer.bind(this, $container));
+		$container.classList.add('reviews-wrapper');
+		$container.classList.add('hidden');
+		$container.appendChild($button);
+
+		return $container;
+	}
+
+	setupReviewButtons(type) {
 		this[`$${type}Buttons`] = [...this.$articleElements].map($child => {
 			const $button = document.createElement('button');
 			$button.classList.add('btn--review');
@@ -100,8 +135,8 @@ class Review {
 			}
 
 			if ($button.innerHTML) {
-				document.querySelector('[data-open-reviews]').appendChild($button);
-				this.positionReview($button, true);
+				this.$reviewList.appendChild($button);
+				this.positionEl($button, true);
 			}
 
 			return $button;
@@ -154,10 +189,9 @@ class Review {
 	showReviewForm($parent) {
 		this.setReviewContent($parent.getAttribute('data-child'));
 
-		this.positionReview($parent);
-		this.removeSelection();
+		this.positionEl($parent);
 
-		$parent.classList.add('highlight');
+		$parent.classList.toggle('highlight');
 
 		this.$reviewElement.value = $parent.getAttribute('data-child');
 
@@ -175,8 +209,13 @@ class Review {
 		if ($parent) {
 			$parent.classList.add('highlight');
 		}
-		const $reviews = document.querySelectorAll(`[data-element="${dataChild}"]`);
-		[...$reviews].forEach($review => this.showEl($review, true));
+		const $reviewsWrapper = document.querySelector(`[data-child="${dataChild}"] .reviews-wrapper`) || document.querySelector(`[data-review-container-child="${dataChild}"]`);
+		if ($reviewsWrapper) {
+			this.showEl($reviewsWrapper, true);
+		} else {
+			const $reviews = document.querySelectorAll(`[data-element="${dataChild}"]`);
+			[...$reviews].forEach($review => this.showEl($review, true));
+		}
 	}
 
 	removeSelection() {
@@ -204,30 +243,51 @@ class Review {
 		this.history[$selectedElement.getAttribute('data-child')] = this.$reviewContent.value;
 	}
 
-	positionReview($review, isButton) {
+	transferReview($review) {
+		const target = $review.getAttribute('data-element');
+		if (target) {
+			const $target = document.querySelector(`[data-child="${target}"] .reviews-wrapper`) || document.querySelector(`[data-review-container-child="${target}"]`);
+			$review.parentElement.removeChild($review);
+			$target.appendChild($review);
+		}
+	}
+
+	positionEl($element, isButton) {
 		const windowWidth = window.innerWidth;
 		const articleWidth = this.$article.classList.contains('ql-editor') ? this.$article.offsetWidth + (2 * 16) :  this.$article.offsetWidth;
 		const breakpoint = 993;
-		const reviewIsTarget = $review.hasAttribute('data-element');
-		let $target = reviewIsTarget ? document.querySelector(`[data-child='${$review.getAttribute('data-element')}']`) : $review;
+		const elementIsTarget = $element.hasAttribute('data-element');
+		let $target;
 
-		if (!$target) {
-			$target = document.getElementsByClassName('ql-editor')[0].children[$review.getAttribute('data-element')];
+		if (elementIsTarget) {
+			const targetAttribute = $element.getAttribute('data-element');
+			$target = document.querySelector(`[data-child="${targetAttribute}"]`) || document.querySelector('.ql-editor').children[targetAttribute];
+		} else if ($element.getAttribute('data-review-container-child')) {
+			const targetAttribute = $element.getAttribute('data-review-container-child');
+			$target = document.querySelector(`[data-child="${targetAttribute}"]`) || document.querySelector('.ql-editor').children[targetAttribute];
+		} else {
+			$target = $element;
+			$element = this.$review;
 		}
-
-		$review = reviewIsTarget ? $review : this.$review;
 
 		if ($target) {
 			const yPosition = windowWidth > breakpoint || isButton ? getPosition($target).y : getPosition($target).y +  $target.offsetHeight;
-			const width = windowWidth > breakpoint ? `calc(${windowWidth - articleWidth}px - 2rem - ((100vw - 40rem) / 5))` : 'calc(100vw - 2rem)';
+			let width;
+			if (windowWidth > breakpoint) {
+				width = `calc(${windowWidth - articleWidth}px - 2rem - ((100vw - 40rem) / 5))`;
+			} else if ($element === this.$review) {
+				width = 'calc(100vw - 2rem)';
+			} else {
+				width = 'auto';
+			}
 
-			$review.setAttribute('data-position', true);
-			$review.setAttribute('data-is-button', true);
-			$review.setAttribute('style', `top: ${yPosition}px; ${!isButton ? 'width: ' + width : ''}`);
+			$element.setAttribute('data-position', true);
+			$element.setAttribute('data-is-button', true);
+			$element.setAttribute('style', `top: ${yPosition}px; ${!isButton ? 'width: ' + width : ''}`);
 		}
 
-		if (reviewIsTarget && `#${$review.getAttribute('id')}` !== window.location.hash && !isButton) {
-			this.showEl($review, false);
+		if (elementIsTarget && `#${$element.getAttribute('id')}` !== window.location.hash && !isButton) {
+			this.showEl($element, false);
 		}
 	}
 
@@ -238,6 +298,12 @@ class Review {
 			this.removeSelection();
 		}
 		e.preventDefault();
+	}
+
+	closeContainer($container) {
+		this.showEl($container, false);
+		$container.parentElement.classList.remove('highlight');
+		this.removeSelection();
 	}
 }
 
