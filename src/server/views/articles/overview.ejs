@@ -1,21 +1,12 @@
 <% extend("../_base/layout") %>
 
-<% if (articles[0]) { %>
-	<section>
-		<% for (let i = 0; i < 2; i++) { %>
-			<% if (articles[i]) { %>
-				<%- include('../patterns/molecules/article-link.ejs', {article: articles[i]}); %>
-			<% } %>
-		<% } %>
-	</section>
-<% } %>
+<% const img = {src: '/img/heros/hero.svg', alt: 'Layout van writic'}; %>
+<% const callsToAction = [{url: '/articles/new', title: 'Begin met schrijven'}, {url: '/tour/writing', title: 'Lees hoe het werkt'}]; %>
+<% const hero = {img: img, title: 'Writic', subTitle: 'Waar schrijvers van elkaar kunnen leren', callsToAction: callsToAction}; %>
 
-<%- include('../patterns/organisms/tour-intro.ejs'); %>
-
+<%- include('../patterns/organisms/hero.ejs', {hero: hero}); %>
 <section>
-	<% for (let i = 2; i < articles.length; i++) { %>
-		<% if (articles[i]) { %>
-			<%- include('../patterns/molecules/article-link.ejs', {article: articles[i]}); %>
-		<% } %>
-	<% } %>
+	<% articles.map(article => { %>
+		<%- include('../patterns/molecules/article-link.ejs', {article: article}); %>
+	<% }); %>
 </section>
