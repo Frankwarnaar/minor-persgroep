@@ -3,9 +3,9 @@ class Reviews {
 		this.app = app;
 		this.$article = document.querySelector('[data-article-id]');
 		this.$review = document.getElementsByClassName('review-form')[0];
-		this.$reviewElement = document.querySelector('[name="review-element"]');
-		this.$reviewContent = document.querySelector('[name="review"]');
-		this.$reviewType = document.querySelector('[name="type"]');
+		this.$reviewElement = document.querySelector('.review-form [name="review-element"]');
+		this.$reviewContent = document.querySelector('.review-form [name="review"]');
+		this.$reviewType = document.querySelector('.review-form [name="type"]');
 		this.$reviewButtons = document.getElementsByClassName('button--review');
 		this.$reviewList = document.getElementById('open-reviews');
 
@@ -52,22 +52,25 @@ class Reviews {
 			review: this.$reviewContent.value,
 			type: this.$reviewType.value
 		};
-
 		this.socket.send(JSON.stringify({review}));
 	}
 
 	handleMessage({data}) {
 		data = JSON.parse(data);
 		if (data) {
-			const {reviews, finishedReview} = data;
+			let {reviews, finishedReview} = data;
 			if (reviews) {
-				reviews.forEach(this.updateReview.bind(this));
-				this.updateCountButtons();
-			} else {
-				const $unfinishedReviews = document.querySelectorAll('.review[data-unfinished]');
-				[...$unfinishedReviews].forEach($review => {
-					$review.parentElement.removeChild($review);
-				});
+				reviews = reviews.filter(review => review.review.length > 0);
+				if (reviews.length) {
+					reviews.forEach(this.updateReview.bind(this));
+					this.updateCountButtons();
+				} else {
+					const $unfinishedReviews = document.querySelectorAll('.review[data-unfinished]');
+					[...$unfinishedReviews].forEach($review => {
+						$review.parentElement.classList.add('hidden');
+						$review.parentElement.removeChild($review);
+					});
+				}
 			}
 
 			if (finishedReview) {
