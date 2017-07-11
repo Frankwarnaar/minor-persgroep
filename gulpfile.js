@@ -49,7 +49,7 @@ gulp.task('default', () => {
 });
 
 gulp.task('build', () => {
-	sequence(['clean', 'disable-debug'], ['styles', 'watchify', 'images']);
+	sequence(['clean', 'disable-debug'], ['styles', 'js', 'images']);
 });
 
 gulp.task('clean', () => {
@@ -72,7 +72,7 @@ gulp.task('server', cb => {
 	Watch
    ============================================================ */
 
-gulp.task('watch', ['watch:html', 'watchify', 'watch:styles']);
+gulp.task('watch', ['watch:html', 'js', 'watch:styles']);
 
 gulp.task('watch:styles', ['styles'], () => {
 	return gulp.watch([`${config.assetsPath}/styles/*`, `${config.assetsPath}/styles/**`, `${config.assetsPath}/styles/**/**`], ['styles']);
@@ -111,7 +111,9 @@ gulp.task('styles', () => {
 	Javascript
    ============================================================ */
 
-gulp.task('watchify', () =>  {
+gulp.task('js', ['js:browserify', 'js:vendor']);
+
+gulp.task('js:browserify', () =>  {
 	const props = {
 		entries: [config.assetsPath + '/js/app.js'],
 		debug: config.debug,
@@ -142,6 +144,11 @@ gulp.task('watchify', () =>  {
 	});
 
 	return rebundle();
+});
+
+gulp.task('js:vendor', () => {
+	gulp.src(`${config.assetsPath}/js/vendor/*`)
+		.pipe(gulp.dest(`${config.distPath}/js/vendor/`));
 });
 
 /* ============================================================
