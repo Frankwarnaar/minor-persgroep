@@ -2,8 +2,11 @@
 	<label>Titel
 		<input data-child="title" type="text" name="title" value="<%= article.title ? article.title : '' %>"/>
 	</label>
-	<textarea hidden name="content" value="<%= article.content ? article.content : '' %>"></textarea>
-	<div id="editor" data-editor>
+	<label id="editor-content">
+		Schrijf hier je artikel in HTML
+		<textarea name="content" value="<%= article.content ? article.content : '' %>"></textarea>
+	</label>
+	<div id="editor">
 		<%- include('./article', {article: article, editor: true}) %>
 	</div>
 	<input type="submit" value="Opslaan"/>

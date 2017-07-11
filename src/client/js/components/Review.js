@@ -2,7 +2,7 @@ const getPosition = require('../utils/getPosition.js');
 
 class Review {
 	constructor() {
-		this.$article = document.querySelector('[data-align-reviews=true]') || document.getElementsByClassName('ql-editor')[0];
+		this.$article = document.querySelector('[data-align-reviews=true]') || document.querySelector('.review-container .ql-editor');
 		this.$review = document.getElementsByClassName('review-form')[0];
 		this.$closeReviews = document.querySelectorAll('[data-close-review]');
 		this.$articleElements = document.querySelectorAll('[data-child]');

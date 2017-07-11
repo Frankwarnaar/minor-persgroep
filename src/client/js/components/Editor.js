@@ -1,7 +1,8 @@
 class Editor {
 	constructor() {
-		this.container = document.getElementById('editor');
-		if (this.container) {
+		this.$container = document.getElementById('editor');
+		this.$textarea = document.getElementById('editor-content');
+		if (this.$container && Quill) {
 			this.createEditor();
 		}
 	}
@@ -10,7 +11,8 @@ class Editor {
 		this.editor = new Quill('#editor', {
 			theme: 'snow'
 		});
-		this.editorParent = this.container.parentElement;
+		this.$textarea.classList.add('hidden');
+		this.editorParent = this.$container.parentElement;
 		this.textArea = document.querySelector('[name="content"]');
 
 		this.fillTextArea();
@@ -19,7 +21,7 @@ class Editor {
 	}
 
 	fillTextArea() {
-		const content = this.container.children[0].innerHTML;
+		const content = this.$container.children[0].innerHTML;
 		const contentEl = document.createElement('html');
 		contentEl.innerHTML = content;
 		[...contentEl.getElementsByTagName('body')[0].children].forEach((child, i) => {
